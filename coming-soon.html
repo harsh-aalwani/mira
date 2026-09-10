@@ -3,151 +3,94 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MIRA IS ALMOST HERE — Multimodal Intelligent Retrieval & Autonomous Assistant</title>
-  <meta name="description" content="The next generation of private, multimodal knowledge retrieval is being prepared. MIRA is in active development.">
-  <link rel="stylesheet" href="styles/main.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230D0D0D'/><text y='70' x='14' font-size='65' font-weight='bold' fill='%23FFE600' font-family='sans-serif'>M</text></svg>">
+  <title>MIRA is Coming Soon — Multimodal Intelligent Retrieval & Autonomous Assistant</title>
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body class="coming-soon-body">
 
-  <!-- Header -->
-  <header class="site-header">
-    <div class="container-wide header-container">
-      <a href="index.html" class="brand-mark">
-        <div class="brand-logo-box">MIRA</div>
-        <div class="brand-status-meta">
-          <span class="sub-text">MULTIMODAL RAG</span>
-          <span class="status-badge"><span class="status-dot"></span> ACTIVE DEVELOPMENT</span>
+  <div class="coming-soon-wrapper">
+    <!-- Top Wayfinding Bar -->
+    <header class="container" style="display: flex; justify-content: space-between; align-items: center; padding-top: 20px;">
+      <a href="index.html" class="brand-group" style="text-decoration: none;">
+        <div class="mira-logo-glyph">M</div>
+        <div class="brand-text-block">
+          <span class="brand-title">MIRA</span>
+          <span class="brand-subtitle">LOCAL RETRIEVAL CORE</span>
         </div>
       </a>
-
-      <div>
-        <a href="index.html" class="brutal-btn brutal-btn-dark brutal-btn-sm">← BACK TO MIRA</a>
+      <div class="metro-coord">
+        <span class="metro-coord-dot"></span>
+        STATUS: PRE-RELEASE // STAGING PHASE
       </div>
-    </div>
-  </header>
+    </header>
 
-  <!-- Kinetic Ticker Strip 1 -->
-  <div class="kinetic-marquee-container marquee-accent-yellow" aria-hidden="true">
-    <div class="marquee-track marquee-track-slow">
-      <div class="marquee-item"><span>MULTIMODAL</span> <span class="marquee-dot"></span></div>
-      <div class="marquee-item"><span>LOCAL-FIRST</span> <span class="marquee-dot"></span></div>
-      <div class="marquee-item"><span>SEMANTIC</span> <span class="marquee-dot"></span></div>
-      <div class="marquee-item"><span>GROUNDED</span> <span class="marquee-dot"></span></div>
-      <div class="marquee-item"><span>TRACEABLE</span> <span class="marquee-dot"></span></div>
-      <div class="marquee-item"><span class="marquee-tag">IN DEVELOPMENT</span></div>
-      <!-- Repeat -->
-      <div class="marquee-item"><span>MULTIMODAL</span> <span class="marquee-dot"></span></div>
-      <div class="marquee-item"><span>LOCAL-FIRST</span> <span class="marquee-dot"></span></div>
-      <div class="marquee-item"><span>SEMANTIC</span> <span class="marquee-dot"></span></div>
-      <div class="marquee-item"><span>GROUNDED</span> <span class="marquee-dot"></span></div>
-      <div class="marquee-item"><span>TRACEABLE</span> <span class="marquee-dot"></span></div>
-      <div class="marquee-item"><span class="marquee-tag">IN DEVELOPMENT</span></div>
-    </div>
-  </div>
-
-  <!-- Main Hero Card -->
-  <main class="coming-soon-main">
-    <div class="container">
-      
-      <div class="coming-soon-card">
+    <!-- Main Release State Monolith -->
+    <main class="container">
+      <div class="cs-content-box">
         
-        <!-- Header Badges -->
-        <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px;">
-          <span class="brutal-badge brutal-badge-orange">ACTIVE DEVELOPMENT</span>
-          <span class="brutal-badge brutal-badge-blue">DESKTOP APPLICATION</span>
-          <span class="brutal-badge brutal-badge-green"><span class="status-dot"></span> LOCAL-FIRST INITIATIVE</span>
+        <!-- Radar / Pulse Visual -->
+        <div class="cs-radar-visual">
+          <div class="cs-pulse-ring r1"></div>
+          <div class="cs-pulse-ring r2"></div>
+          <div class="cs-pulse-ring r3"></div>
+          <div class="mira-central-core" style="width: 100px; height: 100px; border-radius: 26px;">
+            <span class="core-brand-name" style="font-size: 1.3rem;">MIRA</span>
+            <span class="core-brand-badge" style="font-size: 0.52rem;">BUILD 0.9.4</span>
+          </div>
         </div>
 
-        <h1 class="coming-soon-headline">
-          MIRA IS<br>
-          ALMOST HERE.
+        <div class="metro-station-sign route-core" style="margin-bottom: 20px;">
+          <span class="metro-station-num">TERMINAL // 00</span>
+          <span class="metro-station-name">OFFICIAL RELEASE SCHEDULE</span>
+        </div>
+
+        <h1 class="title-giant" style="font-size: clamp(2.4rem, 5.5vw, 4.4rem); margin-bottom: 20px;">
+          MIRA is coming soon.
         </h1>
 
-        <p class="coming-soon-sub">
-          The next generation of private, multimodal knowledge retrieval is being prepared. We are hardening local embeddings, optimizing speech-to-text latency, and polishing the desktop user experience.
+        <p class="lead-text" style="max-width: 600px; margin: 0 auto 36px;">
+          The next generation of private, multimodal knowledge retrieval is being prepared.
         </p>
 
-        <!-- Early Access Simulation Form -->
-        <form class="early-access-form" id="earlyAccessForm" onsubmit="event.preventDefault(); handleWaitlistSubmit();">
-          <input type="email" class="early-access-input" id="earlyAccessEmail" placeholder="ENTER YOUR EMAIL FOR EARLY BUILDS" required>
-          <button type="submit" class="brutal-btn brutal-btn-primary">NOTIFY ME ⚡</button>
-        </form>
-
-        <div class="early-access-feedback" id="earlyAccessFeedback">
-          ✓ ACCESS REQUEST RECORDED. YOU ARE ON THE LOCAL EARLY ACCESS LIST.
+        <div style="background: var(--bg-primary); border-radius: var(--radius-md); padding: 20px 24px; max-width: 580px; margin: 0 auto 36px; text-align: left; box-shadow: var(--clay-shadow-sm);">
+          <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: var(--text-light); text-transform: uppercase; margin-bottom: 8px;">
+            // VERIFIED PRODUCT STATUS
+          </div>
+          <p style="font-size: 0.88rem; color: var(--text-body); line-height: 1.5;">
+            MIRA is an active research and software project focused on local-first retrieval across documents, images, audio, video, and text. We are calibrating retrieval quality, citation traceability, and model interoperability prior to general binary availability.
+          </p>
         </div>
 
-        <!-- Technical Label Grid -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-top: 36px; border-top: var(--border-thick); padding-top: 28px;">
-          <div class="brutal-box" style="padding: 14px;">
-            <span class="mono" style="font-size: 0.7rem; color: var(--accent-orange); font-weight: 700;">MULTIMODAL</span>
-            <div style="font-size: 0.88rem; font-weight: 700; margin-top: 4px;">PDF, DOCX, IMG, AUD, VID, TXT</div>
-          </div>
-          <div class="brutal-box" style="padding: 14px;">
-            <span class="mono" style="font-size: 0.7rem; color: var(--accent-blue); font-weight: 700;">LOCAL-FIRST</span>
-            <div style="font-size: 0.88rem; font-weight: 700; margin-top: 4px;">HOST RESIDENT VECTOR STORAGE</div>
-          </div>
-          <div class="brutal-box" style="padding: 14px;">
-            <span class="mono" style="font-size: 0.7rem; color: var(--accent-green); font-weight: 700;">GROUNDED</span>
-            <div style="font-size: 0.88rem; font-weight: 700; margin-top: 4px;">SUB-PARAGRAPH SOURCE CITATIONS</div>
-          </div>
-          <div class="brutal-box" style="padding: 14px;">
-            <span class="mono" style="font-size: 0.7rem; color: #000; font-weight: 700;">TRACEABLE</span>
-            <div style="font-size: 0.88rem; font-weight: 700; margin-top: 4px;">ORIGIN PASSAGE VERIFICATION</div>
+        <!-- Simulated Pre-launch Notification Input -->
+        <div style="max-width: 500px; margin: 0 auto 36px;">
+          <form id="cs-notify-form" class="cs-notify-form">
+            <input type="email" id="cs-notify-email" class="chat-input-field" placeholder="Enter work or institutional email..." required>
+            <button type="submit" class="btn-clay btn-clay-primary btn-clay-sm" style="padding: 14px 24px;">
+              NOTIFY ME
+            </button>
+          </form>
+          <div id="cs-notify-success" style="display: none; background: rgba(16, 185, 129, 0.12); color: #065F46; padding: 14px; border-radius: var(--radius-md); font-size: 0.88rem; font-weight: 600;">
+            ✓ Your address has been recorded for the private preview registry.
           </div>
         </div>
 
-        <!-- Return Action -->
-        <div style="margin-top: 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
-          <a href="index.html" class="brutal-btn brutal-btn-dark">
-            ← BACK TO MIRA
+        <div>
+          <a href="index.html" class="btn-clay btn-clay-secondary">
+            <span class="arrow-nav">←</span> BACK TO MIRA
           </a>
-          <span class="mono" style="font-size: 0.78rem; color: var(--text-muted);">
-            NO FAKE INSTALLERS // REAL ENGINEERING IN PROGRESS
-          </span>
         </div>
 
       </div>
+    </main>
 
-    </div>
-  </main>
-
-  <!-- Kinetic Ticker Strip 2 (Reverse) -->
-  <div class="kinetic-marquee-container marquee-accent-orange" aria-hidden="true">
-    <div class="marquee-track marquee-track-fast">
-      <div class="marquee-item"><span>YOUR DATA</span> <span class="marquee-dot"></span></div>
-      <div class="marquee-item"><span>YOUR KNOWLEDGE</span> <span class="marquee-dot"></span></div>
-      <div class="marquee-item"><span>YOUR MACHINE</span> <span class="marquee-dot"></span></div>
-      <div class="marquee-item"><span>OFFLINE-CAPABLE</span> <span class="marquee-dot"></span></div>
-      <!-- Repeat -->
-      <div class="marquee-item"><span>YOUR DATA</span> <span class="marquee-dot"></span></div>
-      <div class="marquee-item"><span>YOUR KNOWLEDGE</span> <span class="marquee-dot"></span></div>
-      <div class="marquee-item"><span>YOUR MACHINE</span> <span class="marquee-dot"></span></div>
-      <div class="marquee-item"><span>OFFLINE-CAPABLE</span> <span class="marquee-dot"></span></div>
-    </div>
+    <!-- Bottom Telemetry Footer -->
+    <footer class="container" style="text-align: center; padding-bottom: 24px; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-light);">
+      MIRA PROTOCOL // LOCAL-FIRST MULTIMODAL KNOWLEDGE ARCHITECTURE // NO TELEMETRY REQUIRED
+    </footer>
   </div>
 
-  <!-- Minimal Footer -->
-  <footer style="background: var(--bg-dark); color: #fff; padding: 24px 0; border-top: var(--border-heavy);">
-    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-family: var(--font-mono); font-size: 0.75rem;">
-      <div>MIRA // MULTIMODAL INTELLIGENT RETRIEVAL & AUTONOMOUS ASSISTANT</div>
-      <div>BORN AT SMART INDIA HACKATHON</div>
-    </div>
-  </footer>
-
-  <script>
-    function handleWaitlistSubmit() {
-      const input = document.getElementById('earlyAccessEmail');
-      const feedback = document.getElementById('earlyAccessFeedback');
-      if (input && feedback && input.value) {
-        try {
-          localStorage.setItem('mira_early_access_email', input.value);
-        } catch (e) {}
-        feedback.style.display = 'block';
-        input.value = '';
-      }
-    }
-  </script>
+  <script src="js/main.js"></script>
 </body>
 </html>
