@@ -1,390 +1,330 @@
 /**
- * MIRA — Interactive Demos & Micro-interactions
- * Pure static Vanilla JavaScript
+ * MIRA Main Site Interactions
+ * Smooth navigation, problem toggle, multimodal convergence,
+ * scroll observers, and citation interactive preview.
  */
 
-document.addEventListener('DOMContentLoaded', () => {
-  initMobileNav();
-  initSmoothScroll();
-  initScrollReveals();
-  initProblemConvergence();
-  initCitationInspector();
-  initCrossModalTabs();
-  initConversationReplay();
-  initNotifyForm();
-});
+(function () {
+  'use strict';
 
-/**
- * Mobile Navigation Drawer
- */
-function initMobileNav() {
-  const menuToggle = document.getElementById('menuToggle');
-  const mobileDrawer = document.getElementById('mobileDrawer');
-  const mobileOverlay = document.getElementById('mobileOverlay');
-  const closeDrawerBtn = document.getElementById('closeDrawerBtn');
-  const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. Dynamic Scroll-driven "Scattered to Organized" Transformation
+    const problemDesk = document.getElementById('problem-desk');
+    const toggleScattered = document.getElementById('toggle-scattered');
+    const toggleOrganized = document.getElementById('toggle-organized');
 
-  function openMenu() {
-    if (mobileDrawer) mobileDrawer.classList.add('open');
-    if (mobileOverlay) mobileOverlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
+    if (problemDesk) {
+      const cards = [
+        { el: problemDesk.querySelector('.sc-1'), scattered: { x: -35, y: 30, rot: -10 } },
+        { el: problemDesk.querySelector('.sc-2'), scattered: { x: 30, y: -25, rot: 11 } },
+        { el: problemDesk.querySelector('.sc-3'), scattered: { x: 45, y: -30, rot: 7 } },
+        { el: problemDesk.querySelector('.sc-4'), scattered: { x: -30, y: 35, rot: -12 } },
+        { el: problemDesk.querySelector('.sc-5'), scattered: { x: 90, y: -40, rot: -6 } },
+        { el: problemDesk.querySelector('.sc-6'), scattered: { x: -80, y: -35, rot: 9 } }
+      ];
 
-  function closeMenu() {
-    if (mobileDrawer) mobileDrawer.classList.remove('open');
-    if (mobileOverlay) mobileOverlay.classList.remove('open');
-    document.body.style.overflow = '';
-  }
+      const centralHub = problemDesk.querySelector('.problem-central-hub');
 
-  if (menuToggle) menuToggle.addEventListener('click', openMenu);
-  if (closeDrawerBtn) closeDrawerBtn.addEventListener('click', closeMenu);
-  if (mobileOverlay) mobileOverlay.addEventListener('click', closeMenu);
+      let currentProgress = 0;
+      let targetProgress = 0;
+      let manualOverride = false;
+      let manualTimeout = null;
 
-  mobileLinks.forEach(link => {
-    link.addEventListener('click', closeMenu);
-  });
-}
+      function updateCards(p) {
+        cards.forEach(item => {
+          if (!item.el) return;
+          // When p = 0: scattered; when p = 1: organized (x=0, y=0, rot=0)
+          const x = item.scattered.x * (1 - p);
+          const y = item.scattered.y * (1 - p);
+          const rot = item.scattered.rot * (1 - p);
+          item.el.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${rot}deg)`;
+        });
 
-/**
- * Smooth Scrolling & Active Nav Highlighting
- */
-function initSmoothScroll() {
-  const navLinks = document.querySelectorAll('.nav-link');
-  const sections = document.querySelectorAll('section[id]');
+        if (centralHub) {
+          const hubScale = 0.55 + 0.45 * p;
+          const hubOpacity = Math.max(0, Math.min(1, (p - 0.15) / 0.75));
+          centralHub.style.transform = `translate(-50%, -50%) scale(${hubScale})`;
+          centralHub.style.opacity = hubOpacity.toString();
+          centralHub.style.pointerEvents = p > 0.6 ? 'auto' : 'none';
+        }
 
-  window.addEventListener('scroll', () => {
-    let current = '';
-    const scrollPos = window.pageYOffset + 200;
-
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
-      if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-        current = section.getAttribute('id');
+        if (toggleScattered && toggleOrganized) {
+          if (p >= 0.5) {
+            toggleOrganized.classList.add('active');
+            toggleScattered.classList.remove('active');
+          } else {
+            toggleScattered.classList.add('active');
+            toggleOrganized.classList.remove('active');
+          }
+        }
       }
-    });
 
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === `#${current}`) {
-        link.classList.add('active');
+      function onScroll() {
+        if (manualOverride) return;
+        const rect = problemDesk.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        // Start transforming when top of desk reaches 85% of viewport
+        // Fully organized when top of desk reaches 22% of viewport
+        const startY = windowHeight * 0.85;
+        const endY = windowHeight * 0.22;
+        
+        let p = (startY - rect.top) / (startY - endY);
+        p = Math.max(0, Math.min(1, p));
+        targetProgress = p;
       }
-    });
-  });
-}
 
-/**
- * Intersection Observer for Tactile Scroll Reveals
- */
-function initScrollReveals() {
-  const revealElements = document.querySelectorAll('.reveal');
-  if (!('IntersectionObserver' in window)) {
-    revealElements.forEach(el => el.classList.add('active'));
-    return;
-  }
-
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('active');
-        obs.unobserve(entry.target);
+      // Smooth RAF loop for 60fps / 120fps motion
+      function animate() {
+        if (!manualOverride) {
+          currentProgress += (targetProgress - currentProgress) * 0.12;
+          if (Math.abs(targetProgress - currentProgress) < 0.001) {
+            currentProgress = targetProgress;
+          }
+          updateCards(currentProgress);
+        }
+        requestAnimationFrame(animate);
       }
-    });
-  }, {
-    root: null,
-    threshold: 0.12,
-    rootMargin: '0px 0px -40px 0px'
-  });
+      requestAnimationFrame(animate);
 
-  revealElements.forEach(el => observer.observe(el));
-}
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      onScroll();
 
-/**
- * The Problem: Convergence of Scattered Files into MIRA
- */
-function initProblemConvergence() {
-  const toggleBtn = document.getElementById('convergenceToggleBtn');
-  const sceneBox = document.getElementById('problemSceneBox');
-  const statusText = document.getElementById('convergenceStatusText');
+      // Support manual toggle buttons
+      if (toggleScattered) {
+        toggleScattered.addEventListener('click', () => {
+          manualOverride = true;
+          targetProgress = 0;
+          currentProgress = 0;
+          updateCards(0);
+          clearTimeout(manualTimeout);
+          manualTimeout = setTimeout(() => { manualOverride = false; }, 1200);
+        });
+      }
 
-  if (!toggleBtn || !sceneBox) return;
-
-  let isConverged = false;
-
-  toggleBtn.addEventListener('click', () => {
-    isConverged = !isConverged;
-    if (isConverged) {
-      sceneBox.classList.add('converged');
-      toggleBtn.innerHTML = `
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="15 3 21 3 21 9"></polyline>
-          <polyline points="9 21 3 21 3 15"></polyline>
-          <line x1="21" y1="3" x2="14" y2="10"></line>
-          <line x1="3" y1="21" x2="10" y2="14"></line>
-        </svg>
-        Separate Files Again
-      `;
-      if (statusText) statusText.textContent = "All files unified inside MIRA's local knowledge space";
-    } else {
-      sceneBox.classList.remove('converged');
-      toggleBtn.innerHTML = `
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="4 14 10 14 10 20"></polyline>
-          <polyline points="20 10 14 10 14 4"></polyline>
-          <line x1="14" y1="10" x2="21" y2="3"></line>
-          <line x1="3" y1="21" x2="10" y2="14"></line>
-        </svg>
-        Unify with MIRA
-      `;
-      if (statusText) statusText.textContent = "Information scattered across different apps and folders";
+      if (toggleOrganized) {
+        toggleOrganized.addEventListener('click', () => {
+          manualOverride = true;
+          targetProgress = 1;
+          currentProgress = 1;
+          updateCards(1);
+          clearTimeout(manualTimeout);
+          manualTimeout = setTimeout(() => { manualOverride = false; }, 1200);
+        });
+      }
     }
-  });
-}
 
-/**
- * Ask Your Data: Interactive Citation Inspector
- */
-const citationData = {
-  meeting: {
-    title: "All-Hands Recording (Audio / Transcript)",
-    file: "All_Hands_10-14.m4a",
-    timestamp: "14:20 – 15:45",
-    type: "Audio & Transcript",
-    badgeClass: "badge-audio",
-    excerpt: "“...and regarding the milestone schedule, Phase 2 retrieval testing will complete by the end of November, with the desktop client build packaging scheduled for early December.”",
-    context: "Speaker: Project Lead (Product Engineering Team). Extracted from automated timestamped transcription."
-  },
-  report: {
-    title: "Project Progress Report (Page 12)",
-    file: "Q4_Progress_Report.pdf",
-    timestamp: "Page 12, Paragraph 3",
-    type: "PDF Document",
-    badgeClass: "badge-pdf",
-    excerpt: "“Timeline Overview: Core multimodal retrieval pipelines are fully implemented. Final integration of the local-first indexing model remains on track for December delivery.”",
-    context: "Document metadata: Created Oct 12, signed off by Engineering & Design committees."
-  },
-  notes: {
-    title: "Sprint Planning Notes",
-    file: "Sprint_Notes_Oct.md",
-    timestamp: "Section 3: Key Milestones",
-    type: "Markdown Note",
-    badgeClass: "badge-doc",
-    excerpt: "“Action Item: Confirm final usability polish and offline capability checklist before target December build freeze.”",
-    context: "Personal workspace note created during weekly sprint standup."
-  }
-};
+    // 2. Sequential Scroll-Driven Checklist for Step 2 ("MIRA understands it")
+    const understandChecklist = document.getElementById('understand-checklist');
+    if (understandChecklist) {
+      const understandItems = understandChecklist.querySelectorAll('.understand-item');
 
-function initCitationInspector() {
-  const chips = document.querySelectorAll('.interactive-citation-chip');
-  const titleEl = document.getElementById('inspectSourceTitle');
-  const fileEl = document.getElementById('inspectSourceFile');
-  const timeEl = document.getElementById('inspectSourceTime');
-  const excerptEl = document.getElementById('inspectSourceExcerpt');
-  const contextEl = document.getElementById('inspectSourceContext');
-  const badgeEl = document.getElementById('inspectSourceBadge');
+      function onScrollUnderstand() {
+        const rect = understandChecklist.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
 
-  if (!chips.length || !titleEl) return;
+        // Starts ticking when the checklist enters 85% of viewport
+        // All 4 ticked when top reaches 30% of viewport
+        const startY = windowHeight * 0.85;
+        const endY = windowHeight * 0.30;
 
-  chips.forEach(chip => {
-    chip.addEventListener('click', () => {
-      const key = chip.getAttribute('data-source');
-      const data = citationData[key];
-      if (!data) return;
+        let p = (startY - rect.top) / (startY - endY);
+        p = Math.max(0, Math.min(1, p));
 
-      chips.forEach(c => c.classList.remove('clay-chip-active'));
-      chip.classList.add('clay-chip-active');
-
-      // Update Inspector view with tactile fade
-      const inspectorBox = document.getElementById('sourcePreviewCard');
-      if (inspectorBox) {
-        inspectorBox.style.opacity = '0.4';
-        inspectorBox.style.transform = 'scale(0.98)';
+        const thresholds = [0.12, 0.38, 0.64, 0.88];
+        understandItems.forEach((item, index) => {
+          if (p >= thresholds[index]) {
+            item.classList.add('ticked');
+          } else {
+            item.classList.remove('ticked');
+          }
+        });
       }
 
-      setTimeout(() => {
-        titleEl.textContent = data.title;
-        fileEl.textContent = data.file;
-        timeEl.textContent = data.timestamp;
-        excerptEl.textContent = data.excerpt;
-        contextEl.textContent = data.context;
+      // Also allow direct tactile clicks
+      understandItems.forEach(item => {
+        item.style.cursor = 'pointer';
+        item.addEventListener('click', () => {
+          item.classList.toggle('ticked');
+        });
+      });
 
-        if (badgeEl) {
-          badgeEl.textContent = data.type;
-          badgeEl.className = `clay-badge ${data.badgeClass}`;
+      window.addEventListener('scroll', onScrollUnderstand, { passive: true });
+      window.addEventListener('resize', onScrollUnderstand, { passive: true });
+      onScrollUnderstand();
+    }
+
+    // 3. Sequential Scroll-Driven Pop for Cross-Modal Understanding ("The answer can be hiding anywhere.")
+    // Left-to-right & top-to-bottom: rn-1 (top-left) -> rn-2 (top-right) -> rn-3 (bottom-left) -> rn-4 (bottom-right)
+    const crossModalScene = document.getElementById('cross-modal-scene');
+    if (crossModalScene) {
+      const centerCard = document.getElementById('radial-center-card');
+      const nodes = [
+        { el: crossModalScene.querySelector('.rn-1'), line: crossModalScene.querySelector('.rl-1'), threshold: 0.12 },
+        { el: crossModalScene.querySelector('.rn-2'), line: crossModalScene.querySelector('.rl-2'), threshold: 0.38 },
+        { el: crossModalScene.querySelector('.rn-3'), line: crossModalScene.querySelector('.rl-3'), threshold: 0.64 },
+        { el: crossModalScene.querySelector('.rn-4'), line: crossModalScene.querySelector('.rl-4'), threshold: 0.88 }
+      ];
+
+      function onScrollCrossModal() {
+        const rect = crossModalScene.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        // Starts popping when top of scene reaches 85% of viewport
+        // All 4 popped when top reaches 25% of viewport
+        const startY = windowHeight * 0.85;
+        const endY = windowHeight * 0.25;
+
+        let p = (startY - rect.top) / (startY - endY);
+        p = Math.max(0, Math.min(1, p));
+
+        let allPopped = true;
+        nodes.forEach(item => {
+          if (p >= item.threshold) {
+            if (item.el && !item.el.classList.contains('node-popped')) {
+              item.el.classList.add('node-popped');
+            }
+            if (item.line && !item.line.classList.contains('active')) {
+              item.line.classList.add('active');
+            }
+          } else {
+            allPopped = false;
+            if (item.el && item.el.classList.contains('node-popped')) {
+              item.el.classList.remove('node-popped');
+            }
+            if (item.line && item.line.classList.contains('active')) {
+              item.line.classList.remove('active');
+            }
+          }
+        });
+
+        if (centerCard) {
+          if (allPopped) {
+            centerCard.classList.add('all-connected');
+          } else {
+            centerCard.classList.remove('all-connected');
+          }
         }
-
-        if (inspectorBox) {
-          inspectorBox.style.opacity = '1';
-          inspectorBox.style.transform = 'scale(1)';
-        }
-      }, 150);
-    });
-  });
-}
-
-/**
- * Cross-Modal Demonstration Tabs
- */
-const crossModalScenarios = {
-  funding: {
-    query: "“Find the screenshots related to project funding.”",
-    item1: {
-      type: "Screenshot",
-      title: "Grant_Budget_Chart.png",
-      content: "Chart preview showing Q4 grant distribution: $120,000 allocated for local AI engine & multimodal UI development."
-    },
-    item2: {
-      type: "Document",
-      title: "Grant_Proposal_Final.pdf",
-      content: "Section 4.1: Confirms award disbursement criteria and local privacy assurance guidelines."
-    },
-    item3: {
-      type: "Transcript",
-      title: "Meeting Recording (14:22)",
-      content: "“...the grant funding was officially credited on Tuesday. We can proceed with the multimodal test suite.”"
-    },
-    synthesis: "MIRA synthesized the answer across 1 screenshot, 1 PDF grant document, and 1 recorded audio transcript without manual folder hunting."
-  },
-  meeting: {
-    query: "“What feedback did we receive on the user interface?”",
-    item1: {
-      type: "Screenshot",
-      title: "UI_Feedback_Markup.png",
-      content: "Design review screenshot highlighting soft clay pill buttons and clean contrast for readability."
-    },
-    item2: {
-      type: "Document",
-      title: "Usability_Review.docx",
-      content: "“Summary: Users preferred the tactile card elevation and instant citation inspectability.”"
-    },
-    item3: {
-      type: "Transcript",
-      title: "Design Sync Audio (06:15)",
-      content: "“...everyone loved how the citations make it effortless to verify where each answer came from.”"
-    },
-    synthesis: "MIRA connected visual design markups, written document evaluations, and verbal team feedback into one coherent response."
-  }
-};
-
-function initCrossModalTabs() {
-  const tabs = document.querySelectorAll('.cross-modal-tab-btn');
-  const queryEl = document.getElementById('crossModalQuery');
-  const card1Type = document.getElementById('cmItem1Type');
-  const card1Title = document.getElementById('cmItem1Title');
-  const card1Content = document.getElementById('cmItem1Content');
-
-  const card2Type = document.getElementById('cmItem2Type');
-  const card2Title = document.getElementById('cmItem2Title');
-  const card2Content = document.getElementById('cmItem2Content');
-
-  const card3Type = document.getElementById('cmItem3Type');
-  const card3Title = document.getElementById('cmItem3Title');
-  const card3Content = document.getElementById('cmItem3Content');
-
-  const synthesisEl = document.getElementById('cmSynthesisText');
-
-  if (!tabs.length || !queryEl) return;
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const scenarioKey = tab.getAttribute('data-scenario');
-      const data = crossModalScenarios[scenarioKey];
-      if (!data) return;
-
-      tabs.forEach(t => t.classList.remove('clay-btn-primary'));
-      tab.classList.add('clay-btn-primary');
-
-      queryEl.textContent = data.query;
-
-      card1Type.textContent = data.item1.type;
-      card1Title.textContent = data.item1.title;
-      card1Content.textContent = data.item1.content;
-
-      card2Type.textContent = data.item2.type;
-      card2Title.textContent = data.item2.title;
-      card2Content.textContent = data.item2.content;
-
-      card3Type.textContent = data.item3.type;
-      card3Title.textContent = data.item3.title;
-      card3Content.textContent = data.item3.content;
-
-      synthesisEl.textContent = data.synthesis;
-    });
-  });
-}
-
-/**
- * Conversation Follow-up Replay Simulation
- */
-function initConversationReplay() {
-  const replayBtn = document.getElementById('replayConvoBtn');
-  const turn1User = document.getElementById('convoTurn1User');
-  const turn1Assistant = document.getElementById('convoTurn1Assistant');
-  const turn2User = document.getElementById('convoTurn2User');
-  const turn2Assistant = document.getElementById('convoTurn2Assistant');
-
-  if (!replayBtn || !turn1User) return;
-
-  replayBtn.addEventListener('click', () => {
-    replayBtn.disabled = true;
-    replayBtn.style.opacity = '0.6';
-
-    // Hide all turns
-    turn1User.style.opacity = '0';
-    turn1Assistant.style.opacity = '0';
-    turn2User.style.opacity = '0';
-    turn2Assistant.style.opacity = '0';
-
-    // Step 1: User 1
-    setTimeout(() => {
-      turn1User.style.opacity = '1';
-      turn1User.classList.add('clay-pulse');
-    }, 300);
-
-    // Step 2: Assistant 1
-    setTimeout(() => {
-      turn1User.classList.remove('clay-pulse');
-      turn1Assistant.style.opacity = '1';
-    }, 1200);
-
-    // Step 3: User 2 Follow-up
-    setTimeout(() => {
-      turn2User.style.opacity = '1';
-      turn2User.classList.add('clay-pulse');
-    }, 2400);
-
-    // Step 4: Assistant 2 Contextual Answer
-    setTimeout(() => {
-      turn2User.classList.remove('clay-pulse');
-      turn2Assistant.style.opacity = '1';
-      replayBtn.disabled = false;
-      replayBtn.style.opacity = '1';
-    }, 3500);
-  });
-}
-
-/**
- * Static Notify Form Handling (for Coming Soon / Download page)
- */
-function initNotifyForm() {
-  const notifyForm = document.getElementById('notifyForm');
-  const toast = document.getElementById('notifyToast');
-
-  if (notifyForm) {
-    notifyForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const emailInput = notifyForm.querySelector('input[type="email"]');
-      if (emailInput && emailInput.value.trim() !== '') {
-        if (toast) {
-          toast.style.display = 'block';
-          toast.style.opacity = '1';
-          setTimeout(() => {
-            toast.style.opacity = '0';
-            setTimeout(() => { toast.style.display = 'none'; }, 400);
-          }, 4500);
-        }
-        emailInput.value = '';
       }
+
+      window.addEventListener('scroll', onScrollCrossModal, { passive: true });
+      window.addEventListener('resize', onScrollCrossModal, { passive: true });
+      onScrollCrossModal();
+    }
+
+    // 4. Staggered Left-to-Right Pop-Up Entrance for Audience Cards ("Built for people who have a lot to remember.")
+    const audienceGrid = document.getElementById('audience-grid');
+    if (audienceGrid) {
+      const cards = audienceGrid.querySelectorAll('.audience-card');
+      let audienceAnimated = false;
+
+      function triggerAudiencePop() {
+        if (audienceAnimated) return;
+        const rect = audienceGrid.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        // Triggers pop-up sequence as soon as the top of the audience section reaches 82% of viewport
+        if (rect.top <= windowHeight * 0.82) {
+          audienceAnimated = true;
+          cards.forEach((card, idx) => {
+            setTimeout(() => {
+              card.classList.add('card-revealed');
+            }, idx * 220); // 0ms, 220ms, 440ms: deliberate, satisfying sequential pop-ups
+          });
+          window.removeEventListener('scroll', triggerAudiencePop);
+        }
+      }
+
+      window.addEventListener('scroll', triggerAudiencePop, { passive: true });
+      window.addEventListener('resize', triggerAudiencePop, { passive: true });
+      triggerAudiencePop();
+    }
+
+    // 5. Interactive Privacy Diagram Ping
+    const localZone = document.querySelector('.zone-local');
+    if (localZone) {
+      localZone.style.cursor = 'pointer';
+      localZone.title = 'Protected On-Device Core (Click to ping)';
+      localZone.addEventListener('click', () => {
+        localZone.style.boxShadow = '0 0 32px rgba(37, 99, 235, 0.35)';
+        localZone.style.borderColor = '#2563EB';
+        setTimeout(() => {
+          localZone.style.boxShadow = '';
+          localZone.style.borderColor = '';
+        }, 1000);
+      });
+    }
+
+    const cloudZone = document.querySelector('.zone-cloud');
+    if (cloudZone) {
+      cloudZone.style.cursor = 'pointer';
+      cloudZone.title = 'Optional External Models (Bring Your Own API)';
+      cloudZone.addEventListener('click', () => {
+        cloudZone.style.boxShadow = '0 0 28px rgba(124, 58, 237, 0.3)';
+        cloudZone.style.borderColor = '#8B5CF6';
+        setTimeout(() => {
+          cloudZone.style.boxShadow = '';
+          cloudZone.style.borderColor = '';
+        }, 1000);
+      });
+    }
+
+    // 6. Mobile Navigation Menu Toggle
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (menuBtn && navLinks) {
+      menuBtn.addEventListener('click', () => {
+        const isOpen = navLinks.style.display === 'flex';
+        navLinks.style.display = isOpen ? 'none' : 'flex';
+        if (!isOpen) {
+          navLinks.style.flexDirection = 'column';
+          navLinks.style.position = 'absolute';
+          navLinks.style.top = '70px';
+          navLinks.style.left = '24px';
+          navLinks.style.right = '24px';
+          navLinks.style.background = 'white';
+          navLinks.style.padding = '24px';
+          navLinks.style.borderRadius = '24px';
+          navLinks.style.boxShadow = '0 12px 30px rgba(0,0,0,0.12)';
+        }
+      });
+    }
+
+    // 4. Smooth Anchor Link Handler
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        const target = document.querySelector(targetId);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
     });
-  }
-}
+
+    // 5. Scroll Reveal with IntersectionObserver
+    const observerOptions = {
+      threshold: 0.15,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+      revealObserver.observe(el);
+    });
+  });
+})();

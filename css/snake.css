@@ -1,0 +1,404 @@
+/**
+ * Claymorphic Snake Game Easter Egg Styles
+ * Matches MIRA's soft tactile 3D Claymorphism visual language
+ */
+
+/* Core Orb Cursor & Hover on Coming Soon */
+.cs-core-orb {
+  cursor: pointer !important;
+  transition: transform 0.3s var(--ease-clay), box-shadow 0.3s ease;
+}
+
+.cs-core-orb:hover {
+  transform: scale(1.08);
+  box-shadow: 
+    0 26px 60px rgba(99, 102, 241, 0.55),
+    -12px -12px 28px rgba(255, 255, 255, 1),
+    inset 4px 4px 8px rgba(255, 255, 255, 1),
+    inset -6px -8px 16px rgba(30, 27, 95, 0.6);
+}
+
+.cs-core-orb:active {
+  transform: scale(0.92);
+}
+
+.cs-core-orb * {
+  pointer-events: none;
+}
+
+/* Card Morphing Transition */
+.cs-card {
+  transition: opacity 0.45s var(--ease-clay), transform 0.45s var(--ease-clay), filter 0.45s ease;
+}
+
+.cs-card.cs-card-hidden {
+  opacity: 0;
+  transform: scale(0.92) translateY(20px);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+/* Snake Game Container */
+.snake-game-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.88);
+  width: 100%;
+  max-width: 580px;
+  padding: 32px;
+  border-radius: var(--radius-xl);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--clay-card-hover-shadow);
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.45s var(--ease-clay), transform 0.45s var(--ease-clay), visibility 0.45s;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.snake-game-wrapper.active {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Header & HUD Bar */
+.snake-hud-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.snake-title-group {
+  text-align: left;
+}
+
+.snake-game-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.snake-game-subtitle {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.snake-close-btn {
+  background: #FFFFFF;
+  border: 1px solid rgba(224, 231, 255, 0.8);
+  border-radius: var(--radius-full);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--clay-pill-shadow);
+  transition: all 0.2s ease;
+}
+
+.snake-close-btn:hover {
+  transform: scale(1.08);
+  color: var(--text-primary);
+  border-color: var(--primary);
+  box-shadow: var(--clay-btn-hover-shadow);
+}
+
+/* Modality Inventory Tracker */
+.snake-modalities-tray {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  margin-bottom: 18px;
+  padding: 10px;
+  border-radius: var(--radius-md);
+  background: rgba(241, 245, 249, 0.6);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.modality-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 4px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(226, 232, 240, 0.7);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  transition: all 0.35s var(--ease-clay);
+  opacity: 0.45;
+  filter: grayscale(0.85);
+}
+
+.modality-slot.collected {
+  opacity: 1;
+  filter: none;
+  background: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(99, 102, 241, 0.18);
+  animation: slotPop 0.45s var(--ease-clay);
+}
+
+@keyframes slotPop {
+  0% { transform: scale(0.8) translateY(0); }
+  50% { transform: scale(1.18) translateY(-4px); }
+  100% { transform: scale(1) translateY(-2px); }
+}
+
+.slot-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.slot-name {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* Canvas Game Arena with Tactile Borders */
+.snake-canvas-container {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #F8FAFC;
+  box-shadow: 
+    inset 3px 3px 6px rgba(15, 23, 42, 0.08),
+    inset -3px -3px 6px rgba(255, 255, 255, 0.9),
+    0 12px 30px rgba(99, 102, 241, 0.12);
+  border: 4px solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#snake-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Countdown Overlay & Dial */
+.snake-countdown-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 15;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.snake-countdown-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.countdown-dial-wrapper {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.countdown-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.countdown-svg-bg {
+  fill: #FFFFFF;
+  stroke: rgba(226, 232, 240, 0.85);
+  stroke-width: 6;
+  filter: drop-shadow(0 6px 16px rgba(99, 102, 241, 0.18));
+}
+
+.countdown-svg-progress {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 365;
+  stroke-dashoffset: 0;
+  will-change: stroke-dashoffset;
+}
+
+.countdown-number {
+  position: relative;
+  z-index: 2;
+  font-size: 3.6rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--primary);
+  line-height: 1;
+  user-select: none;
+  will-change: transform, opacity;
+}
+
+.countdown-label {
+  margin-top: 20px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+/* State Overlays (Game Over / Victory) */
+.snake-status-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  z-index: 12;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.92);
+  transition: all 0.35s var(--ease-clay);
+}
+
+.snake-status-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+.status-badge-icon {
+  font-size: 3.2rem;
+  line-height: 1;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 6px 16px rgba(99, 102, 241, 0.25));
+}
+
+.status-headline {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.status-body {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  max-width: 320px;
+  line-height: 1.45;
+  margin-bottom: 20px;
+}
+
+.status-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Responsive On-Screen Tactile D-Pad for Mobile / Mouse */
+.snake-dpad {
+  display: none;
+  grid-template-columns: repeat(3, 46px);
+  grid-template-rows: repeat(2, 46px);
+  gap: 6px;
+  margin-top: 16px;
+}
+
+.dpad-btn {
+  background: #FFFFFF;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 12px;
+  box-shadow: var(--clay-pill-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.dpad-btn:active {
+  transform: scale(0.92);
+  background: #F1F5F9;
+}
+
+.dpad-up { grid-column: 2; grid-row: 1; }
+.dpad-left { grid-column: 1; grid-row: 2; }
+.dpad-down { grid-column: 2; grid-row: 2; }
+.dpad-right { grid-column: 3; grid-row: 2; }
+
+/* Control Legend */
+.snake-instructions {
+  margin-top: 14px;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.key-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 640px) {
+  .snake-game-wrapper {
+    padding: 20px 16px;
+    max-width: 95vw;
+  }
+  .snake-dpad {
+    display: grid;
+  }
+  .snake-instructions {
+    display: none;
+  }
+}

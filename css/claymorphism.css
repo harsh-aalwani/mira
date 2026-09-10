@@ -1,249 +1,300 @@
-/**
- * MIRA — Multimodal Intelligent Retrieval & Autonomous Assistant
- * Claymorphism Design System Tokens & Tactile Surfaces
- */
+/* ==========================================================================
+   MIRA Design System - Claymorphism Core
+   Soft 3D, inflated tactile elements, cool white/ice blue/lavender palette.
+   ========================================================================== */
 
 :root {
-  /* Color Palette: Tactile, Warm & Modern */
-  --bg-canvas: #f6f5f0;
-  --bg-canvas-subtle: #f0eee7;
-  --bg-canvas-card: #ffffff;
+  /* Color Palette - Cool Futuristic & Pure White Foundation */
+  --bg-pure: #FFFFFF;
+  --bg-app: #F8FAFC;
+  --bg-surface: #F1F5FB;
+  --bg-surface-alt: #EBF2FA;
+  --bg-ice: #F0F6FF;
+  --bg-lavender: #F5F3FF;
   
-  /* Primary Text & Neutrals */
-  --text-primary: #1e2229;
-  --text-secondary: #535967;
-  --text-muted: #88909e;
-  --text-light: #ffffff;
+  /* Primary & Accent Tones (Cool Blue / Violet / Cyan) */
+  --primary: #4F46E5;
+  --primary-hover: #4338CA;
+  --primary-light: #EEF2FF;
+  --accent-cyan: #0891B2;
+  --accent-cyan-light: #ECFEFF;
+  --accent-periwinkle: #6366F1;
+  --accent-lavender: #8B5CF6;
+  --accent-lavender-light: #F3E8FF;
+  --accent-ice-blue: #0284C7;
   
-  /* Soft Pastel & Muted Clay Accents */
-  --clay-coral: #ff765e;
-  --clay-coral-light: #ffece8;
-  --clay-coral-hover: #fa654c;
+  /* Text Colors - Deep Navy & Slate Hierarchy (No harsh pure black) */
+  --text-primary: #0F172A;
+  --text-secondary: #334155;
+  --text-muted: #64748B;
+  --text-light: #94A3B8;
+  --text-inverse: #FFFFFF;
   
-  --clay-blue: #4075c9;
-  --clay-blue-light: #edf3fc;
-  --clay-blue-hover: #3366b5;
+  /* Claymorphism Shadow Presets */
+  /* Standard Elevated Clay Card */
+  --clay-card-shadow: 
+    14px 18px 36px rgba(160, 185, 220, 0.28),
+    -10px -10px 24px rgba(255, 255, 255, 0.95),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.9),
+    inset -3px -3px 6px rgba(148, 175, 215, 0.2);
 
-  --clay-sage: #459a85;
-  --clay-sage-light: #ebf7f3;
-  
-  --clay-amber: #e89838;
-  --clay-amber-light: #fef5ea;
+  /* Hover Lifted Clay Card */
+  --clay-card-hover-shadow:
+    18px 24px 44px rgba(150, 175, 215, 0.35),
+    -12px -12px 28px rgba(255, 255, 255, 1),
+    inset 2px 2px 5px rgba(255, 255, 255, 0.95),
+    inset -4px -4px 8px rgba(140, 170, 210, 0.25);
 
-  --clay-purple: #7f6bbb;
-  --clay-purple-light: #f3effb;
+  /* Puffy / Floating Pill Badge */
+  --clay-pill-shadow:
+    5px 7px 16px rgba(160, 185, 220, 0.22),
+    -4px -4px 12px rgba(255, 255, 255, 0.95),
+    inset 1.5px 1.5px 3px rgba(255, 255, 255, 0.9),
+    inset -2px -2px 4px rgba(148, 175, 215, 0.18);
 
-  --clay-border: rgba(255, 255, 255, 0.65);
-  --clay-border-subtle: rgba(180, 187, 202, 0.2);
+  /* Inset / Pressed Clay Cavity (for search bars, code, inputs) */
+  --clay-inset-shadow:
+    inset 3px 4px 9px rgba(150, 175, 210, 0.28),
+    inset -3px -3px 7px rgba(255, 255, 255, 0.95),
+    0 1px 3px rgba(255, 255, 255, 0.8);
 
-  /* Shadows: Authentic Claymorphism with Dual Inset Rim Light */
-  --shadow-clay-sm: 
-    4px 6px 14px rgba(160, 168, 184, 0.22),
-    -4px -4px 12px rgba(255, 255, 255, 0.9),
-    inset 1.5px 1.5px 2px rgba(255, 255, 255, 0.85),
-    inset -2px -2px 4px rgba(160, 168, 184, 0.12);
+  /* Primary Raised Clay Button */
+  --clay-btn-primary-shadow:
+    0 10px 22px rgba(79, 70, 229, 0.32),
+    0 3px 8px rgba(79, 70, 229, 0.2),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.45),
+    inset -2px -3px 6px rgba(30, 27, 95, 0.4);
 
-  --shadow-clay-md: 
-    8px 12px 28px rgba(150, 160, 180, 0.24),
-    -8px -8px 20px rgba(255, 255, 255, 0.95),
-    inset 2px 2px 4px rgba(255, 255, 255, 0.85),
-    inset -2.5px -2.5px 5px rgba(150, 160, 180, 0.12);
+  /* Primary Button Hover */
+  --clay-btn-primary-hover-shadow:
+    0 14px 28px rgba(79, 70, 229, 0.42),
+    0 5px 12px rgba(79, 70, 229, 0.25),
+    inset 2px 2px 5px rgba(255, 255, 255, 0.55),
+    inset -2px -3px 7px rgba(30, 27, 95, 0.45);
 
-  --shadow-clay-lg: 
-    14px 20px 42px rgba(145, 155, 175, 0.26),
-    -12px -12px 28px rgba(255, 255, 255, 0.95),
-    inset 2.5px 2.5px 5px rgba(255, 255, 255, 0.9),
-    inset -3px -3px 7px rgba(145, 155, 175, 0.14);
+  /* Primary Button Active (Pressed into clay) */
+  --clay-btn-primary-pressed-shadow:
+    0 3px 6px rgba(79, 70, 229, 0.25),
+    inset 2px 3px 6px rgba(15, 12, 60, 0.5),
+    inset -1px -1px 2px rgba(255, 255, 255, 0.2);
 
-  --shadow-clay-floating: 
-    20px 28px 56px rgba(140, 152, 175, 0.3),
-    -14px -14px 34px rgba(255, 255, 255, 0.95),
-    inset 2.5px 2.5px 5px rgba(255, 255, 255, 0.9),
-    inset -3.5px -3.5px 8px rgba(140, 152, 175, 0.14);
+  /* Secondary Tactile White Button */
+  --clay-btn-secondary-shadow:
+    6px 9px 20px rgba(160, 185, 220, 0.26),
+    -6px -6px 16px rgba(255, 255, 255, 0.95),
+    inset 2px 2px 3px rgba(255, 255, 255, 0.85),
+    inset -2px -2px 4px rgba(150, 175, 210, 0.2);
 
-  --shadow-clay-inset: 
-    inset 4px 5px 12px rgba(155, 165, 185, 0.25),
-    inset -4px -4px 10px rgba(255, 255, 255, 0.85);
+  /* High Intensity Floating Object */
+  --clay-orb-shadow:
+    18px 24px 50px rgba(99, 102, 241, 0.3),
+    -12px -12px 30px rgba(255, 255, 255, 0.9),
+    inset 4px 4px 10px rgba(255, 255, 255, 0.8),
+    inset -6px -8px 16px rgba(67, 56, 202, 0.35);
 
-  --shadow-clay-btn: 
-    5px 7px 16px rgba(150, 160, 180, 0.26),
-    -4px -4px 12px rgba(255, 255, 255, 0.9),
-    inset 1.5px 1.5px 2.5px rgba(255, 255, 255, 0.8),
-    inset -2px -2px 4px rgba(0, 0, 0, 0.08);
-
-  --shadow-clay-btn-pressed: 
-    2px 3px 7px rgba(150, 160, 180, 0.2),
-    -2px -2px 6px rgba(255, 255, 255, 0.85),
-    inset 3px 4px 8px rgba(0, 0, 0, 0.12),
-    inset -1px -1px 3px rgba(255, 255, 255, 0.5);
-
-  --shadow-clay-primary-btn: 
-    6px 10px 24px rgba(255, 118, 94, 0.35),
-    -3px -3px 10px rgba(255, 255, 255, 0.8),
-    inset 2px 2px 3px rgba(255, 255, 255, 0.5),
-    inset -2px -2px 5px rgba(0, 0, 0, 0.15);
-
-  /* Border Radii */
-  --radius-sm: 14px;
+  /* Transitions & Radii */
+  --radius-sm: 12px;
   --radius-md: 20px;
   --radius-lg: 28px;
   --radius-xl: 36px;
-  --radius-pill: 9999px;
-
-  /* Transitions */
-  --ease-clay: cubic-bezier(0.25, 0.8, 0.25, 1);
-  --transition-tactile: all 0.28s var(--ease-clay);
+  --radius-full: 9999px;
+  --ease-clay: cubic-bezier(0.34, 1.45, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Clay Surface Classes */
+/* Claymorphic Element Classes */
+
 .clay-card {
-  background: var(--bg-canvas-card);
+  background: #FFFFFF;
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-clay-md);
-  border: 1px solid var(--clay-border);
-  transition: var(--transition-tactile);
+  box-shadow: var(--clay-card-shadow);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  transition: transform 0.35s var(--ease-clay), box-shadow 0.35s var(--ease-smooth);
   position: relative;
 }
 
-.clay-card:hover {
-  box-shadow: var(--shadow-clay-lg);
-  transform: translateY(-3px);
+.clay-card-hover:hover {
+  transform: translateY(-6px) scale(1.015);
+  box-shadow: var(--clay-card-hover-shadow);
 }
 
-.clay-card-raised {
-  background: var(--bg-canvas-card);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-clay-floating);
-  border: 1px solid var(--clay-border);
-  transition: var(--transition-tactile);
+.clay-card-ice {
+  background: linear-gradient(145deg, #FFFFFF 0%, #F0F6FF 100%);
+  border: 1px solid rgba(224, 242, 254, 0.8);
+}
+
+.clay-card-lavender {
+  background: linear-gradient(145deg, #FFFFFF 0%, #F5F3FF 100%);
+  border: 1px solid rgba(237, 233, 254, 0.8);
+}
+
+.clay-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  background: #FFFFFF;
+  box-shadow: var(--clay-pill-shadow);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  user-select: none;
+  transition: transform 0.25s var(--ease-clay), box-shadow 0.25s ease;
+}
+
+.clay-pill:hover {
+  transform: translateY(-2px);
+}
+
+.clay-pill-primary {
+  background: var(--primary-light);
+  color: var(--primary);
+  border-color: rgba(224, 231, 255, 0.8);
 }
 
 .clay-inset {
-  background: var(--bg-canvas-subtle);
+  background: #F1F5F9;
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-clay-inset);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: var(--clay-inset-shadow);
+  border: 1px solid rgba(226, 232, 240, 0.7);
 }
 
-/* Clay Buttons */
+/* Tactile Buttons */
 .clay-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 14px 28px;
+  gap: 10px;
+  font-family: inherit;
+  font-size: 1rem;
   font-weight: 600;
-  font-size: 0.975rem;
-  letter-spacing: -0.01em;
-  border-radius: var(--radius-pill);
-  cursor: pointer;
+  border-radius: var(--radius-full);
+  padding: 14px 28px;
   text-decoration: none;
-  border: 1px solid var(--clay-border);
-  background: #ffffff;
-  color: var(--text-primary);
-  box-shadow: var(--shadow-clay-btn);
-  transition: var(--transition-tactile);
+  cursor: pointer;
+  border: none;
+  outline: none;
   user-select: none;
-}
-
-.clay-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 6px 10px 22px rgba(150, 160, 180, 0.3), -4px -4px 14px rgba(255, 255, 255, 0.95);
-  color: var(--text-primary);
-}
-
-.clay-btn:active {
-  transform: translateY(1px);
-  box-shadow: var(--shadow-clay-btn-pressed);
+  transition: transform 0.25s var(--ease-clay), box-shadow 0.25s var(--ease-smooth);
 }
 
 .clay-btn-primary {
-  background: linear-gradient(135deg, #ff8b77 0%, #ff684e 100%);
-  color: #ffffff !important;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: var(--shadow-clay-primary-btn);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  color: var(--text-inverse);
+  box-shadow: var(--clay-btn-primary-shadow);
 }
 
 .clay-btn-primary:hover {
-  background: linear-gradient(135deg, #ff9684 0%, #fa5c42 100%);
-  box-shadow: 8px 14px 28px rgba(255, 118, 94, 0.45), -3px -3px 10px rgba(255, 255, 255, 0.9);
-  color: #ffffff !important;
-  transform: translateY(-2px);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: var(--clay-btn-primary-hover-shadow);
+  color: var(--text-inverse);
 }
 
 .clay-btn-primary:active {
-  transform: translateY(1px);
-  box-shadow: 2px 4px 10px rgba(255, 118, 94, 0.35), inset 2px 3px 6px rgba(0, 0, 0, 0.2);
+  transform: translateY(2px) scale(0.98);
+  box-shadow: var(--clay-btn-primary-pressed-shadow);
 }
 
 .clay-btn-secondary {
-  background: #fdfdfc;
-  color: var(--text-secondary);
+  background: #FFFFFF;
+  color: var(--text-primary);
+  box-shadow: var(--clay-btn-secondary-shadow);
+  border: 1px solid rgba(255, 255, 255, 0.95);
 }
 
 .clay-btn-secondary:hover {
-  color: var(--text-primary);
-  background: #ffffff;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 8px 12px 24px rgba(150, 175, 215, 0.32), -6px -6px 16px rgba(255, 255, 255, 1);
+  color: var(--primary);
 }
 
-/* Clay Pills and Chips */
-.clay-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  border-radius: var(--radius-pill);
-  font-size: 0.85rem;
-  font-weight: 500;
-  background: #ffffff;
-  color: var(--text-secondary);
-  box-shadow: var(--shadow-clay-sm);
-  border: 1px solid var(--clay-border);
-  transition: var(--transition-tactile);
+.clay-btn-secondary:active {
+  transform: translateY(2px) scale(0.98);
+  box-shadow: inset 2px 2px 4px rgba(160, 185, 220, 0.3), inset -2px -2px 4px rgba(255, 255, 255, 0.9);
 }
 
-.clay-chip-interactive {
-  cursor: pointer;
+/* Small Variant */
+.clay-btn-sm {
+  padding: 9px 18px;
+  font-size: 0.875rem;
+  border-radius: var(--radius-full);
 }
 
-.clay-chip-interactive:hover {
-  transform: translateY(-2px) scale(1.02);
-  color: var(--clay-blue);
-  box-shadow: var(--shadow-clay-md);
+/* Floating Animation Keyframes */
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(1deg);
+  }
 }
 
-.clay-chip-active {
-  background: var(--clay-blue-light);
-  color: var(--clay-blue);
-  border-color: rgba(64, 117, 201, 0.3);
-  box-shadow: 4px 6px 14px rgba(64, 117, 201, 0.2), inset 1px 1px 2px rgba(255, 255, 255, 0.8);
+@keyframes floatGentleRev {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(10px) rotate(-1.5deg);
+  }
 }
 
-/* Color Accent Variations for Clay Cards */
-.clay-accent-coral {
-  border-top: 4px solid var(--clay-coral);
-}
-.clay-accent-blue {
-  border-top: 4px solid var(--clay-blue);
-}
-.clay-accent-sage {
-  border-top: 4px solid var(--clay-sage);
-}
-.clay-accent-amber {
-  border-top: 4px solid var(--clay-amber);
-}
-.clay-accent-purple {
-  border-top: 4px solid var(--clay-purple);
+@keyframes floatSlight {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
 }
 
-/* Clay Badge */
-.clay-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 10px;
-  border-radius: var(--radius-pill);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.2), inset 2px 2px 4px rgba(255, 255, 255, 0.9);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(99, 102, 241, 0.4), inset 3px 3px 6px rgba(255, 255, 255, 1);
+  }
+}
+
+@keyframes pulseWave {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+}
+
+.float-slow {
+  animation: floatGentle 6s ease-in-out infinite;
+}
+
+.float-slow-rev {
+  animation: floatGentleRev 7s ease-in-out infinite;
+}
+
+.float-slight {
+  animation: floatSlight 4s ease-in-out infinite;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .float-slow,
+  .float-slow-rev,
+  .float-slight {
+    animation: none !important;
+  }
+  .clay-card,
+  .clay-btn {
+    transition: none !important;
+  }
 }
