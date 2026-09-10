@@ -1,790 +1,698 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MIRA — Multimodal Intelligent Retrieval & Autonomous Assistant</title>
-  <meta name="description" content="MIRA is a private desktop AI application that lets you search, understand, and interact with your documents, screenshots, recordings, and videos from one unified knowledge base." />
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#EEF2FF',
-              100: '#E0E7FF',
-              500: '#6366F1',
-              600: '#4F46E5',
-              700: '#4338CA',
-            },
-            surface: {
-              base: '#FAFAF9',
-              card: '#FFFFFF',
-              subtle: '#F5F5F4',
-              border: 'rgba(15, 23, 42, 0.08)'
-            }
-          },
-          fontFamily: {
-            heading: ['"Plus Jakarta Sans"', 'sans-serif'],
-            sans: ['"Inter"', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace']
-          },
-          boxShadow: {
-            'card-subtle': '0 10px 30px -5px rgba(15, 23, 42, 0.05)',
-            'floating-soft': '0 20px 40px -10px rgba(15, 23, 42, 0.08)'
-          }
-        }
-      }
-    }
-  </script>
-
-  <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIRA — Multimodal Intelligent Retrieval & Autonomous Assistant | Local-First AI</title>
+  <meta name="description" content="MIRA is a desktop-based Multimodal Retrieval-Augmented Generation system designed to search, retrieve, and understand information across documents, images, audio, video, and text through a unified knowledge base.">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230D0D0D'/><text y='70' x='14' font-size='65' font-weight='bold' fill='%23FFE600' font-family='sans-serif'>M</text></svg>">
 </head>
+<body>
 
-<body class="bg-[#FAFAF9] text-slate-900 font-sans antialiased relative overflow-x-hidden selection:bg-indigo-100 selection:text-indigo-900">
-
-  <!-- ========================================================================= -->
-  <!-- Ambient Decorative Background Glows                                      -->
-  <!-- ========================================================================= -->
-  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-    <div class="absolute -top-40 -left-40 w-[600px] h-[600px] bg-indigo-200/25 rounded-full blur-[140px]"></div>
-    <div class="absolute top-1/3 -right-40 w-[700px] h-[700px] bg-emerald-100/35 rounded-full blur-[160px]"></div>
-    <div class="absolute top-2/3 left-1/4 w-[500px] h-[500px] bg-amber-100/25 rounded-full blur-[130px]"></div>
-    <div class="absolute inset-0 bg-subtle-grid opacity-60"></div>
-  </div>
-
-  <!-- ========================================================================= -->
-  <!-- Navigation Bar                                                           -->
-  <!-- ========================================================================= -->
-  <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-20">
-        
-        <!-- Pure Elegant Wordmark Logo (No Icon Box) -->
-        <a href="index.html" class="flex items-baseline space-x-2.5 group">
-          <span class="font-heading font-extrabold text-2xl tracking-tight text-slate-900 group-hover:text-indigo-600 transition-colors">MIRA</span>
-          <span class="text-[10px] font-mono tracking-widest uppercase text-slate-500 font-semibold border-l border-slate-300 pl-2.5">Autonomous Assistant</span>
-        </a>
-
-        <!-- Desktop Navigation -->
-        <nav class="hidden md:flex items-center space-x-1 glass-pill px-4 py-1.5 rounded-full shadow-xs">
-          <a href="#problem" class="text-xs font-medium text-slate-600 hover:text-slate-900 px-3.5 py-1.5 rounded-full hover:bg-slate-100/80 transition-colors">The Problem</a>
-          <a href="#experience" class="text-xs font-medium text-slate-600 hover:text-slate-900 px-3.5 py-1.5 rounded-full hover:bg-slate-100/80 transition-colors">Experience</a>
-          <a href="#multimodal" class="text-xs font-medium text-slate-600 hover:text-slate-900 px-3.5 py-1.5 rounded-full hover:bg-slate-100/80 transition-colors">Multimodal</a>
-          <a href="#semantic" class="text-xs font-medium text-slate-600 hover:text-slate-900 px-3.5 py-1.5 rounded-full hover:bg-slate-100/80 transition-colors">Search</a>
-          <a href="#privacy" class="text-xs font-medium text-slate-600 hover:text-slate-900 px-3.5 py-1.5 rounded-full hover:bg-slate-100/80 transition-colors">Privacy</a>
-          <a href="#audiences" class="text-xs font-medium text-slate-600 hover:text-slate-900 px-3.5 py-1.5 rounded-full hover:bg-slate-100/80 transition-colors">Who It's For</a>
-        </nav>
-
-        <!-- CTA Header Button (Clean, No Local-First Badge) -->
-        <div class="hidden md:flex items-center space-x-3">
-          <a href="coming-soon.html" class="inline-flex items-center justify-center text-xs font-semibold px-5 py-2.5 rounded-full text-white bg-slate-900 hover:bg-indigo-600 transition-all duration-200 shadow-sm hover:shadow-indigo-500/20 hover:-translate-y-0.5">
-            Download MIRA
-            <svg class="w-3.5 h-3.5 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-          </a>
+  <!-- ========================================================================
+       1. STICKY NEO-BRUTALIST NAVIGATION HEADER
+       ======================================================================== -->
+  <header class="site-header" id="siteHeader">
+    <div class="container-wide header-container">
+      <!-- Brand Mark -->
+      <a href="#hero" class="brand-mark">
+        <div class="brand-logo-box">MIRA</div>
+        <div class="brand-status-meta">
+          <span class="sub-text">MULTIMODAL RAG</span>
+          <span class="status-badge"><span class="status-dot"></span> LOCAL-FIRST // ACTIVE DEV</span>
         </div>
+      </a>
 
-        <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" aria-label="Toggle navigation menu" class="md:hidden p-2 rounded-xl bg-white/80 border border-slate-200 text-slate-700 hover:bg-slate-100 transition">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-        </button>
+      <!-- Desktop Navigation -->
+      <nav class="header-nav" aria-label="Primary Navigation">
+        <a href="#product" class="nav-link">PRODUCT</a>
+        <a href="#how-it-works" class="nav-link">HOW IT WORKS</a>
+        <a href="#privacy" class="nav-link">PRIVACY</a>
+        <a href="#architecture" class="nav-link">ARCHITECTURE</a>
+        <a href="#roadmap" class="nav-link">ROADMAP</a>
+      </nav>
+
+      <!-- Header Action -->
+      <div class="header-actions">
+        <a href="coming-soon.html" class="brutal-btn brutal-btn-primary brutal-btn-sm">DOWNLOAD NOW ↗</a>
+        <button class="mobile-menu-btn" aria-label="Toggle navigation menu">MENU ☰</button>
       </div>
+    </div>
 
-      <!-- Mobile Dropdown Panel -->
-      <div id="mobile-menu-panel" class="hidden md:hidden glass-panel rounded-2xl p-4 mt-2 space-y-2 border border-slate-200 shadow-lg">
-        <a href="#problem" class="block text-sm font-medium text-slate-700 hover:text-indigo-600 py-2 px-3 rounded-lg hover:bg-slate-50">The Problem</a>
-        <a href="#experience" class="block text-sm font-medium text-slate-700 hover:text-indigo-600 py-2 px-3 rounded-lg hover:bg-slate-50">Experience</a>
-        <a href="#multimodal" class="block text-sm font-medium text-slate-700 hover:text-indigo-600 py-2 px-3 rounded-lg hover:bg-slate-50">Multimodal</a>
-        <a href="#semantic" class="block text-sm font-medium text-slate-700 hover:text-indigo-600 py-2 px-3 rounded-lg hover:bg-slate-50">Semantic Search</a>
-        <a href="#privacy" class="block text-sm font-medium text-slate-700 hover:text-indigo-600 py-2 px-3 rounded-lg hover:bg-slate-50">Privacy</a>
-        <a href="#audiences" class="block text-sm font-medium text-slate-700 hover:text-indigo-600 py-2 px-3 rounded-lg hover:bg-slate-50">Who It's For</a>
-        <div class="pt-2 border-t border-slate-100">
-          <a href="coming-soon.html" class="block text-center text-sm font-semibold py-2.5 px-4 rounded-xl bg-slate-900 text-white hover:bg-indigo-600 transition">Download MIRA</a>
-        </div>
+    <!-- Mobile Drawer -->
+    <div class="mobile-nav-drawer" id="mobileDrawer">
+      <a href="#product" class="nav-link">PRODUCT</a>
+      <a href="#how-it-works" class="nav-link">HOW IT WORKS</a>
+      <a href="#privacy" class="nav-link">PRIVACY</a>
+      <a href="#architecture" class="nav-link">ARCHITECTURE</a>
+      <a href="#roadmap" class="nav-link">ROADMAP</a>
+      <div style="margin-top: 20px;">
+        <a href="coming-soon.html" class="brutal-btn brutal-btn-primary" style="width: 100%;">DOWNLOAD NOW ↗</a>
       </div>
     </div>
   </header>
 
-  <main class="relative z-10">
+  <!-- ========================================================================
+       2. TOP KINETIC MARQUEE STRIP (SPEED 1)
+       ======================================================================== -->
+  <div class="kinetic-marquee-container marquee-accent-yellow" aria-hidden="true">
+    <div class="marquee-track marquee-track-slow">
+      <div class="marquee-item"><span>PDF DOCUMENTS</span> <span class="marquee-dot"></span></div>
+      <div class="marquee-item"><span>DOCX REPORTS</span> <span class="marquee-dot"></span></div>
+      <div class="marquee-item"><span>HIGH-RES IMAGES</span> <span class="marquee-dot"></span></div>
+      <div class="marquee-item"><span>AUDIO RECORDINGS</span> <span class="marquee-dot"></span></div>
+      <div class="marquee-item"><span>VIDEO FOOTAGE</span> <span class="marquee-dot"></span></div>
+      <div class="marquee-item"><span>STRUCTURED TEXT</span> <span class="marquee-dot"></span></div>
+      <div class="marquee-item"><span class="marquee-tag">LOCAL-FIRST</span></div>
+      <!-- Repeat for infinite marquee loop -->
+      <div class="marquee-item"><span>PDF DOCUMENTS</span> <span class="marquee-dot"></span></div>
+      <div class="marquee-item"><span>DOCX REPORTS</span> <span class="marquee-dot"></span></div>
+      <div class="marquee-item"><span>HIGH-RES IMAGES</span> <span class="marquee-dot"></span></div>
+      <div class="marquee-item"><span>AUDIO RECORDINGS</span> <span class="marquee-dot"></span></div>
+      <div class="marquee-item"><span>VIDEO FOOTAGE</span> <span class="marquee-dot"></span></div>
+      <div class="marquee-item"><span>STRUCTURED TEXT</span> <span class="marquee-dot"></span></div>
+      <div class="marquee-item"><span class="marquee-tag">LOCAL-FIRST</span></div>
+    </div>
+  </div>
 
-    <!-- ======================================================================= -->
-    <!-- SECTION 1: HERO (Value First, Customer-Centric, Live App Simulator)     -->
-    <!-- ======================================================================= -->
-    <section class="relative pt-32 pb-20 sm:pt-40 sm:pb-28 overflow-hidden">
-      
-      <!-- Subtle Floating Multimodal Visual Chips in Hero Background -->
-      <div class="hidden lg:block absolute inset-0 pointer-events-none overflow-hidden max-w-7xl mx-auto">
-        <!-- Floating Chip 1: Document -->
-        <div class="interactive-float animate-float-slow absolute top-28 left-6 glass-panel rounded-2xl p-3 max-w-[210px] shadow-floating-soft border border-white/90">
-          <div class="flex items-center space-x-2 mb-1.5">
-            <span class="w-6 h-6 rounded-lg bg-red-50 text-red-600 flex items-center justify-center font-mono text-[10px] font-bold">PDF</span>
-            <span class="text-xs font-mono font-semibold text-slate-800 truncate">Q3_Strategic_Plan.pdf</span>
-          </div>
-          <p class="text-[11px] text-slate-600 leading-snug">“...approved expansion budget of ₹24.5 lakh.”</p>
-          <div class="mt-2 flex items-center justify-between text-[10px] text-slate-600 font-mono">
-            <span>Page 4</span>
-            <span class="text-emerald-600 font-semibold">Indexed</span>
-          </div>
-        </div>
-
-        <!-- Floating Chip 2: Audio Waveform -->
-        <div class="interactive-float animate-float-reverse absolute top-36 right-8 glass-panel rounded-2xl p-3 max-w-[230px] shadow-floating-soft border border-white/90">
-          <div class="flex items-center justify-between mb-2">
-            <div class="flex items-center space-x-2">
-              <span class="w-6 h-6 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-mono text-[10px] font-bold">M4A</span>
-              <span class="text-xs font-mono font-semibold text-slate-800 truncate">Sync_Meeting.m4a</span>
-            </div>
-            <span class="text-[10px] font-mono text-slate-600">12:44</span>
-          </div>
-          <div class="flex items-end space-x-1 h-5 px-1 mb-1.5">
-            <span class="w-1 bg-indigo-500 rounded-full wave-bar" style="height: 8px;"></span>
-            <span class="w-1 bg-indigo-500 rounded-full wave-bar" style="height: 16px;"></span>
-            <span class="w-1 bg-indigo-500 rounded-full wave-bar" style="height: 20px;"></span>
-            <span class="w-1 bg-indigo-500 rounded-full wave-bar" style="height: 12px;"></span>
-            <span class="w-1 bg-indigo-500 rounded-full wave-bar" style="height: 18px;"></span>
-            <span class="w-1 bg-indigo-500 rounded-full wave-bar" style="height: 10px;"></span>
-          </div>
-          <p class="text-[10px] text-slate-600 italic">“Lock in the procurement timeline...”</p>
-        </div>
-
-        <!-- Floating Chip 3: Screenshot OCR -->
-        <div class="interactive-float animate-float-drift absolute bottom-24 left-10 glass-panel rounded-2xl p-3 max-w-[200px] shadow-floating-soft border border-white/90">
-          <div class="flex items-center space-x-2 mb-1.5">
-            <span class="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-mono text-[10px] font-bold">IMG</span>
-            <span class="text-xs font-mono font-semibold text-slate-800 truncate">slide_deck_may.png</span>
-          </div>
-          <div class="p-1.5 bg-slate-900/5 rounded-lg border border-slate-200/60 mb-1">
-            <span class="text-[10px] text-emerald-700 font-mono font-bold block">OCR Bounding Box</span>
-            <span class="text-[11px] text-slate-700 font-medium">Seed Cap Table v2</span>
-          </div>
-        </div>
-
-        <!-- Floating Chip 4: Video Frame -->
-        <div class="interactive-float animate-float-slow absolute bottom-28 right-10 glass-panel rounded-2xl p-3 max-w-[210px] shadow-floating-soft border border-white/90" style="animation-delay: -3s;">
-          <div class="flex items-center justify-between mb-1.5">
-            <span class="text-xs font-mono font-semibold text-slate-800">AllHands_Keynote.mp4</span>
-            <span class="text-[10px] bg-slate-100 text-slate-600 font-mono px-1.5 py-0.5 rounded">08:34</span>
-          </div>
-          <div class="h-12 rounded-lg bg-gradient-to-r from-slate-900 to-indigo-950 flex items-center justify-center text-white text-[10px] font-mono">
-            <span>Synchronized Keyframe</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+  <main>
+    <!-- ======================================================================
+         3. HERO SECTION (ASYMMETRIC POSTER COMPOSITION)
+         ====================================================================== -->
+    <section class="hero-section" id="hero">
+      <div class="container">
         
-        <!-- Trust badge -->
-        <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/90 border border-slate-200/80 shadow-xs mb-8">
-          <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
-          <span class="text-xs font-medium text-slate-700">Ask anything. Find everything. Keep it private.</span>
+        <!-- Meta Strip -->
+        <div class="hero-meta-strip">
+          <div class="brutal-badge brutal-badge-dark">
+            <span class="status-dot"></span> SYSTEM ACTIVE // DESKTOP RUNTIME
+          </div>
+          <div class="mono" style="font-size: 0.8rem; font-weight: 700;">
+            ARCHITECTURE: ELECTRON + FASTAPI + FAISS + CHROMADB
+          </div>
+          <div class="brutal-badge brutal-badge-orange">
+            ACTIVE DEVELOPMENT
+          </div>
         </div>
 
-        <!-- Main Headline -->
-        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-slate-900 tracking-tight leading-[1.08] max-w-4xl mx-auto">
-          Your data. Your AI. <br class="hidden sm:inline" />
-          <span class="bg-gradient-to-r from-indigo-700 via-indigo-600 to-slate-900 bg-clip-text text-transparent">Your control.</span>
-        </h1>
+        <div class="hero-layout-grid">
+          <!-- Left Editorial Column -->
+          <div class="hero-editorial-col">
+            <h1 class="hero-headline">
+              YOUR KNOWLEDGE<br>
+              IS ALREADY<br>
+              <span class="highlight-box">THERE.</span>
+            </h1>
 
-        <!-- Customer-Facing Subtitle -->
-        <p class="mt-6 text-base sm:text-xl text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">
-          MIRA turns your documents, screenshots, voice recordings, videos, and personal notes into a unified, searchable knowledge base. Ask questions in natural language and receive grounded answers—without ever manually searching through folders again.
+            <div class="hero-brand-statement">
+              <div class="hero-title-mira">
+                <span>MIRA</span>
+                <span class="brutal-badge brutal-badge-blue" style="font-size: 0.7rem;">OFFLINE-CAPABLE</span>
+              </div>
+              <div class="hero-sub-mira">
+                MULTIMODAL INTELLIGENT RETRIEVAL & AUTONOMOUS ASSISTANT
+              </div>
+              <p class="hero-desc">
+                Search, understand, and retrieve information across documents, images, audio, video, and text through one unified knowledge system. Grounded answers, direct source citations, and local-first architecture.
+              </p>
+            </div>
+
+            <div class="hero-cta-group">
+              <a href="coming-soon.html" class="brutal-btn brutal-btn-primary brutal-btn-lg">DOWNLOAD NOW ↗</a>
+              <a href="#how-it-works" class="brutal-btn brutal-btn-dark brutal-btn-lg">HOW IT WORKS ↓</a>
+            </div>
+
+            <div class="hero-disclaimer-tag">
+              <span>⚡</span>
+              <span>YOUR DATA. YOUR KNOWLEDGE. YOUR MACHINE.</span>
+            </div>
+          </div>
+
+          <!-- Right Kinetic Visualizer Column -->
+          <div class="hero-visualizer-col">
+            <div class="hero-visualizer-card">
+              <div class="visualizer-header">
+                <span class="mono" style="font-size: 0.75rem; font-weight: 700;">CONVERGENCE ENGINE // V.02</span>
+                <span class="brutal-badge brutal-badge-yellow" style="font-size: 0.65rem;">MULTIMODAL FLOW</span>
+              </div>
+
+              <div class="visualizer-stage">
+                <!-- Source Chips -->
+                <div class="converge-source-row">
+                  <div class="converge-chip">PDF REPORTS</div>
+                  <div class="converge-chip">DOCX BRIEFS</div>
+                  <div class="converge-chip">SCREENSHOTS</div>
+                  <div class="converge-chip">AUDIO SYNC</div>
+                  <div class="converge-chip">VIDEO FRAMES</div>
+                  <div class="converge-chip">NOTES.TXT</div>
+                </div>
+
+                <!-- Animated Stream Lines SVG -->
+                <div class="stream-lines">
+                  <svg class="stream-svg" viewBox="0 0 400 200" preserveAspectRatio="none">
+                    <path class="stream-path" d="M 60,10 Q 120,80 200,100" />
+                    <path class="stream-path" d="M 140,10 Q 170,60 200,100" />
+                    <path class="stream-path" d="M 260,10 Q 230,60 200,100" />
+                    <path class="stream-path" d="M 340,10 Q 280,80 200,100" />
+                    <path class="stream-path" d="M 200,100 L 200,190" />
+                  </svg>
+                </div>
+
+                <!-- Central MIRA Core Node -->
+                <div class="mira-core-node">
+                  <div class="core-title">MIRA CORE</div>
+                  <div class="core-sub">MULTIMODAL EMBEDDING & SEMANTIC INDEX</div>
+                </div>
+
+                <!-- Target Output Box -->
+                <div class="grounded-target-box">
+                  <div class="output-header">
+                    <span class="mono" style="font-size: 0.72rem; font-weight: 700; color: var(--accent-orange);">OUTPUT: GROUNDED RESPONSE</span>
+                    <span class="brutal-badge brutal-badge-green" style="font-size: 0.62rem; padding: 2px 6px;">VERIFIED</span>
+                  </div>
+                  <div class="output-text">
+                    “Approved Q3 infrastructure budget is $1.85M with offline model testing.”
+                  </div>
+                  <div class="citations-row">
+                    <span class="brutal-badge brutal-badge-yellow" style="font-size: 0.65rem;">SRC: MEETING_AUDIO.MP3</span>
+                    <span class="brutal-badge brutal-badge-blue" style="font-size: 0.65rem;">SRC: BUDGET_TABLE.PDF</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style="margin-top: 16px; display: flex; justify-content: space-between; align-items: center;">
+                <span class="mono" style="font-size: 0.7rem; color: var(--text-muted);">PIPELINE: INGEST → EMBED → RETRIEVE → CITE</span>
+                <span class="mono" style="font-size: 0.7rem; font-weight: 700;">100% VISIBLE SOURCES</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         4. SECOND KINETIC MARQUEE STRIP (REVERSE DIRECTION)
+         ====================================================================== -->
+    <div class="kinetic-marquee-container marquee-accent-orange" aria-hidden="true">
+      <div class="marquee-track marquee-track-fast">
+        <div class="marquee-item"><span>RETRIEVE</span> <span class="marquee-dot"></span></div>
+        <div class="marquee-item"><span>UNDERSTAND</span> <span class="marquee-dot"></span></div>
+        <div class="marquee-item"><span>CONNECT</span> <span class="marquee-dot"></span></div>
+        <div class="marquee-item"><span>GROUND</span> <span class="marquee-dot"></span></div>
+        <div class="marquee-item"><span>VERIFY CITATIONS</span> <span class="marquee-dot"></span></div>
+        <div class="marquee-item"><span class="marquee-tag" style="background: #fff; color: #000;">NO HALLUCINATIONS</span></div>
+        <!-- Repeat -->
+        <div class="marquee-item"><span>RETRIEVE</span> <span class="marquee-dot"></span></div>
+        <div class="marquee-item"><span>UNDERSTAND</span> <span class="marquee-dot"></span></div>
+        <div class="marquee-item"><span>CONNECT</span> <span class="marquee-dot"></span></div>
+        <div class="marquee-item"><span>GROUND</span> <span class="marquee-dot"></span></div>
+        <div class="marquee-item"><span>VERIFY CITATIONS</span> <span class="marquee-dot"></span></div>
+        <div class="marquee-item"><span class="marquee-tag" style="background: #fff; color: #000;">NO HALLUCINATIONS</span></div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         5. SECTION: INFORMATION CHAOS TO STRUCTURE
+         ====================================================================== -->
+    <section class="section chaos-section" id="how-it-works">
+      <div class="container">
+        
+        <div class="section-tag-row">
+          <span class="section-num">01</span>
+          <span class="section-category">THE INFORMATION PARADOX</span>
+        </div>
+
+        <h2 class="section-heading-large">
+          YOUR INFORMATION<br>
+          IS EVERYWHERE.
+        </h2>
+        <p class="section-subheading">
+          Folders, subfolders, cloud drives, screenshots, voice memos, meeting videos, and raw text. You have the answers, but they are trapped across incompatible formats and buried under directory trees.
         </p>
 
-        <!-- CTA Action Buttons -->
-        <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a href="coming-soon.html" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-2xl text-sm font-semibold text-white bg-slate-900 hover:bg-indigo-600 transition-all duration-200 shadow-elevated hover:-translate-y-0.5 group">
-            Download MIRA
-            <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-          </a>
-          <a href="#experience" class="w-full sm:w-auto inline-flex items-center justify-center px-7 py-4 rounded-2xl text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 shadow-xs hover:border-slate-300 transition-all duration-200">
-            See how it works
-            <svg class="w-4 h-4 ml-1.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </a>
+        <div class="chaos-stage-container">
+          <div class="chaos-controls">
+            <div>
+              <span class="mono" style="font-size: 0.8rem; font-weight: 700;">WORKSPACE SIMULATION // LOCAL DRIVE</span>
+              <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 4px;">Click the button below to witness how MIRA turns dispersed data into searchable knowledge.</div>
+            </div>
+            <button class="brutal-btn brutal-btn-primary" id="chaosToggleBtn">
+              ORGANIZE INTO KNOWLEDGE ⚡
+            </button>
+          </div>
+
+          <div class="chaos-canvas state-chaotic" id="chaosCanvas">
+            <div class="chaos-grid">
+              <!-- Item 1 -->
+              <div class="chaos-item">
+                <span class="item-type-badge brutal-badge-orange">PDF REPORT</span>
+                <div class="item-title">Q3_Financial_Review.pdf</div>
+                <div class="item-snippet">“...allocated $1.85M towards hardware acceleration & local model validation...”</div>
+              </div>
+              <!-- Item 2 -->
+              <div class="chaos-item">
+                <span class="item-type-badge brutal-badge-blue">SCREENSHOT</span>
+                <div class="item-title">Architecture_Whiteboard.png</div>
+                <div class="item-snippet">[Handwritten note: Dual vector store with FAISS + SQLite cataloging layer]</div>
+              </div>
+              <!-- Item 3 -->
+              <div class="chaos-item">
+                <span class="item-type-badge brutal-badge-green">AUDIO SYNC</span>
+                <div class="item-title">Executive_Sync_Aug14.mp3</div>
+                <div class="item-snippet">Voice memo 14:32: “We agreed to keep sensitive client records strictly on local NVMe.”</div>
+              </div>
+              <!-- Item 4 -->
+              <div class="chaos-item">
+                <span class="item-type-badge brutal-badge-yellow">DOCX BRIEF</span>
+                <div class="item-title">Project_Milestones_2025.docx</div>
+                <div class="item-snippet">§ 2.4: “Deliver cross-modal retrieval prototype before SIH demonstration.”</div>
+              </div>
+              <!-- Item 5 -->
+              <div class="chaos-item">
+                <span class="item-type-badge brutal-badge-dark">VIDEO DEMO</span>
+                <div class="item-title">Sprint_Review_Walkthrough.mp4</div>
+                <div class="item-snippet">[Keyframe 08:14: Electron desktop IPC communication diagram displayed]</div>
+              </div>
+              <!-- Item 6 -->
+              <div class="chaos-item">
+                <span class="item-type-badge brutal-badge-orange">RESEARCH TXT</span>
+                <div class="item-title">Benchmark_Notes.txt</div>
+                <div class="item-snippet">“FasterWhisper local inference runtime measured at 3.2x real-time on GPU.”</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chaos-status-banner">
+            <div id="chaosStatusLabel" class="mono" style="font-size: 0.85rem; font-weight: 700; color: var(--accent-yellow);">
+              ⚠ 6 UNSTRUCTURED / DISPERSED ASSETS DETECTED
+            </div>
+            <div class="mono" style="font-size: 0.75rem; color: #aaa;">
+              STRUCTURE BECOMES KNOWLEDGE
+            </div>
+          </div>
         </div>
 
-        <!-- Privacy Assurance Sub-bar -->
-        <div class="mt-8 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-600 font-medium">
-          <span class="inline-flex items-center"><svg class="w-4 h-4 text-emerald-600 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg> Local-First On-Device Processing</span>
-          <span class="inline-flex items-center"><svg class="w-4 h-4 text-indigo-600 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg> Instant Offline Retrieval</span>
-          <span class="inline-flex items-center"><svg class="w-4 h-4 text-slate-600 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg> Verifiable Citations</span>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         6. SECTION: FILE-CENTRIC VS CONTENT-CENTRIC (SPLIT SCREEN)
+         ====================================================================== -->
+    <section class="section comparison-section">
+      <div class="container">
+        
+        <div class="section-tag-row">
+          <span class="section-num">02</span>
+          <span class="section-category">PARADIGM SHIFT</span>
         </div>
 
-        <!-- =================================================================== -->
-        <!-- Live Simulated MIRA Desktop Interface Window                        -->
-        <!-- =================================================================== -->
-        <div class="mt-14 relative max-w-4xl mx-auto">
-          <!-- Window Outer Container -->
-          <div class="glass-panel-elevated rounded-3xl p-3 sm:p-5 border border-white/80 shadow-2xl transition-all">
-            
-            <!-- Window Title Bar -->
-            <div class="flex items-center justify-between pb-3 sm:pb-4 border-b border-slate-100">
-              <div class="flex items-center space-x-2">
-                <span class="w-3 h-3 rounded-full bg-slate-300"></span>
-                <span class="w-3 h-3 rounded-full bg-slate-300"></span>
-                <span class="w-3 h-3 rounded-full bg-slate-300"></span>
-                <span class="ml-2 text-xs font-mono text-slate-600 font-medium hidden sm:inline">MIRA Assistant • Local Vault</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
-                  ~/KnowledgeSpace/AllFiles
-                </span>
-                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <h2 class="section-heading-large">
+          STOP SEARCHING FOR FILES.<br>
+          START SEARCHING FOR MEANING.
+        </h2>
+        <p class="section-subheading">
+          Traditional operating systems force you to remember folder hierarchies, file names, and exact keyword matches. MIRA indexes semantic concepts across formats so you ask what you mean.
+        </p>
+
+        <div class="comparison-grid">
+          <!-- Left Column: Traditional Search -->
+          <div class="comparison-column comparison-column-legacy">
+            <div class="comparison-col-header">
+              <span class="brutal-badge brutal-badge-dark">TRADITIONAL FILE SEARCH</span>
+              <h3 style="font-size: 1.5rem; margin-top: 10px;">FRAGMENTED & SYNTAX-BOUND</h3>
+            </div>
+
+            <div class="comparison-query-box">
+              <span class="mono" style="font-size: 0.72rem; color: var(--text-muted); display: block; margin-bottom: 4px;">TYPICAL USER QUESTION:</span>
+              <div style="font-weight: 700; font-size: 1.1rem; text-decoration: line-through; color: #999;">
+                “Which folder contains the meeting report?”
               </div>
             </div>
 
-            <!-- Query Scenario Chips Selector -->
-            <div class="pt-4 pb-2 text-left">
-              <span class="text-[11px] font-mono uppercase tracking-wider text-slate-600 font-semibold block mb-2">Test Live Customer Scenarios:</span>
-              <div class="flex flex-wrap gap-2">
-                <button class="hero-query-chip text-xs font-medium px-3 py-1.5 rounded-xl border border-slate-200 transition text-left" data-index="0">
-                  “What budget was approved during the last project meeting?”
-                </button>
-                <button class="hero-query-chip text-xs font-medium px-3 py-1.5 rounded-xl border border-slate-200 transition text-left" data-index="1">
-                  “Show me screenshots related to the funding discussion.”
-                </button>
-                <button class="hero-query-chip text-xs font-medium px-3 py-1.5 rounded-xl border border-slate-200 transition text-left" data-index="2">
-                  “Where did we discuss deployment architecture?”
-                </button>
+            <div class="comparison-tree-visual">
+              <div>📁 /Users/Main/Documents/</div>
+              <div style="padding-left: 20px;">├── 📁 Projects/</div>
+              <div style="padding-left: 40px;">├── 📁 2024_Old/</div>
+              <div style="padding-left: 40px;">├── 📁 Q3_Final_Final_v2/ ❌ (MISSING)</div>
+              <div style="padding-left: 60px;">└── 📄 Untitled_Doc_3.docx</div>
+              <div style="padding-left: 20px;">└── 📁 Zoom_Recordings/</div>
+              <div style="padding-left: 40px;">└── 🎥 GMT20250814_audio.mp4 ❌ (NO TEXT)</div>
+            </div>
+
+            <ul class="audience-use-cases-list" style="margin-top: 24px;">
+              <li>Rigid keyword exact matches</li>
+              <li>Images and audio are completely invisible</li>
+              <li>Requires manual folder exploration</li>
+              <li>Zero cross-modal correlation</li>
+            </ul>
+          </div>
+
+          <!-- Right Column: MIRA Semantic Retrieval -->
+          <div class="comparison-column comparison-column-mira">
+            <div class="comparison-col-header">
+              <span class="brutal-badge brutal-badge-yellow">MIRA MULTIMODAL ASSISTANT</span>
+              <h3 style="font-size: 1.5rem; margin-top: 10px;">SEMANTIC & CONTENT-CENTRIC</h3>
+            </div>
+
+            <div class="comparison-query-box mira-style">
+              <span class="mono" style="font-size: 0.72rem; color: #000; font-weight: 700; display: block; margin-bottom: 4px;">NATURAL LANGUAGE INTENT:</span>
+              <div style="font-weight: 700; font-size: 1.1rem;">
+                “What budget was approved during the last meeting?”
               </div>
             </div>
 
-            <!-- Active Search Bar -->
-            <div class="mt-3 p-3.5 bg-slate-50 rounded-2xl border border-slate-200/90 text-left flex items-center space-x-3">
-              <div class="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <div class="comparison-semantic-visual">
+              <div class="mono" style="font-size: 0.75rem; color: var(--accent-yellow); margin-bottom: 8px;">
+                // SEMANTIC EMBEDDING NEAREST NEIGHBORS (FAISS):
               </div>
-              <div class="flex-1 font-sans text-sm sm:text-base font-semibold text-slate-900 truncate" id="hero-sim-query">
-                Loading query...
+              <span class="semantic-node-tag highlight">BUDGET APPROVAL: $1.85M</span>
+              <span class="semantic-node-tag">MEETING_RECORDING.MP4 [14:32]</span>
+              <span class="semantic-node-tag highlight">Q3_CAPEX_RESOLUTION.PDF</span>
+              <span class="semantic-node-tag">BOARD_SYNC_NOTES.DOCX</span>
+              <span class="semantic-node-tag">SPEAKER_02_AGREEMENT</span>
+            </div>
+
+            <ul class="audience-use-cases-list" style="margin-top: 24px;">
+              <li>Natural language understanding & semantic search</li>
+              <li>Transcribes audio and OCRs images automatically</li>
+              <li>Retrieves exact grounded excerpts with timestamps</li>
+              <li>Synthesizes answers with verifiable citations</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         7. SECTION: ONE KNOWLEDGE BASE (SIX FORMATS)
+         ====================================================================== -->
+    <section class="section formats-section" id="product">
+      <div class="container">
+        
+        <div class="section-tag-row">
+          <span class="section-num">03</span>
+          <span class="section-category">UNIFIED MULTIMODAL HORIZON</span>
+        </div>
+
+        <h2 class="section-heading-large">
+          SIX FORMATS.<br>
+          ONE KNOWLEDGE SPACE.
+        </h2>
+        <p class="section-subheading">
+          MIRA doesn't treat text, audio, images, and video as separate silos. Every asset is converted into high-dimensional embeddings and indexed in a unified vector space.
+        </p>
+
+        <div class="formats-diagram-wrapper">
+          <!-- 6 Format Blocks -->
+          <div class="formats-blocks-grid">
+            <div class="format-card active" data-format="PDF">
+              <span class="format-ext">PDF</span>
+              <span class="format-role">DOCUMENTS</span>
+            </div>
+            <div class="format-card" data-format="DOCX">
+              <span class="format-ext">DOCX</span>
+              <span class="format-role">REPORTS</span>
+            </div>
+            <div class="format-card" data-format="IMAGE">
+              <span class="format-ext">IMG</span>
+              <span class="format-role">VISUAL DATA</span>
+            </div>
+            <div class="format-card" data-format="AUDIO">
+              <span class="format-ext">AUD</span>
+              <span class="format-role">VOICE SYNC</span>
+            </div>
+            <div class="format-card" data-format="VIDEO">
+              <span class="format-ext">VID</span>
+              <span class="format-role">MULTIMODAL</span>
+            </div>
+            <div class="format-card" data-format="TEXT">
+              <span class="format-ext">TXT</span>
+              <span class="format-role">PLAIN DATA</span>
+            </div>
+          </div>
+
+          <!-- Dynamic Info Box -->
+          <div class="brutal-box" style="padding: 16px 20px; margin-bottom: 32px; background: var(--bg-surface-alt);">
+            <div id="formatMetaInfo" class="mono" style="font-size: 0.85rem;">
+              <strong>PDF PIPELINE:</strong> Extracted via PyPDF/PDFMiner, chunked semantically, vectorized into FAISS index.
+            </div>
+          </div>
+
+          <!-- Central Core Node Target -->
+          <div class="formats-core-target">
+            <div>
+              <div class="formats-core-title">UNIFIED KNOWLEDGE BASE</div>
+              <div class="mono" style="font-size: 0.8rem; color: #ddd; margin-top: 4px;">
+                FAISS INDEX + CHROMADB METADATA CATALOG + SQLITE STATE
               </div>
-              <div class="shrink-0 font-mono text-[11px] text-slate-600 bg-white px-2 py-1 rounded-md border border-slate-200 hidden sm:block">
-                Enter ↵
+            </div>
+            <div class="brutal-badge brutal-badge-green" style="font-size: 0.85rem; padding: 10px 18px;">
+              SINGLE LOCAL MEMORY
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         8. SECTION: MULTIMODAL PROCESSING PIPELINE
+         ====================================================================== -->
+    <section class="section pipeline-section">
+      <div class="container">
+        
+        <div class="section-tag-row">
+          <span class="section-num">04</span>
+          <span class="section-category">INGESTION ENGINE</span>
+        </div>
+
+        <h2 class="section-heading-large">
+          MIRA READS<br>
+          WHAT'S INSIDE.
+        </h2>
+        <p class="section-subheading">
+          Look beneath the surface. Each file format undergoes specialized, documented extraction pipelines to turn raw binary files into clean, searchable, vectorized intelligence.
+        </p>
+
+        <div class="pipeline-interactive-board">
+          <!-- Pipeline Switcher Tabs -->
+          <div class="pipeline-tabs">
+            <button class="pipeline-tab-btn active" data-pipeline="docs">
+              <span>📄</span>
+              <span>DOCUMENTS (PDF/DOCX)</span>
+            </button>
+            <button class="pipeline-tab-btn" data-pipeline="images">
+              <span>🖼</span>
+              <span>IMAGES (OCR/CLIP)</span>
+            </button>
+            <button class="pipeline-tab-btn" data-pipeline="audio">
+              <span>🎙</span>
+              <span>AUDIO (WHISPER)</span>
+            </button>
+            <button class="pipeline-tab-btn" data-pipeline="video">
+              <span>🎬</span>
+              <span>VIDEO (FRAMES+AUDIO)</span>
+            </button>
+          </div>
+
+          <!-- Pipeline Display Pane -->
+          <div class="pipeline-display-pane">
+            <div class="pipeline-flow-diagram" id="pipelineStages">
+              <!-- Rendered dynamically by main.js -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         9. SECTION: CROSS-MODAL RETRIEVAL (THE FORMAT DOESN'T MATTER)
+         ====================================================================== -->
+    <section class="section crossmodal-section">
+      <div class="container">
+        
+        <div class="section-tag-row">
+          <span class="section-num">05</span>
+          <span class="section-category">FLUID DISCOVERY</span>
+        </div>
+
+        <h2 class="section-heading-large">
+          THE FORMAT<br>
+          DOESN'T MATTER.
+        </h2>
+        <p class="section-subheading">
+          Ask in text to discover an image. Drop in a diagram to find a research passage. Play a recording to locate a spreadsheet. Cross-modal retrieval bridges every medium.
+        </p>
+
+        <div class="crossmodal-grid">
+          <!-- Modality Selector Column -->
+          <div class="modality-selector-list">
+            <button class="modality-select-btn active" data-modality="text-to-image">
+              <span>TEXT → IMAGE</span>
+              <span>→</span>
+            </button>
+            <button class="modality-select-btn" data-modality="text-to-doc">
+              <span>TEXT → DOCUMENT</span>
+              <span>→</span>
+            </button>
+            <button class="modality-select-btn" data-modality="image-to-text">
+              <span>IMAGE → TEXT</span>
+              <span>→</span>
+            </button>
+            <button class="modality-select-btn" data-modality="audio-to-doc">
+              <span>AUDIO → DOCUMENT</span>
+              <span>→</span>
+            </button>
+            <button class="modality-select-btn" data-modality="video-to-text">
+              <span>VIDEO → TEXT / DOC</span>
+              <span>→</span>
+            </button>
+          </div>
+
+          <!-- Preview Stage -->
+          <div class="crossmodal-preview-stage">
+            <div class="crossmodal-query-display" id="crossModalQuery">
+              <span class="mono" style="font-size: 0.75rem; color: var(--accent-orange); font-weight: 700; display: block; margin-bottom: 6px;">
+                INPUT: NATURAL LANGUAGE TEXT
+              </span>
+              <div style="font-size: 1.2rem; font-weight: 700;">
+                “Find screenshots related to the project funding discussion.”
               </div>
             </div>
 
-            <!-- Simulated Retrieval Status -->
-            <div class="mt-3 text-left flex items-center justify-between text-xs" id="hero-sim-status">
-              <span class="text-slate-600 font-mono">Initializing semantic index...</span>
-            </div>
-
-            <!-- Grounded Response Card -->
-            <div class="mt-3 p-4 sm:p-5 bg-white rounded-2xl border border-slate-200 shadow-xs text-left">
-              <div class="flex items-center justify-between mb-2">
-                <div class="flex items-center space-x-2">
-                  <span class="text-xs font-mono font-bold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100">MIRA</span>
-                  <span class="text-xs font-semibold text-slate-800">Grounded Synthesis</span>
-                </div>
-                <span class="text-[11px] font-mono text-emerald-600 font-medium">✓ Verifiable Sources Attached</span>
+            <div class="crossmodal-result-card" id="crossModalResult">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <span class="mono" style="font-size: 0.75rem; color: var(--accent-blue); font-weight: 700;">RETRIEVED: IMAGE ASSET VIA OPENCLIP</span>
+                <span class="brutal-badge brutal-badge-green">IMAGE MATCH</span>
               </div>
-              <p class="text-sm sm:text-base text-slate-800 leading-relaxed font-sans" id="hero-sim-answer">
-                Generating response...
+              <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 8px;">
+                Screen_Capture_2025_02_18_Funding_Sync.png
+              </div>
+              <p style="font-size: 0.95rem; line-height: 1.5; color: var(--text-muted);">
+                Matched slide table: “Seed Budget Breakdown — Stage II Approved at $2.4M”. Visual vector distance: 0.18 (High confidence).
               </p>
-
-              <!-- Source Citations List -->
-              <div class="mt-4 pt-3 border-t border-slate-100">
-                <span class="text-[10px] font-mono uppercase tracking-wider text-slate-600 font-bold block mb-2">Verified Supporting Sources</span>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="hero-sim-citations">
-                  <!-- Populated dynamically via JS -->
-                </div>
-              </div>
             </div>
 
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+              <span class="mono" style="font-size: 0.75rem; color: var(--text-muted);">CROSS-MODAL CO-EMBEDDING VIA OPENCLIP + VECTOR KNN</span>
+              <span class="brutal-badge brutal-badge-dark">ZERO CONVERSION LOSS</span>
+            </div>
           </div>
         </div>
 
       </div>
     </section>
 
-    <!-- ======================================================================= -->
-    <!-- SECTION 2: THE PROBLEM (Scattered Information)                         -->
-    <!-- ======================================================================= -->
-    <section id="problem" class="py-24 bg-white/70 border-y border-slate-200/60 relative reveal-on-scroll">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- ======================================================================
+         10. SECTION: ASK YOUR DATA (SIMULATED NEO-BRUTALIST INTERFACE)
+         ====================================================================== -->
+    <section class="section ask-section">
+      <div class="container">
         
-        <div class="text-center max-w-3xl mx-auto mb-16">
-          <span class="text-xs font-mono uppercase tracking-widest text-indigo-600 font-bold bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
-            The Reality of Modern Work
-          </span>
-          <h2 class="mt-4 text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
-            Your information is everywhere.<br class="hidden sm:inline" />
-            Finding it shouldn’t be.
-          </h2>
-          <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-            Every day, crucial decisions and answers get trapped across fragmented formats. When you need a fact, you're forced to remember what folder it lived in, which tool was used, or who originally said it.
-          </p>
+        <div class="section-tag-row">
+          <span class="section-num" style="background: var(--accent-yellow); color: #000;">06</span>
+          <span class="section-category" style="color: var(--accent-yellow);">INTERACTIVE EXPERIENCE</span>
         </div>
 
-        <!-- Visual representation of fragmented information uniting into MIRA -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          
-          <!-- Card 1: PDFs & Docs -->
-          <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs hover-lift reveal-on-scroll" data-stagger="1">
-            <div class="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center mb-4">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+        <h2 class="section-heading-large">
+          ASK YOUR DATA.
+        </h2>
+        <p class="section-subheading" style="color: #bbb;">
+          Test the simulated MIRA desktop interface below. Select a query or type your own question to trigger real-time retrieval stages, grounded response generation, and clickable source citations.
+        </p>
+
+        <div class="ask-terminal-frame">
+          <div class="ask-terminal-header">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="width: 12px; height: 12px; border: 2px solid #000; background: #FF5555; display: inline-block;"></span>
+              <span style="width: 12px; height: 12px; border: 2px solid #000; background: #FFDE00; display: inline-block;"></span>
+              <span style="width: 12px; height: 12px; border: 2px solid #000; background: #00E575; display: inline-block;"></span>
+              <span class="mono" style="font-size: 0.8rem; font-weight: 700; margin-left: 8px;">MIRA DESKTOP // QUERY INTERPRETER</span>
             </div>
-            <h3 class="text-base font-bold text-slate-900 mb-1">Reports in PDFs & Word</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">Financial estimates, contractual terms, proposals, and strategy drafts buried in deep subdirectories.</p>
-          </div>
-
-          <!-- Card 2: Voice & Meetings -->
-          <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs hover-lift reveal-on-scroll" data-stagger="2">
-            <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
+            <div class="mono" style="font-size: 0.75rem; color: var(--accent-green);">
+              ● LOCAL AGENT CONNECTED
             </div>
-            <h3 class="text-base font-bold text-slate-900 mb-1">Conversations in Recordings</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">Spoken agreements, verbal client requirements, and team syncs stored in voice memos and call exports.</p>
           </div>
 
-          <!-- Card 3: Screenshots & Charts -->
-          <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs hover-lift reveal-on-scroll" data-stagger="3">
-            <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <div class="ask-terminal-body">
+            <!-- Query Presets -->
+            <span class="query-presets-label">QUICK EXAMPLE QUERIES:</span>
+            <div class="query-presets-buttons">
+              <button class="query-chip-btn active" data-key="budget" data-query="What budget was approved during the last meeting?">
+                “What budget was approved during the last meeting?”
+              </button>
+              <button class="query-chip-btn" data-key="audit" data-query="Summarize the Q3 system audit findings">
+                “Summarize the Q3 system audit findings”
+              </button>
+              <button class="query-chip-btn" data-key="federated" data-query="Find the speaker notes on federated storage">
+                “Find the speaker notes on federated storage”
+              </button>
             </div>
-            <h3 class="text-base font-bold text-slate-900 mb-1">Details in Screenshots</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">Snapshots of charts, error messages, receipts, and whiteboard diagrams that standard search can't read.</p>
-          </div>
 
-          <!-- Card 4: Hours of Video -->
-          <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs hover-lift reveal-on-scroll" data-stagger="4">
-            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            <!-- Terminal Input Row -->
+            <div class="terminal-input-row">
+              <div class="terminal-prompt-prefix">QUERY &gt;</div>
+              <input type="text" class="terminal-input-field" id="terminalInput" value="What budget was approved during the last meeting?" placeholder="Ask anything about your documents, images, audio, video...">
+              <button class="terminal-exec-btn" id="terminalSubmitBtn">RUN RETRIEVAL ↵</button>
             </div>
-            <h3 class="text-base font-bold text-slate-900 mb-1">Trapped in Hours of Video</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">Webinar presentations and all-hands demonstrations where scrub bars make finding a single slide painful.</p>
-          </div>
 
-        </div>
-
-        <!-- Unification banner -->
-        <div class="mt-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl reveal-on-scroll" data-stagger="5">
-          <div class="space-y-1 text-center md:text-left">
-            <h4 class="text-xl font-bold font-heading">Stop memorizing folder names.</h4>
-            <p class="text-sm text-slate-300">MIRA indexes your disparate media into one private, unified knowledge space.</p>
-          </div>
-          <a href="coming-soon.html" class="inline-flex items-center text-xs font-semibold px-5 py-3 rounded-xl bg-white text-slate-950 hover:bg-indigo-50 transition shrink-0">
-            Unify Your Knowledge Space →
-          </a>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ======================================================================= -->
-    <!-- SECTION 3: PRODUCT EXPERIENCE ("Just ask. MIRA finds it.")              -->
-    <!-- ======================================================================= -->
-    <section id="experience" class="py-24 relative overflow-hidden reveal-on-scroll">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center max-w-3xl mx-auto mb-14">
-          <span class="text-xs font-mono uppercase tracking-widest text-emerald-600 font-bold bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">
-            Natural Product Interaction
-          </span>
-          <h2 class="mt-4 text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
-            Just ask. MIRA finds it.
-          </h2>
-          <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-            You don't need exact filenames or specialized boolean search operators. Describe what you're trying to recall the same way you would ask a colleague.
-          </p>
-        </div>
-
-        <!-- Large Simulated Interface Showcase -->
-        <div class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-10 shadow-card reveal-on-scroll" data-stagger="1">
-          <div class="max-w-3xl mx-auto space-y-6">
-            
-            <!-- User Prompt Simulation -->
-            <div class="flex items-start space-x-3">
-              <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 text-[11px] font-mono font-semibold uppercase tracking-wider shrink-0 mt-1">
-                You
-              </span>
-              <div class="p-4 rounded-2xl bg-slate-100 text-slate-900 text-sm sm:text-base font-medium max-w-xl">
-                “What budget was approved during the last project meeting?”
+            <!-- Step Tracker -->
+            <div class="retrieval-steps-tracker">
+              <div class="retrieval-step-card completed" id="step1">
+                <strong>[01] QUERY RECEIVED</strong><br>
+                Parsing semantic intent
+              </div>
+              <div class="retrieval-step-card completed" id="step2">
+                <strong>[02] VECTOR SEARCH</strong><br>
+                Scanning FAISS index
+              </div>
+              <div class="retrieval-step-card completed" id="step3">
+                <strong>[03] CONTEXT RETRIEVED</strong><br>
+                3 cross-modal chunks
+              </div>
+              <div class="retrieval-step-card active" id="step4">
+                <strong>[04] GROUNDED SYNTHESIS</strong><br>
+                Source attribution locked
               </div>
             </div>
 
-            <!-- Discovery Step Indicators -->
-            <div class="pl-12 space-y-2">
-              <div class="inline-flex items-center text-xs text-indigo-700 bg-indigo-50 px-3 py-1.5 rounded-full border border-indigo-100 font-mono">
-                <svg class="w-3.5 h-3.5 mr-1.5 text-indigo-600 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
-                Correlating audio transcription & signed proposal PDF...
+            <!-- Answer Box -->
+            <div class="simulated-answer-card">
+              <div class="ans-meta">
+                <span class="mono" style="font-size: 0.75rem; font-weight: 700; color: var(--accent-orange);">GROUNDED RESPONSE (LOCAL INFERENCE)</span>
+                <span class="brutal-badge brutal-badge-green" style="font-size: 0.7rem;">CONFIDENCE: 98.6%</span>
               </div>
-            </div>
-
-            <!-- MIRA Grounded Answer -->
-            <div class="flex items-start space-x-3">
-              <span class="px-2.5 py-1 rounded-md bg-indigo-600 text-white text-[11px] font-mono font-semibold uppercase tracking-wider shrink-0 mt-1">
-                MIRA
-              </span>
-              <div class="flex-1 space-y-4">
-                <div class="p-5 rounded-2xl bg-indigo-50/40 border border-indigo-100 text-slate-900 text-sm sm:text-base leading-relaxed">
-                  <p class="font-medium">
-                    The approved project budget was <span class="bg-amber-100 px-1.5 py-0.5 rounded font-bold text-slate-950 border border-amber-200">₹24.5 lakh</span>.
-                  </p>
-                  <p class="text-xs text-slate-600 mt-2">
-                    This was agreed during the steering committee call on July 10th and formalized in the signed project charter document.
-                  </p>
-                </div>
-
-                <!-- Verified Supporting Evidence Cards -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-                  <!-- Source 1 -->
-                  <div class="p-3.5 rounded-xl bg-white border border-slate-200 shadow-xs flex items-start space-x-3 hover:border-indigo-300 transition">
-                    <span class="p-2 rounded-lg bg-indigo-50 text-indigo-600 shrink-0">
-                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
-                    </span>
-                    <div class="min-w-0 flex-1">
-                      <div class="flex items-center justify-between">
-                        <span class="text-xs font-mono font-bold text-slate-900 truncate">Meeting_Recording_July10.m4a</span>
-                        <span class="text-[10px] font-mono text-indigo-600 font-semibold">12:44</span>
-                      </div>
-                      <p class="text-[11px] text-slate-600 italic mt-1">“...approved ₹24.5 lakh for phase two infrastructure.”</p>
-                    </div>
-                  </div>
-
-                  <!-- Source 2 -->
-                  <div class="p-3.5 rounded-xl bg-white border border-slate-200 shadow-xs flex items-start space-x-3 hover:border-indigo-300 transition">
-                    <span class="p-2 rounded-lg bg-red-50 text-red-600 shrink-0">
-                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                    </span>
-                    <div class="min-w-0 flex-1">
-                      <div class="flex items-center justify-between">
-                        <span class="text-xs font-mono font-bold text-slate-900 truncate">Q3_Project_Charter_Signed.pdf</span>
-                        <span class="text-[10px] font-mono text-red-600 font-semibold">Page 4</span>
-                      </div>
-                      <p class="text-[11px] text-slate-600 italic mt-1">“Authorized CAPEX expenditure: ₹24,50,000 INR.”</p>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ======================================================================= -->
-    <!-- SECTION 4: MULTIMODAL CAPABILITIES (Visual Storytelling)                -->
-    <!-- ======================================================================= -->
-    <section id="multimodal" class="py-24 bg-slate-50/60 border-y border-slate-200/60 reveal-on-scroll">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center max-w-3xl mx-auto mb-14">
-          <span class="text-xs font-mono uppercase tracking-widest text-indigo-600 font-bold bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
-            Multimodal Intelligence
-          </span>
-          <h2 class="mt-4 text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
-            One assistant. Every medium.
-          </h2>
-          <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-            Information does not exist solely as text. MIRA parses and indexes documents, visual screenshots, audio recordings, video timelines, and quick notes as equal participants in your knowledge graph.
-          </p>
-        </div>
-
-        <!-- Modality Selector Tabs -->
-        <div class="flex flex-wrap items-center justify-center gap-2 mb-10">
-          <button class="modality-tab-btn px-4 py-2 rounded-xl text-xs font-semibold border transition-all flex items-center space-x-2" data-modality="docs">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-            <span>Documents (PDF / Word)</span>
-          </button>
-          <button class="modality-tab-btn px-4 py-2 rounded-xl text-xs font-semibold border transition-all flex items-center space-x-2" data-modality="images">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            <span>Images & Screenshots</span>
-          </button>
-          <button class="modality-tab-btn px-4 py-2 rounded-xl text-xs font-semibold border transition-all flex items-center space-x-2" data-modality="audio">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
-            <span>Audio & Speech</span>
-          </button>
-          <button class="modality-tab-btn px-4 py-2 rounded-xl text-xs font-semibold border transition-all flex items-center space-x-2" data-modality="video">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-            <span>Video & Footage</span>
-          </button>
-          <button class="modality-tab-btn px-4 py-2 rounded-xl text-xs font-semibold border transition-all flex items-center space-x-2" data-modality="text">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-            <span>Notes & Text</span>
-          </button>
-        </div>
-
-        <!-- Dynamic Container For Selected Modality -->
-        <div id="modality-detail-container" class="glass-panel rounded-3xl p-6 sm:p-10 border border-slate-200/90 shadow-card min-h-[380px] reveal-on-scroll" data-stagger="1">
-          <!-- Populated dynamically via JS -->
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ======================================================================= -->
-    <!-- SECTION 5: SEMANTIC SEARCH ("You don't need to remember where you saved it") -->
-    <!-- ======================================================================= -->
-    <section id="semantic" class="py-24 relative reveal-on-scroll">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center max-w-3xl mx-auto mb-14">
-          <span class="text-xs font-mono uppercase tracking-widest text-indigo-600 font-bold bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
-            Meaning-Based Discovery
-          </span>
-          <h2 class="mt-4 text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
-            You don’t need to remember where you saved it.
-          </h2>
-          <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-            MIRA understands context, synonyms, and conversational intent. Click any real-world query below to see how MIRA discovers relevant evidence across formats.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          <!-- Query Selector Column -->
-          <div class="lg:col-span-5 space-y-3">
-            <span class="text-xs font-mono uppercase tracking-wider text-slate-600 font-bold block mb-2">Try Real Customer Queries:</span>
-            
-            <button class="semantic-query-btn w-full text-left p-4 rounded-2xl border transition-all text-sm font-medium" data-scenario="q1">
-              <span class="font-bold block text-slate-900 mb-0.5">“Find the report about our 2024 international project.”</span>
-              <span class="text-xs text-slate-600 font-mono">Searches PDFs and sync audio</span>
-            </button>
-
-            <button class="semantic-query-btn w-full text-left p-4 rounded-2xl border transition-all text-sm font-medium" data-scenario="q2">
-              <span class="font-bold block text-slate-900 mb-0.5">“Show me screenshots related to the funding discussion.”</span>
-              <span class="text-xs text-slate-600 font-mono">Searches image OCR & video keyframes</span>
-            </button>
-
-            <button class="semantic-query-btn w-full text-left p-4 rounded-2xl border transition-all text-sm font-medium" data-scenario="q3">
-              <span class="font-bold block text-slate-900 mb-0.5">“What decisions were made during the last meeting?”</span>
-              <span class="text-xs text-slate-600 font-mono">Searches audio transcripts & markdown notes</span>
-            </button>
-
-            <button class="semantic-query-btn w-full text-left p-4 rounded-2xl border transition-all text-sm font-medium" data-scenario="q4">
-              <span class="font-bold block text-slate-900 mb-0.5">“Where did we discuss the deployment architecture?”</span>
-              <span class="text-xs text-slate-600 font-mono">Searches system RFCs & whiteboard snapshots</span>
-            </button>
-          </div>
-
-          <!-- Dynamic Results Viewer Column -->
-          <div class="lg:col-span-7 bg-slate-50/80 rounded-3xl p-6 border border-slate-200/90 shadow-card space-y-4">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-200">
-              <div>
-                <span class="text-[11px] font-mono uppercase tracking-wider text-slate-600 font-bold block">Active Query</span>
-                <p class="text-sm font-bold text-slate-900 font-heading" id="semantic-active-query">Loading...</p>
-              </div>
-              <div class="text-right">
-                <span class="text-[11px] font-mono px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100 font-semibold" id="semantic-highlight-tag">
-                  Semantic Extraction
-                </span>
-              </div>
-            </div>
-
-            <!-- Results container -->
-            <div class="space-y-3" id="semantic-results-container">
-              <!-- Populated dynamically via JS -->
-            </div>
-
-            <div class="pt-2 text-center text-xs text-slate-600 font-mono">
-              ⚡ Zero cloud round-trips • Queries resolved locally on device
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ======================================================================= -->
-    <!-- SECTION 6: PRIVACY ("AI that respects your privacy")                    -->
-    <!-- ======================================================================= -->
-    <section id="privacy" class="py-24 bg-emerald-50/20 border-y border-emerald-100/70 relative overflow-hidden reveal-on-scroll">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center max-w-3xl mx-auto mb-16">
-          <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-100/70 text-emerald-800 text-xs font-semibold mb-4 border border-emerald-200">
-            <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-            <span>Local-First Architecture</span>
-          </div>
-          <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
-            AI that respects your privacy.
-          </h2>
-          <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-            MIRA is built around a local-first philosophy. Your sensitive contracts, audio conversations, and personal screenshots stay on your machine—never fed into public training corpuses or held hostage by remote cloud vendors.
-          </p>
-        </div>
-
-        <!-- Privacy Architecture Showcase (Visual Sandbox Diagram) -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          
-          <!-- Visual Sandbox Ring -->
-          <div class="lg:col-span-6 flex justify-center">
-            <div class="relative w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-white privacy-ring flex items-center justify-center p-6 text-center">
               
-              <!-- Ambient Glow Pulse -->
-              <div class="absolute inset-0 rounded-full border border-emerald-300/40 animate-pulse"></div>
-
-              <div class="space-y-2 z-10">
-                <div class="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center mx-auto shadow-md shadow-emerald-600/20">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                </div>
-                <h4 class="text-base font-bold text-slate-900 font-heading">Your Device Sandbox</h4>
-                <p class="text-xs text-slate-600 max-w-[200px] mx-auto font-mono">
-                  All parsing, vector indexing & neural inference execute locally.
-                </p>
-                <div class="pt-2">
-                  <span class="inline-block text-[10px] font-mono text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200 font-semibold">
-                    Zero Outbound Sync Needed
-                  </span>
-                </div>
+              <div class="ans-body" id="simulatedAnswerText">
+                During the last board meeting, an operational budget of <strong>$1.85 Million</strong> was unanimously approved for Q3 infrastructure development. An additional contingent reserve of $300,000 was authorized specifically for on-premise hardware testing.
               </div>
 
-              <!-- Surrounding Local Data Orbit Chips -->
-              <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-white px-2.5 py-1 rounded-full shadow-xs border border-slate-200 text-[10px] font-mono text-slate-700 flex items-center space-x-1">
-                <span>📄 Local Documents</span>
-              </div>
-              <div class="absolute top-1/2 -right-6 -translate-y-1/2 bg-white px-2.5 py-1 rounded-full shadow-xs border border-slate-200 text-[10px] font-mono text-slate-700 flex items-center space-x-1">
-                <span>🎙 Audio Recordings</span>
-              </div>
-              <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-white px-2.5 py-1 rounded-full shadow-xs border border-slate-200 text-[10px] font-mono text-slate-700 flex items-center space-x-1">
-                <span>🖼 Screenshots & OCR</span>
-              </div>
-              <div class="absolute top-1/2 -left-6 -translate-y-1/2 bg-white px-2.5 py-1 rounded-full shadow-xs border border-slate-200 text-[10px] font-mono text-slate-700 flex items-center space-x-1">
-                <span>🎥 Video Frames</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Privacy Value Pillars -->
-          <div class="lg:col-span-6 space-y-4">
-            
-            <div class="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover-lift">
-              <div class="flex items-start space-x-3.5">
-                <div class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                </div>
-                <div>
-                  <h3 class="text-sm font-bold text-slate-900">Local-First Storage & Processing</h3>
-                  <p class="text-xs text-slate-600 mt-1 leading-relaxed">
-                    Your files are parsed and indexed on your laptop or workstation. Information remains stored in your machine's file system rather than on a third-party server.
-                  </p>
+              <!-- Sources Attached -->
+              <div class="sources-dock">
+                <span class="sources-dock-title">ATTACHED VERIFIED SOURCES (CLICK TO INSPECT TRACE):</span>
+                <div class="sources-chips-list" id="simulatedSourcesContainer">
+                  <button class="source-chip" data-source-id="SRC-01" data-filename="MEETING_RECORDING.MP4" data-offset="14:32 - 16:10" data-type="Audio / Video" data-conf="99.1%">
+                    <span style="color: var(--accent-orange);">[SRC-01]</span>
+                    <span>MEETING_RECORDING.MP4</span>
+                    <span class="mono" style="font-size: 0.7rem; color: #555;">(14:32)</span>
+                  </button>
+                  <button class="source-chip" data-source-id="SRC-02" data-filename="PROJECT_BUDGET_Q3.PDF" data-offset="Page 4, Table 2.1" data-type="PDF Document" data-conf="98.4%">
+                    <span style="color: var(--accent-orange);">[SRC-02]</span>
+                    <span>PROJECT_BUDGET_Q3.PDF</span>
+                    <span class="mono" style="font-size: 0.7rem; color: #555;">(Page 4)</span>
+                  </button>
+                  <button class="source-chip" data-source-id="SRC-03" data-filename="EXECUTIVE_NOTES.DOCX" data-offset="Section 4.3 Resolution" data-type="DOCX Document" data-conf="96.8%">
+                    <span style="color: var(--accent-orange);">[SRC-03]</span>
+                    <span>EXECUTIVE_NOTES.DOCX</span>
+                    <span class="mono" style="font-size: 0.7rem; color: #555;">(§4.3)</span>
+                  </button>
                 </div>
               </div>
-            </div>
 
-            <div class="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover-lift">
-              <div class="flex items-start space-x-3.5">
-                <div class="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center shrink-0 mt-0.5">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636a9 9 0 010 12.728m0 0l-2.829-2.829m2.829 2.829L21 21M15.536 8.464a5 5 0 010 7.072m0 0l-2.829-2.829m-4.243 4.243a9 9 0 01-12.728 0m0 0l2.829-2.829m-2.829 2.829L3 21m2.828-15.536a9 9 0 0112.728 0m0 0l-2.829 2.829M8.464 15.536a5 5 0 010-7.072m0 0l2.829 2.829"/></svg>
-                </div>
-                <div>
-                  <h3 class="text-sm font-bold text-slate-900">Offline-Capable Workflows</h3>
-                  <p class="text-xs text-slate-600 mt-1 leading-relaxed">
-                    Search and interact with your personal knowledge archive while in airplane mode, during remote travel, or in secure environments with zero connectivity.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover-lift">
-              <div class="flex items-start space-x-3.5">
-                <div class="w-8 h-8 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                </div>
-                <div>
-                  <h3 class="text-sm font-bold text-slate-900">Reduced Cloud Dependence</h3>
-                  <p class="text-xs text-slate-600 mt-1 leading-relaxed">
-                    Maintain sovereignty over your intellectual property. You decide which external models to optionally connect to, with explicit opt-in controls.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ======================================================================= -->
-    <!-- SECTION 7: CUSTOMER AUDIENCES & USE CASES                              -->
-    <!-- ======================================================================= -->
-    <section id="audiences" class="py-24 relative reveal-on-scroll">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center max-w-3xl mx-auto mb-14">
-          <span class="text-xs font-mono uppercase tracking-widest text-indigo-600 font-bold bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
-            Tailored For Real Work
-          </span>
-          <h2 class="mt-4 text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
-            Built for those who value their knowledge.
-          </h2>
-          <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-            Whether you run a business, conduct academic research, or want a private second brain for daily life—MIRA works with the files you already own.
-          </p>
-        </div>
-
-        <!-- Audience Switcher Buttons -->
-        <div class="flex flex-wrap items-center justify-center gap-3 mb-10">
-          <button class="audience-tab-btn px-5 py-2.5 rounded-full text-xs font-semibold border border-slate-200 transition-all shadow-xs" data-persona="companies">
-            🏢 For Companies & Teams
-          </button>
-          <button class="audience-tab-btn px-5 py-2.5 rounded-full text-xs font-semibold border border-slate-200 transition-all shadow-xs" data-persona="researchers">
-            🔬 For Researchers & Academics
-          </button>
-          <button class="audience-tab-btn px-5 py-2.5 rounded-full text-xs font-semibold border border-slate-200 transition-all shadow-xs" data-persona="individuals">
-            🛡️ For Privacy-Minded Individuals
-          </button>
-        </div>
-
-        <!-- Dynamic Card -->
-        <div id="audience-detail-card" class="transition-all duration-300">
-          <!-- Populated dynamically via JS -->
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ======================================================================= -->
-    <!-- SECTION 8: CITATIONS & TRUST ("Know where it came from")                -->
-    <!-- ======================================================================= -->
-    <section class="py-24 bg-slate-50/60 border-y border-slate-200/60 relative reveal-on-scroll">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center max-w-3xl mx-auto mb-14">
-          <span class="text-xs font-mono uppercase tracking-widest text-emerald-600 font-bold bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">
-            Uncompromising Accuracy
-          </span>
-          <h2 class="mt-4 text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
-            Don’t just get an answer.<br class="hidden sm:inline" />
-            Know where it came from.
-          </h2>
-          <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-            Hallucinations have no place in serious workflows. Every assertion MIRA produces links directly back to the exact paragraph, timestamp, or diagram that proved it.
-          </p>
-        </div>
-
-        <!-- Interactive Citation Demonstration -->
-        <div class="bg-white rounded-3xl border border-slate-200 shadow-card p-6 sm:p-10 max-w-4xl mx-auto">
-          <div class="space-y-4">
-            
-            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
-              <span class="text-[11px] font-mono uppercase tracking-wider text-slate-600 font-bold block mb-1">Interactive Answer Demonstration</span>
-              <p class="text-sm sm:text-base text-slate-800 leading-relaxed">
-                “The steering committee ratified the Phase 2 budget at ₹24.5 lakh 
-                <button class="citation-pill-demo inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200 hover:bg-indigo-100 transition cursor-pointer" data-citation="c1">
-                  [1: Audio 12:44]
-                </button>, 
-                with final vendor execution contracts signed on July 14th 
-                <button class="citation-pill-demo inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-semibold bg-red-50 text-red-700 border border-red-200 hover:bg-red-100 transition cursor-pointer" data-citation="c2">
-                  [2: PDF Page 4]
-                </button>.”
-              </p>
-              <span class="text-[11px] text-slate-600 block mt-2">💡 Click on either citation tag above to inspect the exact underlying evidence.</span>
-            </div>
-
-            <!-- Inspect detail box -->
-            <div id="citation-detail-inspect" class="transition-all duration-300">
-              <div class="p-4 bg-slate-50/50 rounded-xl border border-dashed border-slate-200 text-center text-xs text-slate-600 font-mono">
-                Click [1: Audio 12:44] or [2: PDF Page 4] to inspect source verification.
-              </div>
             </div>
 
           </div>
@@ -793,318 +701,730 @@
       </div>
     </section>
 
-    <!-- ======================================================================= -->
-    <!-- SECTION 9: VISUAL CONVERGENCE ("Different formats. One space.")         -->
-    <!-- ======================================================================= -->
-    <section class="py-24 relative overflow-hidden bg-gradient-to-b from-white via-indigo-50/20 to-white reveal-on-scroll">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <!-- ======================================================================
+         11. SECTION: GROUNDED ANSWERS & CITATIONS
+         ====================================================================== -->
+    <section class="section grounded-section">
+      <div class="container">
         
-        <div class="max-w-3xl mx-auto mb-16">
-          <span class="text-xs font-mono uppercase tracking-widest text-indigo-600 font-bold bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
-            Harmonious Unification
-          </span>
-          <h2 class="mt-4 text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
-            Different formats.<br />
-            One searchable knowledge space.
-          </h2>
-          <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-            Your ideas don't care what file extension they were saved as. MIRA creates a single cohesive intelligence layer over all of them.
+        <div class="section-tag-row">
+          <span class="section-num">07</span>
+          <span class="section-category">VERIFIABLE TRACEABILITY</span>
+        </div>
+
+        <h2 class="section-heading-large">
+          AN ANSWER SHOULD HAVE A TRACE.<br>
+          DON'T JUST TRUST. VERIFY.
+        </h2>
+        <p class="section-subheading">
+          Generic AI tools generate plausible-sounding text from memory without accountability. MIRA enforces strict source-level citations: every statement links directly to an original page, audio second, or image frame on your machine.
+        </p>
+
+        <!-- Horizontal Pipeline Trace -->
+        <div class="horizontal-trace-pipeline">
+          <div class="trace-node">
+            <span class="mono" style="font-size: 0.7rem; color: var(--text-muted);">STEP 01</span>
+            <div style="font-weight: 700; font-size: 1.05rem;">USER QUERY</div>
+            <div class="mono" style="font-size: 0.7rem; color: #666;">Natural Language</div>
+          </div>
+          <div class="trace-arrow">→</div>
+
+          <div class="trace-node">
+            <span class="mono" style="font-size: 0.7rem; color: var(--text-muted);">STEP 02</span>
+            <div style="font-weight: 700; font-size: 1.05rem;">SEMANTIC RETRIEVAL</div>
+            <div class="mono" style="font-size: 0.7rem; color: #666;">FAISS / ChromaDB</div>
+          </div>
+          <div class="trace-arrow">→</div>
+
+          <div class="trace-node">
+            <span class="mono" style="font-size: 0.7rem; color: var(--text-muted);">STEP 03</span>
+            <div style="font-weight: 700; font-size: 1.05rem;">RELEVANT KNOWLEDGE</div>
+            <div class="mono" style="font-size: 0.7rem; color: #666;">Top-K Chunks</div>
+          </div>
+          <div class="trace-arrow">→</div>
+
+          <div class="trace-node">
+            <span class="mono" style="font-size: 0.7rem; color: var(--text-muted);">STEP 04</span>
+            <div style="font-weight: 700; font-size: 1.05rem;">CONTEXT BOUNDING</div>
+            <div class="mono" style="font-size: 0.7rem; color: #666;">MemoryAgentV2</div>
+          </div>
+          <div class="trace-arrow">→</div>
+
+          <div class="trace-node">
+            <span class="mono" style="font-size: 0.7rem; color: var(--text-muted);">STEP 05</span>
+            <div style="font-weight: 700; font-size: 1.05rem;">LANGUAGE MODEL</div>
+            <div class="mono" style="font-size: 0.7rem; color: #666;">Ollama / Configured LLM</div>
+          </div>
+          <div class="trace-arrow">→</div>
+
+          <div class="trace-node highlight-node">
+            <span class="mono" style="font-size: 0.7rem; color: #000; font-weight: 700;">STEP 06</span>
+            <div style="font-weight: 700; font-size: 1.05rem;">GROUNDED ANSWER</div>
+            <div class="mono" style="font-size: 0.7rem; font-weight: 700;">+ SOURCE CITATIONS</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 36px; padding: 24px; background: var(--bg-surface-alt); border: var(--border-thick);">
+          <div class="mono" style="font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;">HOW SOURCE AUDITING WORKS:</div>
+          <p style="font-size: 0.95rem; color: var(--text-muted);">
+            When MIRA returns a response, each factual clause is tagged with an immutable citation token. Users can inspect the exact raw excerpt, view surrounding paragraphs, check recording timestamps, or open the source file directly in native desktop software.
           </p>
         </div>
 
-        <!-- Convergence Visual Stage -->
-        <div class="relative max-w-3xl mx-auto p-8 rounded-3xl glass-panel-elevated border border-slate-200 shadow-2xl">
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         12. SECTION: PRIVACY (VISUAL PERIMETER BOUNDARY)
+         ====================================================================== -->
+    <section class="section privacy-section" id="privacy">
+      <div class="container">
+        
+        <div class="section-tag-row">
+          <span class="section-num">08</span>
+          <span class="section-category">ARCHITECTURE OF TRUST</span>
+        </div>
+
+        <h2 class="section-heading-large">
+          PRIVATE KNOWLEDGE<br>
+          DESERVES A PRIVATE WORKFLOW.
+        </h2>
+        <p class="section-subheading">
+          Built from the ground up for sensitive documentation, internal reports, recordings, and confidential project knowledge. Local-first architecture keeps your information closer to home.
+        </p>
+
+        <div class="privacy-boundary-container">
           
-          <!-- Converging Icons Row -->
-          <div class="grid grid-cols-5 gap-2 sm:gap-4 mb-8">
-            <div class="flex flex-col items-center space-y-1.5 p-3 rounded-xl bg-white border border-slate-200/90 shadow-xs animate-float-slow">
-              <div class="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center font-bold text-xs">PDF</div>
-              <span class="text-[11px] font-mono text-slate-600 hidden sm:inline">Documents</span>
+          <!-- Inner Perimeter: Your Machine -->
+          <div class="privacy-boundary-wall">
+            <span class="privacy-wall-badge">LOCAL BOUNDARY // YOUR MACHINE</span>
+            
+            <div class="privacy-internal-grid">
+              <div class="privacy-machine-card">
+                <span class="mono" style="font-size: 0.7rem; color: var(--accent-orange); font-weight: 700;">LOCAL REPOSITORY</span>
+                <h4 style="font-size: 1.2rem; margin: 8px 0;">DOCUMENTS & MEDIA</h4>
+                <p style="font-size: 0.88rem; color: var(--text-muted);">PDFs, DOCX, audio recordings, images, and videos stay stored on your local hard drive.</p>
+              </div>
+
+              <div class="privacy-machine-card">
+                <span class="mono" style="font-size: 0.7rem; color: var(--accent-blue); font-weight: 700;">IN-MEMORY INDEX</span>
+                <h4 style="font-size: 1.2rem; margin: 8px 0;">VECTOR MEMORY</h4>
+                <p style="font-size: 0.88rem; color: var(--text-muted);">FAISS and ChromaDB store mathematical embeddings locally without external sync mandates.</p>
+              </div>
+
+              <div class="privacy-machine-card">
+                <span class="mono" style="font-size: 0.7rem; color: var(--accent-green); font-weight: 700;">OFFLINE ENGINE</span>
+                <h4 style="font-size: 1.2rem; margin: 8px 0;">LOCAL PROCESSING</h4>
+                <p style="font-size: 0.88rem; color: var(--text-muted);">OCR, FasterWhisper speech transcription, and chunking run entirely on your local CPU / GPU.</p>
+              </div>
             </div>
-            <div class="flex flex-col items-center space-y-1.5 p-3 rounded-xl bg-white border border-slate-200/90 shadow-xs animate-float-reverse">
-              <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs">PNG</div>
-              <span class="text-[11px] font-mono text-slate-600 hidden sm:inline">Screenshots</span>
-            </div>
-            <div class="flex flex-col items-center space-y-1.5 p-3 rounded-xl bg-white border border-slate-200/90 shadow-xs animate-float-slow" style="animation-delay: -1.5s;">
-              <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-xs">M4A</div>
-              <span class="text-[11px] font-mono text-slate-600 hidden sm:inline">Voice Audio</span>
-            </div>
-            <div class="flex flex-col items-center space-y-1.5 p-3 rounded-xl bg-white border border-slate-200/90 shadow-xs animate-float-reverse" style="animation-delay: -2s;">
-              <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-xs">MP4</div>
-              <span class="text-[11px] font-mono text-slate-600 hidden sm:inline">Video Calls</span>
-            </div>
-            <div class="flex flex-col items-center space-y-1.5 p-3 rounded-xl bg-white border border-slate-200/90 shadow-xs animate-float-slow" style="animation-delay: -3.5s;">
-              <div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-xs">MD</div>
-              <span class="text-[11px] font-mono text-slate-600 hidden sm:inline">Plain Notes</span>
+
+            <div style="margin-top: 24px; display: flex; flex-wrap: wrap; gap: 12px;">
+              <span class="brutal-badge brutal-badge-green">LOCAL-FIRST</span>
+              <span class="brutal-badge brutal-badge-yellow">OFFLINE-CAPABLE</span>
+              <span class="brutal-badge brutal-badge-dark">BUILT FOR SENSITIVE INFORMATION</span>
             </div>
           </div>
 
-          <!-- Convergence Funnel Arrow -->
-          <div class="flex justify-center mb-6">
-            <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center animate-bounce shadow-md shadow-indigo-600/20">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+          <!-- Outer Perimeter: External Cloud Context -->
+          <div class="privacy-outside-cloud">
+            <div class="mono" style="font-size: 0.8rem; font-weight: 700;">
+              EXTERNAL SERVICES / CLOUD PROVIDERS (OPTIONAL ONLY)
+            </div>
+            <div class="mono" style="font-size: 0.75rem; color: #555;">
+              CONTROLLED BY YOUR CONFIGURATION
             </div>
           </div>
 
-          <!-- The Unified Core Centerpiece with Animated Ripples -->
-          <div class="relative p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-slate-900 to-indigo-950 text-white shadow-xl overflow-hidden">
-            <!-- Ripple wave rings -->
-            <div class="absolute -inset-2 rounded-2xl border border-indigo-400/30 animate-ripple pointer-events-none"></div>
-            <div class="absolute inset-0 bg-gradient-to-r from-indigo-500/10 via-emerald-500/10 to-indigo-500/10 animate-pulse"></div>
+          <!-- Unobtrusive Clarification Note -->
+          <div class="privacy-clarification-note">
+            <strong>TRANSPARENCY NOTE:</strong> Actual privacy characteristics depend on the language model and external services selected for a deployment. In fully offline setups (e.g., local Ollama checkpoints), zero data leaves your device. If an external API is configured, only the retrieved context chunks are transmitted to that provider.
+          </div>
 
-            <div class="relative z-10 flex items-center justify-center space-x-2.5 mb-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 status-beacon"></span>
-              <span class="font-heading font-extrabold text-lg sm:text-xl tracking-tight">MIRA Unified Knowledge Core</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         13. SECTION: TARGET AUDIENCES
+         ====================================================================== -->
+    <section class="section audiences-section">
+      <div class="container">
+        
+        <div class="section-tag-row">
+          <span class="section-num">09</span>
+          <span class="section-category">USE CASE DOMAINS</span>
+        </div>
+
+        <h2 class="section-heading-large">
+          DESIGNED FOR THOSE WHO VALUE<br>
+          DATA SOVEREIGNTY.
+        </h2>
+        <p class="section-subheading">
+          Whether you manage proprietary organizational assets, intricate academic research archives, or a massive personal library of recordings and notes.
+        </p>
+
+        <div class="audiences-grid">
+          <!-- Companies -->
+          <div class="audience-column">
+            <div>
+              <span class="brutal-badge brutal-badge-blue">FOR ORGANIZATIONS</span>
+              <h3 style="font-size: 1.6rem; margin-top: 14px; margin-bottom: 12px;">
+                YOUR INTERNAL KNOWLEDGE IS AN ASSET.
+              </h3>
+              <p style="font-size: 0.95rem; color: var(--text-muted);">
+                Work directly with confidential documentation without uploading proprietary source materials to third-party multi-tenant clouds.
+              </p>
+              <ul class="audience-use-cases-list">
+                <li>Internal financial & compliance reports</li>
+                <li>Confidential product architecture specs</li>
+                <li>Meeting recordings & standup voice memos</li>
+                <li>Design whiteboards & UI screenshots</li>
+                <li>Operational SOPs and internal handbooks</li>
+              </ul>
             </div>
-            <p class="relative z-10 text-xs sm:text-sm text-slate-300 max-w-md mx-auto">
-              Simultaneous cross-modal semantic indexing designed to run natively on your machine.
+            <div class="mono" style="font-size: 0.75rem; color: var(--text-muted); border-top: 2px dashed #ddd; padding-top: 12px;">
+              FOCUS: COMPLIANCE & PRIVACY
+            </div>
+          </div>
+
+          <!-- Researchers -->
+          <div class="audience-column">
+            <div>
+              <span class="brutal-badge brutal-badge-orange">FOR RESEARCHERS</span>
+              <h3 style="font-size: 1.6rem; margin-top: 14px; margin-bottom: 12px;">
+                RESEARCH IS MORE THAN PDFs.
+              </h3>
+              <p style="font-size: 0.95rem; color: var(--text-muted);">
+                Connect technical documentation, experimental audio interviews, visual microscopy diagrams, and handwritten notes into a coherent synthesis.
+              </p>
+              <ul class="audience-use-cases-list">
+                <li>Peer-reviewed paper repositories</li>
+                <li>Field recordings and conference audio</li>
+                <li>Technical diagrams & visual charts</li>
+                <li>Experimental observations & markdown notes</li>
+                <li>Longitudinal research archives</li>
+              </ul>
+            </div>
+            <div class="mono" style="font-size: 0.75rem; color: var(--text-muted); border-top: 2px dashed #ddd; padding-top: 12px;">
+              FOCUS: CROSS-MODAL SYNTHESIS
+            </div>
+          </div>
+
+          <!-- Individuals -->
+          <div class="audience-column">
+            <div>
+              <span class="brutal-badge brutal-badge-green">FOR INDIVIDUALS</span>
+              <h3 style="font-size: 1.6rem; margin-top: 14px; margin-bottom: 12px;">
+                YOUR FILES. YOUR CONTEXT. YOUR ASSISTANT.
+              </h3>
+              <p style="font-size: 0.95rem; color: var(--text-muted);">
+                A personal second brain that runs on your laptop. Query anything you’ve ever written, saved, heard, or screenshotted.
+              </p>
+              <ul class="audience-use-cases-list">
+                <li>Personal document library</li>
+                <li>Voice memos & spoken idea journals</li>
+                <li>Screenshots of tutorials and bookmarks</li>
+                <li>Tax receipts, leases, and contracts</li>
+                <li>Offline knowledge access on the go</li>
+              </ul>
+            </div>
+            <div class="mono" style="font-size: 0.75rem; color: var(--text-muted); border-top: 2px dashed #ddd; padding-top: 12px;">
+              FOCUS: LOCAL CONTROL & SPEED
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         14. SECTION: CONVERSATION & SEMANTIC MEMORY
+         ====================================================================== -->
+    <section class="section memory-section">
+      <div class="container">
+        
+        <div class="section-tag-row">
+          <span class="section-num">10</span>
+          <span class="section-category">STATE PERSISTENCE</span>
+        </div>
+
+        <h2 class="section-heading-large">
+          ASK A FOLLOW-UP.<br>
+          MIRA SHOULD KNOW WHAT YOU MEAN.
+        </h2>
+        <p class="section-subheading">
+          Real conversations aren't isolated queries. MIRA retains conversational context across turns, resolving pronouns, refining filters, and building semantic continuity.
+        </p>
+
+        <div class="memory-grid">
+          <!-- Conversation Memory Demonstration -->
+          <div class="chat-memory-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: var(--border-medium); padding-bottom: 12px;">
+              <span class="mono" style="font-size: 0.78rem; font-weight: 700;">CONVERSATION CONTEXT TRACE</span>
+              <span class="brutal-badge brutal-badge-yellow" style="font-size: 0.65rem;">SESSION MEMORY</span>
+            </div>
+
+            <!-- Turn 1 User -->
+            <div class="chat-bubble chat-bubble-user">
+              <span class="mono" style="font-size: 0.65rem; color: #444; display: block;">USER // TURN 01</span>
+              “What was the approved project budget?”
+            </div>
+
+            <!-- Turn 1 MIRA -->
+            <div class="chat-bubble chat-bubble-mira">
+              <span class="mono" style="font-size: 0.65rem; color: var(--accent-orange); display: block;">MIRA // RESPONSE</span>
+              “The approved budget was $1.85 Million for Q3 infrastructure development.”
+            </div>
+
+            <!-- Context Wire -->
+            <div class="chat-memory-connector-wire">
+              <span>↳ MEMORY LINK: "it" RESOLVED TO "approved project budget ($1.85M)"</span>
+            </div>
+
+            <!-- Turn 2 User -->
+            <div class="chat-bubble chat-bubble-user">
+              <span class="mono" style="font-size: 0.65rem; color: #444; display: block;">USER // TURN 02</span>
+              “When was it approved?”
+            </div>
+
+            <!-- Turn 2 MIRA -->
+            <div class="chat-bubble chat-bubble-mira">
+              <span class="mono" style="font-size: 0.65rem; color: var(--accent-orange); display: block;">MIRA // CONTEXT-AWARE RESPONSE</span>
+              “It was approved on August 14, 2025 during the Executive Board Synchronization meeting.”
+            </div>
+          </div>
+
+          <!-- Semantic Vector Index Box -->
+          <div class="vector-memory-card">
+            <span class="mono" style="font-size: 0.75rem; color: var(--accent-yellow); font-weight: 700;">PERSISTENT INDEXING</span>
+            <h3 style="font-size: 1.8rem; margin: 12px 0;">BUILD THE INDEX ONCE.<br>KEEP THE KNOWLEDGE SEARCHABLE.</h3>
+            <p style="color: #bbb; font-size: 0.95rem; line-height: 1.6;">
+              MIRA builds persistent semantic vector stores on disk. Once ingested, documents, audio clips, and visual frames do not need to be re-processed. Subsequent queries execute with sub-second latency.
+            </p>
+
+            <div class="vector-store-badges">
+              <span class="brutal-badge brutal-badge-dark" style="border-color: #555;">FAISS IN-MEMORY INDEX</span>
+              <span class="brutal-badge brutal-badge-dark" style="border-color: #555;">CHROMADB COLLECTION</span>
+              <span class="brutal-badge brutal-badge-dark" style="border-color: #555;">SQLITE METADATA</span>
+            </div>
+
+            <div style="background: #1C1C1C; border: 2px solid #444; padding: 18px; margin-top: 20px;">
+              <div class="mono" style="font-size: 0.75rem; color: var(--accent-green); margin-bottom: 6px;">
+                // RETRIEVAL ENGINE BENCHMARK
+              </div>
+              <div class="mono" style="font-size: 0.82rem; color: #ccc;">
+                KNN Similarity Search: ~4.8ms<br>
+                Embedding Chunk Retrieval: Sub-12ms<br>
+                Disk Footprint: ~1.2MB per 1,000 pages
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         15. SECTION: ARCHITECTURE & TECHNOLOGY
+         ====================================================================== -->
+    <section class="section arch-section" id="architecture">
+      <div class="container">
+        
+        <div class="section-tag-row">
+          <span class="section-num">11</span>
+          <span class="section-category">MODULAR SYSTEM DESIGN</span>
+        </div>
+
+        <h2 class="section-heading-large">
+          AN EXPANDABLE<br>
+          TECHNICAL LAYER.
+        </h2>
+        <p class="section-subheading">
+          MIRA is built as an open, modular information engine. Click on any architectural component below to inspect its responsibilities and inter-system data flow.
+        </p>
+
+        <div class="arch-visualizer">
+          <!-- Layer 1: Frontend Desktop -->
+          <div class="arch-layer-row">
+            <button class="arch-node selected" data-arch="electron">
+              <span>🖥 ELECTRON DESKTOP</span>
+            </button>
+          </div>
+          <div style="text-align: center; font-size: 1.2rem; color: var(--accent-orange); margin: -10px 0 10px 0;">↓ IPC BRIDGE</div>
+
+          <!-- Layer 2: API Gateway -->
+          <div class="arch-layer-row">
+            <button class="arch-node" data-arch="fastapi">
+              <span>⚡ FASTAPI BACKEND SERVER</span>
+            </button>
+          </div>
+          <div style="text-align: center; font-size: 1.2rem; color: var(--accent-orange); margin: -10px 0 10px 0;">↓ ORCHESTRATION</div>
+
+          <!-- Layer 3: MemoryAgent Core -->
+          <div class="arch-layer-row">
+            <button class="arch-node" data-arch="memoryagent">
+              <span>🧠 MEMORYAGENTV2 CORE</span>
+            </button>
+          </div>
+          <div style="text-align: center; font-size: 1.2rem; color: var(--accent-orange); margin: -10px 0 10px 0;">↓ BIDIRECTIONAL PIPELINE</div>
+
+          <!-- Layer 4: Multimodal + Storage -->
+          <div class="arch-layer-row" style="flex-wrap: wrap;">
+            <button class="arch-node" data-arch="multimodal">
+              <span>👁 MULTIMODAL INGESTION<br>(OCR, BLIP, OPENCLIP, WHISPER)</span>
+            </button>
+            <span style="font-size: 1.5rem; font-weight: 700; color: var(--border-color);">⇄</span>
+            <button class="arch-node" data-arch="vectorstorage">
+              <span>📦 VECTOR STORAGE<br>(FAISS & CHROMADB)</span>
+            </button>
+          </div>
+          <div style="text-align: center; font-size: 1.2rem; color: var(--accent-orange); margin: 10px 0;">↓ CONTEXT INJECTION</div>
+
+          <!-- Layer 5: Language Model -->
+          <div class="arch-layer-row">
+            <button class="arch-node" data-arch="llm">
+              <span>🤖 PLUGGABLE LLM RUNTIME<br>(OLLAMA / LLAMA / COHERE / GEMINI)</span>
+            </button>
+          </div>
+          <div style="text-align: center; font-size: 1.2rem; color: var(--accent-orange); margin: 10px 0;">↓ ATTRIBUTION ENFORCEMENT</div>
+
+          <!-- Layer 6: Output -->
+          <div class="arch-layer-row">
+            <button class="arch-node" data-arch="grounded" style="background: var(--accent-yellow);">
+              <span>🎯 GROUNDED RESPONSE + CITATION METADATA</span>
+            </button>
+          </div>
+
+          <!-- Dynamic Description Panel -->
+          <div class="arch-node-desc-panel" id="archDescPanel">
+            <strong>ELECTRON DESKTOP LAYER:</strong> Provides the cross-platform native desktop application shell, window management, local file system dialogs, and low-latency IPC communication with the backend process.
+          </div>
+        </div>
+
+        <!-- Documented Tech Stack Grid -->
+        <div style="margin-top: 60px;">
+          <h3 style="font-size: 1.4rem; margin-bottom: 20px;">DOCUMENTED TECHNOLOGY STACK:</h3>
+          <div class="tech-grid">
+            <div class="tech-block">
+              <div class="tech-name">Electron</div>
+              <div class="tech-role">Desktop UI & File IPC Bridge</div>
+            </div>
+            <div class="tech-block">
+              <div class="tech-name">FastAPI</div>
+              <div class="tech-role">Asynchronous Backend Server</div>
+            </div>
+            <div class="tech-block">
+              <div class="tech-name">FAISS</div>
+              <div class="tech-role">Dense Vector Similarity Engine</div>
+            </div>
+            <div class="tech-block">
+              <div class="tech-name">ChromaDB</div>
+              <div class="tech-role">Persistent Document Collections</div>
+            </div>
+            <div class="tech-block">
+              <div class="tech-name">FasterWhisper</div>
+              <div class="tech-role">Fast Local Speech-to-Text</div>
+            </div>
+            <div class="tech-block">
+              <div class="tech-name">OpenCLIP</div>
+              <div class="tech-role">Multimodal Image-Text Embeddings</div>
+            </div>
+            <div class="tech-block">
+              <div class="tech-name">BLIP</div>
+              <div class="tech-role">Visual Reasoning & Captioning</div>
+            </div>
+            <div class="tech-block">
+              <div class="tech-name">SQLite / JSON</div>
+              <div class="tech-role">Local Session & Metadata Storage</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         16. SECTION: ACTIVE DEVELOPMENT & ROADMAP
+         ====================================================================== -->
+    <section class="section dev-section" id="roadmap">
+      <div class="container">
+        
+        <div class="section-tag-row">
+          <span class="section-num" style="background: #000; color: #fff;">12</span>
+          <span class="section-category" style="color: #000;">PROJECT VELOCITY</span>
+        </div>
+
+        <h2 class="section-heading-large" style="color: #000;">
+          MIRA IS STILL MOVING.
+        </h2>
+        <p class="section-subheading" style="color: #222;">
+          MIRA is under active engineering. We do not pretend this is a sealed legacy product; it is an evolving, local-first platform pushing the frontier of multimodal retrieval.
+        </p>
+
+        <div class="dev-grid">
+          <div class="dev-metric-box">
+            <div class="mono" style="font-size: 0.72rem; color: var(--accent-orange); font-weight: 700;">FOCUS 01</div>
+            <h4 style="font-size: 1.1rem; margin: 6px 0;">RETRIEVAL QUALITY</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Continuous refinement of hybrid dense-sparse vector scoring.</p>
+          </div>
+          <div class="dev-metric-box">
+            <div class="mono" style="font-size: 0.72rem; color: var(--accent-blue); font-weight: 700;">FOCUS 02</div>
+            <h4 style="font-size: 1.1rem; margin: 6px 0;">MULTIMODAL UNDERSTANDING</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Expanded visual tokenization for dense tables, charts, and video.</p>
+          </div>
+          <div class="dev-metric-box">
+            <div class="mono" style="font-size: 0.72rem; color: var(--accent-green); font-weight: 700;">FOCUS 03</div>
+            <h4 style="font-size: 1.1rem; margin: 6px 0;">SOURCE TRACEABILITY</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Granular sub-paragraph and exact audio timestamp citations.</p>
+          </div>
+          <div class="dev-metric-box">
+            <div class="mono" style="font-size: 0.72rem; color: #000; font-weight: 700;">FOCUS 04</div>
+            <h4 style="font-size: 1.1rem; margin: 6px 0;">DESKTOP USABILITY</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Zero-setup local model downloads with automated hardware detection.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         17. SECTION: FUTURE ROADMAP
+         ====================================================================== -->
+    <section class="section roadmap-section">
+      <div class="container">
+        
+        <div class="section-tag-row">
+          <span class="section-num">13</span>
+          <span class="section-category">TRAJECTORY</span>
+        </div>
+
+        <h2 class="section-heading-large">
+          WHAT COMES NEXT?
+        </h2>
+        <p class="section-subheading">
+          Documented upcoming architectural milestones. Each area represents active research and future planned enhancements:
+        </p>
+
+        <div class="roadmap-grid">
+          <div class="roadmap-card">
+            <span class="future-tag">UPCOMING DIRECTION</span>
+            <h4 style="font-size: 1.25rem; margin-bottom: 8px;">ADVANCED VIDEO UNDERSTANDING</h4>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">
+              Deep temporal frame extraction and scene segmentation for multi-hour lectures and screen shares.
             </p>
           </div>
 
+          <div class="roadmap-card">
+            <span class="future-tag">UPCOMING DIRECTION</span>
+            <h4 style="font-size: 1.25rem; margin-bottom: 8px;">CROSS-ENCODER RERANKING</h4>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">
+              Secondary reranking stage using local BGE / Cohere cross-encoders to push precision at top-3 retrieval.
+            </p>
+          </div>
+
+          <div class="roadmap-card">
+            <span class="future-tag">UPCOMING DIRECTION</span>
+            <h4 style="font-size: 1.25rem; margin-bottom: 8px;">BROADER LLM RUNTIMES</h4>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">
+              Expanded out-of-the-box support for emerging lightweight local models (Gemma 2, Llama 3.2, Qwen 2.5).
+            </p>
+          </div>
+
+          <div class="roadmap-card">
+            <span class="future-tag">UPCOMING DIRECTION</span>
+            <h4 style="font-size: 1.25rem; margin-bottom: 8px;">INTERACTIVE CITATION VIEWER</h4>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">
+              In-app split-pane PDF viewer with highlighted bounding boxes over verified source chunks.
+            </p>
+          </div>
+
+          <div class="roadmap-card">
+            <span class="future-tag">UPCOMING DIRECTION</span>
+            <h4 style="font-size: 1.25rem; margin-bottom: 8px;">WORKSPACE PARTITIONS</h4>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">
+              Multi-vault support to isolate confidential enterprise projects from personal research repositories.
+            </p>
+          </div>
+
+          <div class="roadmap-card">
+            <span class="future-tag">UPCOMING DIRECTION</span>
+            <h4 style="font-size: 1.25rem; margin-bottom: 8px;">AUTONOMOUS AGENT TOOLS</h4>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">
+              Task planning capabilities that autonomously chain multi-step search queries across disparate file formats.
+            </p>
+          </div>
         </div>
 
       </div>
     </section>
 
-    <!-- ======================================================================= -->
-    <!-- SECTION 10: SIMPLE 4-STEP JOURNEY                                       -->
-    <!-- ======================================================================= -->
-    <section class="py-24 bg-white/70 border-y border-slate-200/60 relative reveal-on-scroll">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- ======================================================================
+         18. SECTION: ORIGIN (SMART INDIA HACKATHON)
+         ====================================================================== -->
+    <section class="section origin-section">
+      <div class="container">
+        <div class="origin-card">
+          <div>
+            <span class="brutal-badge brutal-badge-dark" style="margin-bottom: 12px;">PROJECT GENESIS</span>
+            <h3 style="font-size: 2rem; margin-bottom: 12px;">BORN AT SMART INDIA HACKATHON.</h3>
+            <div class="mono" style="font-size: 0.8rem; color: var(--accent-orange); font-weight: 700;">FROM HACKATHON PROTOTYPE TO MULTIMODAL PLATFORM</div>
+          </div>
+          <div>
+            <p style="font-size: 1rem; line-height: 1.6; color: var(--text-primary);">
+              MIRA originally began as part of the <strong>Smart India Hackathon</strong>, conceived to tackle the friction of finding information across fragmented documents, audio logs, and imagery. That initial spark has matured into a broader, local-first multimodal retrieval engine focused on user privacy and verifiable source attribution.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         19. FINAL SECTION: BIG STATEMENT & CALL TO ACTION
+         ====================================================================== -->
+    <section class="final-cta-section">
+      <div class="container">
         
-        <div class="text-center max-w-3xl mx-auto mb-16">
-          <span class="text-xs font-mono uppercase tracking-widest text-indigo-600 font-bold bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
-            Simplicity by Design
-          </span>
-          <h2 class="mt-4 text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
-            How MIRA works in practice.
-          </h2>
-          <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-            No complex setup, no data tagging rituals, and no cloud upload queues. Four straightforward steps from installation to answers.
-          </p>
+        <div class="brutal-badge brutal-badge-yellow" style="margin-bottom: 20px;">
+          YOUR DATA. YOUR KNOWLEDGE. YOUR MACHINE.
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          
-          <!-- Step 1 -->
-          <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover-lift flex flex-col justify-between">
-            <div>
-              <div class="w-10 h-10 rounded-2xl bg-slate-100 text-slate-900 font-heading font-extrabold flex items-center justify-center mb-4 text-sm">
-                01
-              </div>
-              <h3 class="text-base font-bold text-slate-900 mb-1">Add your information</h3>
-              <p class="text-xs text-slate-600 leading-relaxed">
-                Drag and drop your project folder, document directory, or recordings folder into MIRA.
-              </p>
-            </div>
-            <div class="mt-6 pt-4 border-t border-slate-100">
-              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200/70 text-[11px] font-mono text-slate-600 flex items-center justify-between">
-                <span>📁 ~/Projects/2024</span>
-                <span class="text-emerald-600 font-semibold">+ Monitored</span>
-              </div>
-            </div>
-          </div>
+        <h2 class="final-cta-headline">
+          YOUR DATA ALREADY<br>
+          HAS THE ANSWERS.
+        </h2>
+        <div class="final-cta-sub">
+          MIRA HELPS YOU FIND THEM.
+        </div>
 
-          <!-- Step 2 -->
-          <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover-lift flex flex-col justify-between">
-            <div>
-              <div class="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-700 font-heading font-extrabold flex items-center justify-center mb-4 text-sm">
-                02
-              </div>
-              <h3 class="text-base font-bold text-slate-900 mb-1">Let MIRA understand it</h3>
-              <p class="text-xs text-slate-600 leading-relaxed">
-                Local neural models extract text, transcribe spoken audio, and process visual frames automatically.
-              </p>
-            </div>
-            <div class="mt-6 pt-4 border-t border-slate-100">
-              <div class="p-2.5 rounded-xl bg-indigo-50/50 border border-indigo-100 text-[11px] font-mono text-indigo-900 flex items-center justify-between">
-                <span>Neural Local Indexing</span>
-                <span class="text-indigo-600 font-semibold">Indexing Finished</span>
-              </div>
-            </div>
-          </div>
+        <div class="final-btn-group">
+          <a href="coming-soon.html" class="brutal-btn brutal-btn-primary brutal-btn-lg">DOWNLOAD NOW ↗</a>
+          <a href="#hero" class="brutal-btn brutal-btn-dark brutal-btn-lg">EXPLORE MIRA ↑</a>
+        </div>
 
-          <!-- Step 3 -->
-          <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover-lift flex flex-col justify-between">
-            <div>
-              <div class="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-700 font-heading font-extrabold flex items-center justify-center mb-4 text-sm">
-                03
-              </div>
-              <h3 class="text-base font-bold text-slate-900 mb-1">Ask naturally</h3>
-              <p class="text-xs text-slate-600 leading-relaxed">
-                Type questions or describe what you remember in plain language, without requiring exact keywords.
-              </p>
-            </div>
-            <div class="mt-6 pt-4 border-t border-slate-100">
-              <div class="p-2.5 rounded-xl bg-emerald-50/50 border border-emerald-100 text-[11px] font-mono text-emerald-900 truncate">
-                “Who signed the partner SLA?”
-              </div>
-            </div>
-          </div>
-
-          <!-- Step 4 -->
-          <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover-lift flex flex-col justify-between">
-            <div>
-              <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-700 font-heading font-extrabold flex items-center justify-center mb-4 text-sm">
-                04
-              </div>
-              <h3 class="text-base font-bold text-slate-900 mb-1">Get grounded answers</h3>
-              <p class="text-xs text-slate-600 leading-relaxed">
-                Receive instant synthesis accompanied by clickable, verifiable citations back to the exact source.
-              </p>
-            </div>
-            <div class="mt-6 pt-4 border-t border-slate-100">
-              <div class="p-2.5 rounded-xl bg-amber-50/60 border border-amber-200 text-[11px] font-mono text-amber-900 flex items-center justify-between">
-                <span>Direct Citations</span>
-                <span class="text-emerald-700 font-bold">✓ Grounded</span>
-              </div>
-            </div>
-          </div>
-
+        <div class="mono" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 28px;">
+          LOCAL-FIRST // NO SURPRISES // ACTIVE ENGINEERING
         </div>
 
       </div>
     </section>
-
-    <!-- ======================================================================= -->
-    <!-- SECTION 11: TRUST & PRODUCT QUALITY                                     -->
-    <!-- ======================================================================= -->
-    <section class="py-20 bg-slate-50/40 relative reveal-on-scroll">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          <div class="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs">
-            <span class="text-2xl sm:text-3xl font-extrabold text-slate-900 font-heading block">5+</span>
-            <span class="text-xs text-slate-600 font-medium mt-1 block">Supported Native Modalities</span>
-          </div>
-          <div class="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs">
-            <span class="text-2xl sm:text-3xl font-extrabold text-emerald-600 font-heading block">Local-First</span>
-            <span class="text-xs text-slate-600 font-medium mt-1 block">Zero Mandatory Cloud Sync</span>
-          </div>
-          <div class="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs">
-            <span class="text-2xl sm:text-3xl font-extrabold text-indigo-600 font-heading block">Verifiable</span>
-            <span class="text-xs text-slate-600 font-medium mt-1 block">Transparent Source Citations</span>
-          </div>
-          <div class="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs">
-            <span class="text-2xl sm:text-3xl font-extrabold text-slate-900 font-heading block">Windows 11 / 10</span>
-            <span class="text-xs text-slate-600 font-medium mt-1 block">Native 64-bit Desktop App</span>
-          </div>
-        </div>
-
-        <div class="mt-8 text-center text-xs text-slate-600 font-mono">
-          MIRA is actively evolving. Native Windows desktop previews are currently being staged for our inaugural release cohort.
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ======================================================================= -->
-    <!-- SECTION 12: FINAL CALL TO ACTION (Spacious, Striking, Emotional Clarity)-->
-    <!-- ======================================================================= -->
-    <section class="py-28 relative overflow-hidden reveal-on-scroll">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        
-        <div class="p-10 sm:p-16 rounded-3xl bg-gradient-to-b from-white via-indigo-50/30 to-white border border-slate-200 shadow-2xl relative overflow-hidden">
-          
-          <!-- Subtle background accents -->
-          <div class="absolute top-0 right-0 w-80 h-80 bg-indigo-200/20 rounded-full blur-3xl pointer-events-none"></div>
-          <div class="absolute bottom-0 left-0 w-80 h-80 bg-emerald-200/20 rounded-full blur-3xl pointer-events-none"></div>
-
-          <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold mb-6">
-            <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
-            <span>Windows Desktop Edition</span>
-          </div>
-
-          <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight max-w-3xl mx-auto">
-            Your information is already there. <br class="hidden sm:inline" />
-            Start asking it questions.
-          </h2>
-
-          <p class="mt-6 text-base sm:text-lg text-slate-600 max-w-xl mx-auto leading-relaxed">
-            Bring your PDFs, screenshots, voice recordings, videos, and notes together into one unified experience that respects your privacy.
-          </p>
-
-          <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="coming-soon.html" class="w-full sm:w-auto inline-flex items-center justify-center px-9 py-4 rounded-2xl text-base font-semibold text-white bg-slate-900 hover:bg-indigo-600 transition-all duration-200 shadow-elevated hover:-translate-y-0.5 group">
-              Download MIRA for Windows
-              <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </a>
-          </div>
-
-          <p class="mt-6 text-xs text-slate-600 font-mono">
-            Built natively for Windows 11 & Windows 10 (64-bit)
-          </p>
-
-        </div>
-
-      </div>
-    </section>
-
   </main>
 
-  <!-- ========================================================================= -->
-  <!-- Footer                                                                    -->
-  <!-- ========================================================================= -->
-  <footer class="bg-white border-t border-slate-200 py-16 text-slate-600 text-xs">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- ========================================================================
+       20. DISTINCTIVE NEO-BRUTALIST FOOTER
+       ======================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
       
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-        <div class="space-y-3">
-          <div class="flex items-center space-x-2">
-            <span class="font-heading font-extrabold text-xl tracking-tight text-slate-900">MIRA</span>
-            <span class="text-[10px] font-mono tracking-wider uppercase text-slate-600 font-semibold border-l border-slate-300 pl-2">Desktop Intelligence</span>
+      <div class="footer-top-grid">
+        <!-- Col 1: Brand & Identity -->
+        <div class="footer-brand-col">
+          <div class="footer-logo">MIRA</div>
+          <div class="mono" style="font-size: 0.78rem; color: var(--accent-yellow); margin-bottom: 14px; font-weight: 700;">
+            MULTIMODAL INTELLIGENT RETRIEVAL & AUTONOMOUS ASSISTANT
           </div>
-          <p class="text-xs text-slate-600 leading-relaxed">
-            Multimodal Intelligent Retrieval & Autonomous Assistant. Local-first desktop search across documents, audio, images, video, and text.
+          <p style="font-size: 0.9rem; color: #999; line-height: 1.5; max-width: 380px;">
+            Ask your data. Find the context. Get a grounded answer. Designed around local-first workflows and full source traceability.
           </p>
         </div>
 
+        <!-- Col 2: Navigation -->
         <div>
-          <h4 class="font-heading font-semibold text-slate-900 text-xs uppercase tracking-wider mb-3">Product</h4>
-          <ul class="space-y-2">
-            <li><a href="#experience" class="hover:text-indigo-600 transition">Experience Overview</a></li>
-            <li><a href="#multimodal" class="hover:text-indigo-600 transition">Multimodal Modalities</a></li>
-            <li><a href="#semantic" class="hover:text-indigo-600 transition">Semantic Search</a></li>
-            <li><a href="coming-soon.html" class="hover:text-indigo-600 transition">Release Roadmap</a></li>
+          <div class="footer-col-title">NAVIGATION</div>
+          <ul class="footer-links-list">
+            <li><a href="#product">Product</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#privacy">Privacy Model</a></li>
+            <li><a href="#architecture">Architecture</a></li>
+            <li><a href="#roadmap">Future Directions</a></li>
           </ul>
         </div>
 
+        <!-- Col 3: Modalities -->
         <div>
-          <h4 class="font-heading font-semibold text-slate-900 text-xs uppercase tracking-wider mb-3">Privacy & Ethics</h4>
-          <ul class="space-y-2">
-            <li><a href="#privacy" class="hover:text-indigo-600 transition">Local-First Philosophy</a></li>
-            <li><span class="text-slate-600">Zero Cloud Data Retention</span></li>
-            <li><span class="text-slate-600">Verifiable Grounding Engine</span></li>
-            <li><span class="text-slate-600">Offline Sandboxing</span></li>
+          <div class="footer-col-title">MODALITIES</div>
+          <ul class="footer-links-list">
+            <li><a href="#product">PDF & DOCX Extraction</a></li>
+            <li><a href="#product">Image OCR & OpenCLIP</a></li>
+            <li><a href="#product">FasterWhisper Audio</a></li>
+            <li><a href="#product">Video Keyframes & Speech</a></li>
+            <li><a href="#product">Plain Text & Code</a></li>
           </ul>
         </div>
 
+        <!-- Col 4: Status -->
         <div>
-          <h4 class="font-heading font-semibold text-slate-900 text-xs uppercase tracking-wider mb-3">Platform</h4>
-          <ul class="space-y-2 font-mono text-[11px]">
-            <li><span>Windows 11 (64-bit)</span></li>
-            <li><span>Windows 10 (21H2+)</span></li>
-            <li><span>Native Windows Binary (.exe / .msix)</span></li>
-            <li><a href="coming-soon.html" class="text-indigo-600 font-semibold hover:underline">Windows Release Status →</a></li>
-          </ul>
+          <div class="footer-col-title">SYSTEM STATUS</div>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div class="brutal-badge brutal-badge-green" style="font-size: 0.7rem;">ACTIVE DEVELOPMENT</div>
+            <div class="brutal-badge brutal-badge-yellow" style="font-size: 0.7rem;">OFFLINE-CAPABLE</div>
+            <a href="coming-soon.html" class="brutal-btn brutal-btn-accent brutal-btn-sm" style="margin-top: 10px;">GET EARLY ACCESS ↗</a>
+          </div>
         </div>
       </div>
 
-      <div class="pt-8 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between text-slate-600 text-xs gap-4">
+      <!-- Footer Bottom Strip -->
+      <div class="footer-bottom-strip">
         <div>
-          © 2026 MIRA Technologies. All rights reserved. Designed for local user sovereignty.
+          © MIRA SYSTEM. BORN AT SMART INDIA HACKATHON. LOCAL-FIRST INITIATIVE.
         </div>
-        <div class="flex space-x-4">
-          <a href="#privacy" class="hover:text-slate-900 transition">Privacy Principles</a>
-          <a href="coming-soon.html" class="hover:text-slate-900 transition">Coming Soon</a>
+        <div>
+          PRIVACY CHARACTERISTICS DEPEND ON SELECTED LLM & EXTERNAL SERVICES.
         </div>
       </div>
 
     </div>
   </footer>
 
-  <!-- Application Logic -->
-  <script src="js/main.js"></script>
-  <script src="js/cursor.js"></script>
+  <!-- ========================================================================
+       21. INTERACTIVE CITATION INSPECTOR MODAL
+       ======================================================================== -->
+  <div class="citation-drawer-overlay" id="citationModalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalSourceFilename">
+    <div class="citation-drawer-modal">
+      <div class="citation-modal-header">
+        <div>
+          <span class="mono" style="font-size: 0.72rem; color: var(--accent-orange); font-weight: 700;">PROVENANCE AUDIT // LOCAL TRACE</span>
+          <h3 id="modalSourceFilename" style="font-size: 1.4rem; margin-top: 4px;">SOURCE_FILE.PDF</h3>
+        </div>
+        <button class="citation-close-btn" id="citationCloseBtn" aria-label="Close modal">✕</button>
+      </div>
+
+      <div class="citation-meta-grid">
+        <div>
+          <span style="color: var(--text-muted); display: block; font-size: 0.7rem;">FORMAT:</span>
+          <strong id="modalSourceFormat">PDF Document</strong>
+        </div>
+        <div>
+          <span style="color: var(--text-muted); display: block; font-size: 0.7rem;">LOCATION / OFFSET:</span>
+          <strong id="modalSourceOffset">Page 4, Table 2.1</strong>
+        </div>
+        <div>
+          <span style="color: var(--text-muted); display: block; font-size: 0.7rem;">SEMANTIC MATCH CONFIDENCE:</span>
+          <strong id="modalConfidenceScore" style="color: var(--accent-blue);">98.4%</strong>
+        </div>
+        <div>
+          <span style="color: var(--text-muted); display: block; font-size: 0.7rem;">LOCAL HASH INTEGRITY:</span>
+          <strong id="modalSourceHash" style="font-size: 0.75rem;">sha256:7f83b165...e92f4</strong>
+        </div>
+      </div>
+
+      <div class="citation-quote-box">
+        <span class="mono" style="font-size: 0.72rem; color: var(--accent-orange); display: block; margin-bottom: 6px;">VERIFIED EXTRACTED PASSAGE:</span>
+        <div id="modalSourceQuote">
+          “Section 2.1 Summary Table: Item A-401 Approved Infrastructure CapEx: $1,850,000. Authorized Signatory: Finance Committee Chair.”
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px;">
+        <span class="mono" style="font-size: 0.75rem; color: var(--text-muted);">SOURCE REMAINS RESIDENT ON HOST FILE SYSTEM</span>
+        <button class="brutal-btn brutal-btn-dark brutal-btn-sm" onclick="alert('In the native MIRA desktop runtime, this opens the source file in your default viewer (e.g. Acrobat, VLC, Word) anchored to the exact coordinate.')">
+          LOCATE IN WORKSPACE ↗
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="scripts/main.js"></script>
 </body>
 </html>
