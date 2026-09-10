@@ -4,1450 +4,1118 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MIRA — Multimodal Intelligent Retrieval & Autonomous Assistant</title>
-  <meta name="description" content="MIRA is a desktop-based, local-first multimodal RAG system. Search and understand documents, images, audio, video, and text with grounded citations.">
-  
-  <!-- Typography: Plus Jakarta Sans -->
+  <meta name="description" content="MIRA is a desktop-based AI knowledge assistant that lets you ask questions across your documents, images, audio, video, and text with grounded source citations.">
+  <meta name="theme-color" content="#f6f5f0">
+
+  <!-- Google Fonts: Plus Jakarta Sans for refined, tactile typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Claymorphism Design System -->
+
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="css/claymorphism.css">
+  <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-  <!-- Page Transition Overlay -->
-  <div class="page-transition-overlay"></div>
+<body id="hero">
 
-  <!-- ===================================================
-       STICKY CLAY DOCK NAVBAR
-       =================================================== -->
-  <div class="navbar-wrapper">
-    <nav class="clay-pill-dock navbar-dock" aria-label="Main Navigation">
-      <a href="#" class="nav-brand">
-        <div class="brand-clay-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Header & Navigation -->
+  <header class="navbar-wrapper">
+    <nav class="navbar" aria-label="Main Navigation">
+      <a href="#hero" class="brand-group" aria-label="MIRA Home">
+        <div class="brand-icon">
+          <!-- Tactile MIRA Symbol SVG -->
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="3"></circle>
-            <path d="M12 2v3m0 14v3M2 12h3m14 0h3"></path>
-            <path d="m4.93 4.93 2.12 2.12m9.9 9.9 2.12 2.12M4.93 19.07l2.12-2.12m9.9-9.9 2.12-2.12"></path>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
           </svg>
         </div>
-        <span>MIRA</span>
+        <div class="brand-text">
+          <span class="brand-title">MIRA</span>
+          <span class="brand-subtitle">Multimodal Intelligent Retrieval & Autonomous Assistant</span>
+        </div>
       </a>
 
+      <!-- Exactly 4 Nav Tabs -->
       <ul class="nav-links">
-        <li><a href="#problem" class="nav-link">Product</a></li>
+        <li><a href="#product" class="nav-link">Product</a></li>
         <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
-        <li><a href="#cross-modal" class="nav-link">Cross-Modal</a></li>
-        <li><a href="#desktop-demo" class="nav-link">Experience</a></li>
-        <li><a href="#citations" class="nav-link">Citations</a></li>
         <li><a href="#privacy" class="nav-link">Privacy</a></li>
-        <li><a href="#architecture" class="nav-link">Architecture</a></li>
-        <li><a href="#roadmap" class="nav-link">Roadmap</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
       </ul>
 
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <a href="coming-soon.html" class="clay-btn clay-btn-primary nav-cta btn-download-transition">
-          Download Now
-        </a>
-        <button class="mobile-menu-btn" aria-label="Toggle navigation menu">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-        </button>
+      <!-- CTA Button leading to dedicated Coming Soon page -->
+      <div class="nav-actions">
+        <a href="download.html" class="clay-btn clay-btn-primary nav-btn">Download Now</a>
       </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button class="menu-toggle" id="menuToggle" aria-label="Open Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
     </nav>
-  </div>
-
-  <!-- Mobile Nav Drawer -->
-  <div class="mobile-nav-drawer">
-    <a href="#problem" class="nav-link">Product</a>
-    <a href="#how-it-works" class="nav-link">How It Works</a>
-    <a href="#cross-modal" class="nav-link">Cross-Modal</a>
-    <a href="#desktop-demo" class="nav-link">Experience</a>
-    <a href="#citations" class="nav-link">Citations</a>
-    <a href="#privacy" class="nav-link">Privacy</a>
-    <a href="#architecture" class="nav-link">Architecture</a>
-    <a href="#roadmap" class="nav-link">Roadmap</a>
-    <a href="coming-soon.html" class="clay-btn clay-btn-primary btn-download-transition" style="margin-top: 10px;">
-      Download Now
-    </a>
-  </div>
-
-  <!-- ===================================================
-       HERO SECTION
-       =================================================== -->
-  <header class="hero-section">
-    <div class="container">
-      <div class="hero-layout">
-        <!-- Left: Copy & Value Proposition -->
-        <div>
-          <div class="hero-tagline-top">
-            <span class="clay-badge clay-badge-lilac">Desktop Multimodal RAG Assistant</span>
-            <span class="clay-badge clay-badge-sage">Local-First Architecture</span>
-          </div>
-
-          <h1 class="hero-headline">
-            Your data.<br>Your intelligence.
-          </h1>
-
-          <p class="hero-subheadline">
-            MIRA transforms your scattered documents, images, audio, video, and text into one unified, searchable knowledge space. Ask natural questions and receive grounded responses with verifiable source citations.
-          </p>
-
-          <!-- Central Brand Message -->
-          <div class="brand-mantra">
-            <div class="mantra-pill">
-              <span>✦</span> Your knowledge.
-            </div>
-            <div class="mantra-pill">
-              <span>✦</span> Your machine.
-            </div>
-            <div class="mantra-pill">
-              <span>✦</span> Your context.
-            </div>
-          </div>
-
-          <!-- CTAs -->
-          <div class="hero-actions">
-            <a href="coming-soon.html" class="clay-btn clay-btn-primary btn-download-transition">
-              Download Now
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="5" x2="12" y2="19"></line>
-                <polyline points="19 12 12 19 5 12"></polyline>
-              </svg>
-            </a>
-            <a href="#how-it-works" class="clay-btn clay-btn-secondary">
-              See How It Works
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </a>
-          </div>
-
-          <div class="hero-privacy-badge">
-            <div class="privacy-dot"></div>
-            <span>Local processing, indexing, and model inference where supported.</span>
-          </div>
-        </div>
-
-        <!-- Right: Sculpted Clay Multimodal Visual Composition -->
-        <div class="hero-visual-stage" id="heroVisualStage">
-          <div class="hero-backdrop-glow"></div>
-
-          <!-- Central Clay MIRA Intelligence Orb -->
-          <div class="mira-clay-core" data-clay-tilt title="MIRA Intelligence Core">
-            <div class="core-pulse-ring"></div>
-            <div class="core-sphere">
-              <div class="core-inner-glyph">
-                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
-                </svg>
-              </div>
-              <span class="core-label">MIRA CORE</span>
-            </div>
-          </div>
-
-          <!-- Orbiting 3D Clay Modality Objects -->
-          <!-- 1. PDF -->
-          <div class="orbit-item orbit-pdf" data-clay-tilt>
-            <div class="clay-modality-tile">
-              <div class="clay-modality-icon icon-pdf">PDF</div>
-              <div class="modality-meta">
-                <h4>PDF Reports</h4>
-                <p>Papers &amp; Books</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 2. DOCX -->
-          <div class="orbit-item orbit-docx" data-clay-tilt>
-            <div class="clay-modality-tile">
-              <div class="clay-modality-icon icon-docx">DOC</div>
-              <div class="modality-meta">
-                <h4>DOCX Files</h4>
-                <p>Memos &amp; Specs</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 3. Image -->
-          <div class="orbit-item orbit-image" data-clay-tilt>
-            <div class="clay-modality-tile">
-              <div class="clay-modality-icon icon-image">IMG</div>
-              <div class="modality-meta">
-                <h4>Screenshots</h4>
-                <p>Diagrams &amp; OCR</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 4. Audio -->
-          <div class="orbit-item orbit-audio" data-clay-tilt>
-            <div class="clay-modality-tile">
-              <div class="clay-modality-icon icon-audio">WAV</div>
-              <div class="modality-meta">
-                <h4>Recordings</h4>
-                <p>Meetings &amp; Audio</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 5. Video -->
-          <div class="orbit-item orbit-video" data-clay-tilt>
-            <div class="clay-modality-tile">
-              <div class="clay-modality-icon icon-video">MP4</div>
-              <div class="modality-meta">
-                <h4>Presentations</h4>
-                <p>Keyframes &amp; Video</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 6. Text -->
-          <div class="orbit-item orbit-text" data-clay-tilt>
-            <div class="clay-modality-tile">
-              <div class="clay-modality-icon icon-text">TXT</div>
-              <div class="modality-meta">
-                <h4>Notes &amp; Logs</h4>
-                <p>Plain Text Context</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Live Flow Transformation Card -->
-          <div class="hero-flow-card">
-            <div class="flow-step-header">
-              <span class="flow-step-indicator" id="heroFlowStep">1. User Query Ingestion</span>
-              <span class="clay-badge clay-badge-sage" style="font-size: 0.7rem; padding: 2px 8px;">Active Cycle</span>
-            </div>
-            <div class="flow-step-content" id="heroFlowContent">
-              “Show me the report discussing international development in 2024.”
-            </div>
-            <div class="flow-progress-bar">
-              <div class="flow-progress-fill" id="heroFlowProgress"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </header>
 
-  <!-- ===================================================
-       PROBLEM SECTION (SCATTERED TO CONNECTED)
-       =================================================== -->
-  <section class="section-spacing" id="problem">
-    <div class="container">
-      <div class="section-header">
-        <span class="clay-badge clay-badge-peach section-eyebrow">The Storage Paradox</span>
-        <h2 class="section-title">Your knowledge is everywhere.</h2>
-        <p class="section-desc">
-          Critical answers are fragmented across PDF reports, DOCX memos, meeting recordings, whiteboard snapshots, video demos, and plain-text files. Traditional search forces you to guess exact filenames and memorize nested folders.
-        </p>
+  <!-- Mobile Nav Drawer & Overlay -->
+  <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+  <div class="mobile-nav-drawer" id="mobileDrawer">
+    <div class="mobile-nav-header">
+      <div class="brand-text">
+        <span class="brand-title">MIRA</span>
+        <span class="brand-subtitle">Assistant Workspace</span>
+      </div>
+      <button class="menu-toggle" id="closeDrawerBtn" aria-label="Close Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="#product" class="mobile-nav-link">Product</a></li>
+      <li><a href="#how-it-works" class="mobile-nav-link">How It Works</a></li>
+      <li><a href="#privacy" class="mobile-nav-link">Privacy</a></li>
+      <li><a href="#about" class="mobile-nav-link">About</a></li>
+    </ul>
+    <a href="download.html" class="clay-btn clay-btn-primary" style="margin-top: auto; text-align: center;">Download Now</a>
+  </div>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section container" id="product">
+      <div class="hero-badge-container reveal">
+        <span class="clay-pill">
+          <span class="clay-badge badge-pdf" style="margin-right: 4px;">Local-First</span>
+          Private Multimodal Knowledge Assistant
+        </span>
       </div>
 
-      <div class="scatter-visual-container">
-        <div class="scatter-controls">
-          <button id="toggleScatterBtn" class="clay-btn clay-btn-secondary">
-            Unify into Knowledge Space
+      <h1 class="hero-title reveal reveal-delay-1">
+        Your knowledge.<br>
+        <span style="color: var(--clay-coral);">One intelligent place.</span>
+      </h1>
+
+      <p class="hero-subtitle reveal reveal-delay-2">
+        Ask questions across your documents, images, audio, video, and text. MIRA helps you find the context and understand your own information.
+      </p>
+
+      <div class="hero-cta-group reveal reveal-delay-3">
+        <a href="download.html" class="clay-btn clay-btn-primary" style="font-size: 1.05rem; padding: 16px 36px;">
+          Download Now
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"></path>
+            <path d="m12 5 7 7-7 7"></path>
+          </svg>
+        </a>
+        <a href="#how-it-works" class="clay-btn clay-btn-secondary" style="font-size: 1.05rem; padding: 16px 32px;">
+          See How It Works
+        </a>
+      </div>
+
+      <!-- Large Claymorphism Desktop App Mockup -->
+      <div class="hero-mockup-wrapper reveal reveal-delay-4">
+        
+        <!-- Floating tactile modality clay cards around app window -->
+        <div class="floating-clay-tag floating-tag-pdf float-item-1">
+          <div class="file-badge-icon badge-pdf">PDF</div>
+          <span>Annual_Report.pdf</span>
+        </div>
+
+        <div class="floating-clay-tag floating-tag-image float-item-2">
+          <div class="file-badge-icon badge-image">IMG</div>
+          <span>Architecture_Plan.png</span>
+        </div>
+
+        <div class="floating-clay-tag floating-tag-audio float-item-3">
+          <div class="file-badge-icon badge-audio">AUD</div>
+          <span>Sync_Meeting.m4a</span>
+        </div>
+
+        <div class="floating-clay-tag floating-tag-video float-item-4">
+          <div class="file-badge-icon badge-video">VID</div>
+          <span>Demo_Review.mp4</span>
+        </div>
+
+        <div class="floating-clay-tag floating-tag-text float-item-5">
+          <div class="file-badge-icon badge-doc">TXT</div>
+          <span>Project_Notes.md</span>
+        </div>
+
+        <!-- Desktop App Window Frame -->
+        <div class="hero-app-window">
+          <!-- App Header Bar -->
+          <div class="app-window-bar">
+            <div class="window-dots">
+              <span class="window-dot dot-red"></span>
+              <span class="window-dot dot-yellow"></span>
+              <span class="window-dot dot-green"></span>
+            </div>
+            <div class="app-window-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+                <path d="M3 9h18"></path>
+                <path d="M9 21V9"></path>
+              </svg>
+              MIRA Desktop — Local Knowledge Base
+            </div>
+            <span class="clay-badge" style="background: #e9f5ed; color: var(--clay-sage);">Connected</span>
+          </div>
+
+          <!-- App Window Grid Content -->
+          <div class="app-window-content">
+            <!-- Sidebar: Uploaded files in local vault -->
+            <aside class="app-mockup-sidebar">
+              <span class="sidebar-title">Your Knowledge Vault (5)</span>
+              
+              <div class="sidebar-file-item">
+                <span class="file-badge-icon badge-pdf">PDF</span>
+                <span>Q4_Budget_Review.pdf</span>
+              </div>
+
+              <div class="sidebar-file-item">
+                <span class="file-badge-icon badge-image">PNG</span>
+                <span>Sprint_Board.png</span>
+              </div>
+
+              <div class="sidebar-file-item">
+                <span class="file-badge-icon badge-audio">REC</span>
+                <span>Steering_Comm_10-14.m4a</span>
+              </div>
+
+              <div class="sidebar-file-item">
+                <span class="file-badge-icon badge-video">MP4</span>
+                <span>Product_Walkthrough.mp4</span>
+              </div>
+
+              <div class="sidebar-file-item">
+                <span class="file-badge-icon badge-doc">MD</span>
+                <span>Q4_Deliverables.md</span>
+              </div>
+
+              <div style="margin-top: auto; padding: 10px; background: #fff; border-radius: var(--radius-sm); border: 1px dashed rgba(180, 187, 202, 0.4); text-align: center; font-size: 0.75rem; color: var(--text-muted);">
+                Local storage encrypted
+              </div>
+            </aside>
+
+            <!-- Main Chat Interface -->
+            <div class="app-mockup-main">
+              <div class="chat-thread">
+                <!-- User Question -->
+                <div class="user-query-pill">
+                  “What budget was approved during the last meeting?”
+                </div>
+
+                <!-- MIRA Grounded Answer Card -->
+                <div class="mira-answer-card">
+                  <div class="mira-card-header">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                    MIRA Verified Response
+                  </div>
+                  
+                  <p>
+                    During the October 14th steering committee review, a total budget of <strong>$120,000</strong> was approved for Q4 pilot deployment and local retrieval testing.
+                  </p>
+
+                  <!-- Source Citation Chips -->
+                  <div class="citation-chips-row">
+                    <span class="citation-label">Sources:</span>
+                    <span class="clay-pill" style="font-size: 0.785rem; padding: 4px 10px; background: #fff;">
+                      <span class="file-badge-icon badge-pdf" style="width: 14px; height: 14px; font-size: 0.55rem;">PDF</span>
+                      Q4_Budget_Review.pdf (Page 4)
+                    </span>
+                    <span class="clay-pill" style="font-size: 0.785rem; padding: 4px 10px; background: #fff;">
+                      <span class="file-badge-icon badge-audio" style="width: 14px; height: 14px; font-size: 0.55rem;">AUD</span>
+                      Steering_Comm_10-14.m4a (14:20)
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Chat Input Bar -->
+              <div class="mockup-input-bar">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-muted);">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" placeholder="Ask anything across your files, images, recordings, or notes..." readonly value="Ask anything across your documents, images, audio, video, or text...">
+                <button class="mockup-send-btn" aria-label="Send query">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: THE PROBLEM -->
+    <section class="section container">
+      <div class="section-header reveal">
+        <span class="clay-pill">The Friction</span>
+        <h2>Your information is everywhere.</h2>
+        <p>Reports. Screenshots. Recordings. Documents. Notes. Finding one specific answer should not mean opening ten different files.</p>
+      </div>
+
+      <div class="problem-scene-box reveal reveal-delay-1" id="problemSceneBox">
+        <div class="problem-controls">
+          <button class="clay-btn clay-btn-secondary" id="convergenceToggleBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 14 10 14 10 20"></polyline>
+              <polyline points="20 10 14 10 14 4"></polyline>
+              <line x1="14" y1="10" x2="21" y2="3"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            Unify with MIRA
+          </button>
+          <span class="clay-pill" id="convergenceStatusText" style="font-size: 0.85rem;">
+            Information scattered across different apps and folders
+          </span>
+        </div>
+
+        <!-- 6 Scattered Clay Objects -->
+        <div class="problem-scatter-grid scatter-scene">
+          
+          <div class="scatter-card scatter-item scatter-item-1 clay-accent-coral">
+            <div class="scatter-card-header">
+              <span class="file-badge-icon badge-pdf">PDF</span>
+              <span class="scatter-status">Folder: /Downloads</span>
+            </div>
+            <div class="scatter-file-name">Q3_Financial_Audit.pdf</div>
+            <p>54 pages of quarterly balance sheets and audit notes.</p>
+          </div>
+
+          <div class="scatter-card scatter-item scatter-item-2 clay-accent-blue">
+            <div class="scatter-card-header">
+              <span class="file-badge-icon badge-doc">DOC</span>
+              <span class="scatter-status">Folder: /Drafts</span>
+            </div>
+            <div class="scatter-file-name">Project_Proposal_v2_final.docx</div>
+            <p>Draft specifications updated by three team members.</p>
+          </div>
+
+          <div class="scatter-card scatter-item scatter-item-3 clay-accent-amber">
+            <div class="scatter-card-header">
+              <span class="file-badge-icon badge-image">IMG</span>
+              <span class="scatter-status">Desktop</span>
+            </div>
+            <div class="scatter-file-name">Screen_Shot_2026-08.png</div>
+            <p>Visual diagram snippet captured during a quick video call.</p>
+          </div>
+
+          <div class="scatter-card scatter-item scatter-item-4 clay-accent-sage">
+            <div class="scatter-card-header">
+              <span class="file-badge-icon badge-audio">AUD</span>
+              <span class="scatter-status">Voice Memos</span>
+            </div>
+            <div class="scatter-file-name">Client_Feedback_Sync.m4a</div>
+            <p>42-minute audio conversation with customer insights.</p>
+          </div>
+
+          <div class="scatter-card scatter-item scatter-item-5 clay-accent-purple">
+            <div class="scatter-card-header">
+              <span class="file-badge-icon badge-video">VID</span>
+              <span class="scatter-status">Cloud Drive</span>
+            </div>
+            <div class="scatter-file-name">Walkthrough_Demo.mp4</div>
+            <p>Screen recording demonstrating bug reproduction.</p>
+          </div>
+
+          <div class="scatter-card scatter-item scatter-item-6">
+            <div class="scatter-card-header">
+              <span class="file-badge-icon badge-doc">TXT</span>
+              <span class="scatter-status">Notes App</span>
+            </div>
+            <div class="scatter-file-name">Quick_Idea_Pad.txt</div>
+            <p>Jotted reminders, action points, and budget targets.</p>
+          </div>
+
+        </div>
+
+        <!-- Central MIRA Unified Container Banner -->
+        <div class="unified-box-banner central-workspace">
+          <div class="unified-banner-text" style="text-align: left;">
+            <h4>Scattered files → One searchable knowledge space</h4>
+            <p>MIRA continuously indexes your selected files locally so you can search them all at once.</p>
+          </div>
+          <span class="clay-pill" style="color: var(--clay-coral); font-weight: 700;">
+            ✓ Seamless Multi-Format Search
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: THE MAIN DIFFERENCE -->
+    <section class="section container">
+      <div class="section-header reveal">
+        <span class="clay-pill">The Core Difference</span>
+        <h2>Search for meaning.<br>Not just filenames.</h2>
+        <p>MIRA helps you find information based on what it means, rather than requiring you to remember where it was stored or how it was named.</p>
+      </div>
+
+      <div class="comparison-grid reveal reveal-delay-1">
+        
+        <!-- Left Side: Traditional Search -->
+        <div class="comparison-card comparison-card-traditional">
+          <span class="clay-badge comparison-badge" style="background: #e5e8ee; color: var(--text-secondary);">
+            Traditional Search
+          </span>
+          <h3>Requires exact filename memory</h3>
+          <p>You remember a discussion took place, but you don't recall whether it was in a PDF, an audio recording, or which revision number.</p>
+
+          <div class="comparison-mock">
+            <div class="traditional-file-list">
+              <div class="traditional-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path></svg>
+                <span>meeting_final.pdf</span>
+              </div>
+              <div class="traditional-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path></svg>
+                <span>meeting_final_v2.pdf</span>
+              </div>
+              <div class="traditional-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="15" x="2" y="5" rx="2"></rect><polyline points="10 9 15 12 10 15 10 9"></polyline></svg>
+                <span>recording_03.mp4</span>
+              </div>
+              <div class="traditional-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path></svg>
+                <span>screenshot_12.png</span>
+              </div>
+            </div>
+
+            <div class="traditional-error-state">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+              <span>Search query "budget approved" — 0 filename matches</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side: MIRA -->
+        <div class="comparison-card comparison-card-mira">
+          <span class="clay-badge comparison-badge" style="background: var(--clay-blue-light); color: var(--clay-blue);">
+            MIRA Semantic Retrieval
+          </span>
+          <h3>Understands context & content</h3>
+          <p>Ask in plain English. MIRA reads inside the files and extracts the direct answer with the exact source page.</p>
+
+          <div class="comparison-mock" style="background: #fbfaf8;">
+            <div style="font-weight: 700; font-size: 0.95rem; color: var(--clay-blue);">
+              “What budget was approved during the last meeting?”
+            </div>
+
+            <div class="mira-result-box">
+              <p style="font-size: 0.925rem; margin-bottom: 8px;">
+                “The steering committee approved an allocated budget of <strong>$120,000</strong> for Q4 development.”
+              </p>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="clay-pill" style="font-size: 0.75rem; background: #fff;">
+                  ✓ Source: Q4_Budget_Review.pdf (Page 4)
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: MULTIMODAL KNOWLEDGE -->
+    <section class="section container">
+      <div class="section-header reveal">
+        <span class="clay-pill">Comprehensive Modalities</span>
+        <h2>One place for all your information.</h2>
+        <p>MIRA works across the formats you already use every single day.</p>
+      </div>
+
+      <div class="multimodal-grid reveal reveal-delay-1">
+        
+        <!-- 1. PDF Card -->
+        <div class="clay-card modality-card clay-accent-coral">
+          <div class="modality-header">
+            <div class="modality-icon-bubble" style="background: var(--clay-coral);">PDF</div>
+            <span class="clay-pill" style="font-size: 0.75rem;">Document</span>
+          </div>
+          <h3>PDF Files</h3>
+          <p>Scans text, headers, and multi-page tables across reports and whitepapers.</p>
+          <div class="modality-visual-preview">
+            <div class="preview-line preview-line-short" style="background: var(--clay-coral); opacity: 0.7;"></div>
+            <div class="preview-line preview-line-full"></div>
+            <div class="preview-line preview-line-medium"></div>
+            <div class="preview-line preview-line-full"></div>
+          </div>
+        </div>
+
+        <!-- 2. DOCX Card -->
+        <div class="clay-card modality-card clay-accent-blue">
+          <div class="modality-header">
+            <div class="modality-icon-bubble" style="background: var(--clay-blue);">DOC</div>
+            <span class="clay-pill" style="font-size: 0.75rem;">Word Docs</span>
+          </div>
+          <h3>DOCX Documents</h3>
+          <p>Indexes structured paragraphs, drafts, and meeting minutes without file conversions.</p>
+          <div class="modality-visual-preview">
+            <div class="preview-line preview-line-medium" style="background: var(--clay-blue); opacity: 0.7;"></div>
+            <div class="preview-line preview-line-full"></div>
+            <div class="preview-line preview-line-short"></div>
+          </div>
+        </div>
+
+        <!-- 3. Images Card -->
+        <div class="clay-card modality-card clay-accent-amber">
+          <div class="modality-header">
+            <div class="modality-icon-bubble" style="background: var(--clay-amber);">IMG</div>
+            <span class="clay-pill" style="font-size: 0.75rem;">Visual</span>
+          </div>
+          <h3>Images & Screenshots</h3>
+          <p>Extracts visual diagrams, charts, whiteboards, and text embedded in screenshots.</p>
+          <div class="modality-visual-preview" style="align-items: center;">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--clay-amber)" stroke-width="2">
+              <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+              <circle cx="9" cy="9" r="2"></circle>
+              <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+            </svg>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">OCR & Visual Context</span>
+          </div>
+        </div>
+
+        <!-- 4. Audio Card -->
+        <div class="clay-card modality-card clay-accent-sage">
+          <div class="modality-header">
+            <div class="modality-icon-bubble" style="background: var(--clay-sage);">AUD</div>
+            <span class="clay-pill" style="font-size: 0.75rem;">Speech</span>
+          </div>
+          <h3>Audio Recordings</h3>
+          <p>Understands spoken discussions, voice memos, interviews, and call recordings.</p>
+          <div class="modality-visual-preview">
+            <div class="waveform-container">
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+            </div>
+            <span style="font-size: 0.75rem; text-align: center; color: var(--text-muted);">Timestamped Audio Alignment</span>
+          </div>
+        </div>
+
+        <!-- 5. Video Card -->
+        <div class="clay-card modality-card clay-accent-purple">
+          <div class="modality-header">
+            <div class="modality-icon-bubble" style="background: var(--clay-purple);">VID</div>
+            <span class="clay-pill" style="font-size: 0.75rem;">Media</span>
+          </div>
+          <h3>Video Files</h3>
+          <p>Retrieves key moments from product demos, lectures, and recorded conferences.</p>
+          <div class="modality-visual-preview" style="position: relative;">
+            <div style="display: flex; align-items: center; justify-content: center; height: 100%;">
+              <span class="clay-pill" style="background: #fff; padding: 4px 10px;">
+                ▶ 04:12 / 28:00
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Text Card -->
+        <div class="clay-card modality-card">
+          <div class="modality-header">
+            <div class="modality-icon-bubble" style="background: #475569;">TXT</div>
+            <span class="clay-pill" style="font-size: 0.75rem;">Markdown</span>
+          </div>
+          <h3>Notes & Plain Text</h3>
+          <p>Connects quick scratchpads, Markdown documentation, and unstructured notes.</p>
+          <div class="modality-visual-preview">
+            <div class="preview-line preview-line-short"></div>
+            <div class="preview-line preview-line-full"></div>
+            <div class="preview-line preview-line-medium"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: VISUAL DEMO — ASK YOUR DATA -->
+    <section class="section container">
+      <div class="section-header reveal">
+        <span class="clay-pill">Interactive Demonstration</span>
+        <h2>Ask a question.<br>Get the context.</h2>
+        <p>Experience how MIRA provides concise grounded answers with clickable source chips that pinpoint the original information.</p>
+      </div>
+
+      <div class="interactive-demo-card reveal reveal-delay-1">
+        <!-- Top bar -->
+        <div class="demo-topbar">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="clay-badge" style="background: var(--clay-blue-light); color: var(--clay-blue);">Live Simulation</span>
+            <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">Click any citation chip below to inspect source context</span>
+          </div>
+          <span class="clay-pill" style="font-size: 0.8rem;">Confidence: Grounded</span>
+        </div>
+
+        <!-- Body Grid -->
+        <div class="demo-body-grid">
+          
+          <!-- Chat Pane -->
+          <div class="demo-chat-pane">
+            <div class="chat-thread">
+              <!-- Query -->
+              <div class="user-query-pill">
+                “What was discussed about the project timeline?”
+              </div>
+
+              <!-- Answer -->
+              <div class="mira-answer-card">
+                <div class="mira-card-header">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                  <span>MIRA Grounded Answer</span>
+                </div>
+                <p>
+                  Core multimodal retrieval pipelines are fully implemented. Final integration of the local-first indexing model remains on track for December delivery, with Phase 2 retrieval testing wrapping up in late November.
+                </p>
+
+                <!-- Interactive Clickable Chips -->
+                <div class="citation-chips-row">
+                  <span class="citation-label">Click to inspect:</span>
+                  
+                  <button class="clay-pill clay-chip-interactive interactive-citation-chip clay-chip-active" data-source="meeting">
+                    <span class="file-badge-icon badge-audio" style="width: 16px; height: 16px; font-size: 0.6rem;">AUD</span>
+                    Meeting Recording (14:20)
+                  </button>
+
+                  <button class="clay-pill clay-chip-interactive interactive-citation-chip" data-source="report">
+                    <span class="file-badge-icon badge-pdf" style="width: 16px; height: 16px; font-size: 0.6rem;">PDF</span>
+                    Project Report (Page 12)
+                  </button>
+
+                  <button class="clay-pill clay-chip-interactive interactive-citation-chip" data-source="notes">
+                    <span class="file-badge-icon badge-doc" style="width: 16px; height: 16px; font-size: 0.6rem;">MD</span>
+                    Meeting Notes (Section 3)
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 24px;">
+              💡 Every statement in MIRA is linked to verified excerpts in your files.
+            </div>
+          </div>
+
+          <!-- Source Inspector Pane -->
+          <div class="demo-source-pane">
+            <div class="source-pane-header">
+              <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted); letter-spacing: 0.05em;">Source Inspector</span>
+              <span class="clay-badge badge-audio" id="inspectSourceBadge">Audio & Transcript</span>
+            </div>
+
+            <div class="source-preview-box" id="sourcePreviewCard">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <h4 id="inspectSourceTitle" style="font-size: 1.05rem;">All-Hands Recording (Audio / Transcript)</h4>
+              </div>
+
+              <div style="display: flex; gap: 12px; font-size: 0.825rem; color: var(--text-muted);">
+                <span id="inspectSourceFile">All_Hands_10-14.m4a</span>
+                <span>•</span>
+                <span id="inspectSourceTime">14:20 – 15:45</span>
+              </div>
+
+              <div class="source-excerpt-highlight" id="inspectSourceExcerpt">
+                “...and regarding the milestone schedule, Phase 2 retrieval testing will complete by the end of November, with the desktop client build packaging scheduled for early December.”
+              </div>
+
+              <p style="font-size: 0.85rem;" id="inspectSourceContext">
+                Speaker: Project Lead (Product Engineering Team). Extracted from automated timestamped transcription.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: CROSS-MODAL DEMONSTRATION -->
+    <section class="section container">
+      <div class="section-header reveal">
+        <span class="clay-pill">Multi-Format Synthesis</span>
+        <h2>The answer can be anywhere.</h2>
+        <p>MIRA connects information across formats—connecting visual slides, technical documents, and spoken meetings into a single answer.</p>
+      </div>
+
+      <div class="cross-modal-card reveal reveal-delay-1">
+        <!-- Scenario Switcher Tabs -->
+        <div class="cross-modal-tabs">
+          <button class="clay-btn clay-btn-primary cross-modal-tab-btn" data-scenario="funding">
+            Scenario 1: Project Funding
+          </button>
+          <button class="clay-btn clay-btn-secondary cross-modal-tab-btn" data-scenario="meeting">
+            Scenario 2: UI Usability Feedback
           </button>
         </div>
 
-        <div class="scatter-arena state-scattered" id="scatterArena">
-          <!-- Central Hub (appears when connected) -->
-          <div class="connected-center-hub">
-            <div style="width: 36px; height: 36px; border-radius: 50%; background: #7C5EB6; color: white; display: flex; align-items: center; justify-content: center; margin-bottom: 6px;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <circle cx="12" cy="12" r="3"></circle>
-                <path d="M12 2v3m0 14v3M2 12h3m14 0h3"></path>
-              </svg>
-            </div>
-            <h5>MIRA HUB</h5>
-            <span style="font-size: 0.65rem; color: #52358D; font-weight: 700;">UNIFIED</span>
-          </div>
-
-          <!-- Scattered Files -->
-          <div class="scatter-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#D6453D" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
-            Q3_Financial_Forecast_v2_final.pdf
-          </div>
-          <div class="scatter-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#2A6BD4" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
-            Board_Meeting_Minutes_Aug.docx
-          </div>
-          <div class="scatter-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#328A55" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-            Screenshot_2024_07_14_Slack.png
-          </div>
-          <div class="scatter-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#C67917" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path></svg>
-            Quarterly_Strategy_Sync.m4a
-          </div>
-          <div class="scatter-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#C43675" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
-            Deployment_Demo_Keynote.mp4
-          </div>
-          <div class="scatter-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#7350BA" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line></svg>
-            incident_postmortem_raw.txt
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================
-       MIRA DIFFERENCE SECTION
-       =================================================== -->
-  <section class="section-spacing">
-    <div class="container">
-      <div class="section-header">
-        <span class="clay-badge clay-badge-blue section-eyebrow">Search Evolution</span>
-        <h2 class="section-title">
-          Stop searching for files.<br>Start searching for meaning.
-        </h2>
-        <p class="section-desc">
-          File systems organize by location and file extension. MIRA indexes semantic content and contextual relationships, allowing you to ask natural questions regardless of where or how the data was stored.
-        </p>
-      </div>
-
-      <div class="difference-grid">
-        <!-- Traditional Search -->
-        <div class="diff-card traditional-side" data-clay-tilt>
-          <div class="diff-header">
-            <span class="clay-badge clay-badge-neutral">Traditional File Search</span>
-            <span style="font-size: 0.82rem; font-weight: 700; color: #B83831;">Keyword &amp; Path Dependent</span>
-          </div>
-          <h3 class="diff-title" style="color: var(--text-primary);">
-            “Which folder contains the meeting report?”
-          </h3>
-          <div class="folder-tree">
-            <div class="folder-node">📁 C:\Users\Main\Documents\Archive\</div>
-            <div class="folder-node">📁 ...\Meetings\2024\Q3\Drafts\</div>
-            <div class="folder-node failed">
-              <span>✕</span> Meeting_Notes_v2_final_REVISED.docx (Keyword search failed: 0 results)
-            </div>
-            <div class="folder-node">⚠️ User opens 6 different files manually to find the approved number.</div>
-          </div>
+        <div style="text-align: center; margin-bottom: 28px;">
+          <span style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">User Query:</span>
+          <h3 id="crossModalQuery" style="margin-top: 6px; color: var(--clay-blue);">“Find the screenshots related to project funding.”</h3>
         </div>
 
-        <!-- MIRA Semantic Search -->
-        <div class="diff-card mira-side" data-clay-tilt>
-          <div class="diff-header">
-            <span class="clay-badge clay-badge-lilac">MIRA Multimodal Retrieval</span>
-            <span style="font-size: 0.82rem; font-weight: 700; color: var(--clay-sage-accent);">Semantic Understanding</span>
-          </div>
-          <h3 class="diff-title" style="color: #52358D;">
-            “What budget was approved during the last meeting?”
-          </h3>
-          <div class="semantic-retrieval-box">
-            <div class="query-bubble">
-              <span style="color: var(--clay-lilac-accent);">Q:</span>
-              What budget was approved during the last meeting?
+        <!-- 3 Connected Modality Cards -->
+        <div class="cross-modal-grid">
+          
+          <div class="cross-modal-item">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span class="clay-badge badge-image" id="cmItem1Type">Screenshot</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path></svg>
             </div>
-            <div class="answer-bubble">
-              <p>
-                The committee approved a total operational budget of <strong>$580,000</strong> for Q3/Q4, including $240,000 allocated for on-premise compute servers.
-              </p>
-              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                <span class="citation-chip" data-cit="1">Source: Leadership_Sync_Aug12.m4a [18:40]</span>
-                <span class="citation-chip" data-cit="2">Source: Q3_Budget_Summary.xlsx</span>
-              </div>
-            </div>
+            <h4 id="cmItem1Title" style="font-size: 0.95rem;">Grant_Budget_Chart.png</h4>
+            <p id="cmItem1Content" style="font-size: 0.85rem;">Chart preview showing Q4 grant distribution: $120,000 allocated for local AI engine & multimodal UI development.</p>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ===================================================
-       MULTIMODAL KNOWLEDGE SECTION (6 FORMATS)
-       =================================================== -->
-  <section class="section-spacing" id="multimodal">
-    <div class="container">
-      <div class="section-header">
-        <span class="clay-badge clay-badge-sage section-eyebrow">Universal Ingestion</span>
-        <h2 class="section-title">One knowledge base. Every format.</h2>
-        <p class="section-desc">
-          MIRA provides native parsing and multi-vector indexing across all six major information mediums. No separate indexing silos—one unified retrieval core.
-        </p>
-      </div>
-
-      <div class="modality-grid">
-        <!-- 1. PDF -->
-        <div class="clay-card modality-detail-card clay-card-peach" data-clay-tilt>
-          <div class="card-top-row">
-            <div class="modality-sculpted-icon icon-pdf">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          <div class="cross-modal-item">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span class="clay-badge badge-pdf" id="cmItem2Type">Document</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path></svg>
             </div>
-            <span class="clay-badge clay-badge-peach">Documents</span>
+            <h4 id="cmItem2Title" style="font-size: 0.95rem;">Grant_Proposal_Final.pdf</h4>
+            <p id="cmItem2Content" style="font-size: 0.85rem;">Section 4.1: Confirms award disbursement criteria and local privacy assurance guidelines.</p>
           </div>
-          <h3>PDF Reports &amp; Papers</h3>
-          <p>Extracts structured paragraphs, tables, research citations, and footnotes while preserving cross-page context.</p>
-          <div class="supported-specs-pill">
-            <span class="spec-pill">Research Papers</span>
-            <span class="spec-pill">Financial Filings</span>
-            <span class="spec-pill">Technical Specs</span>
+
+          <div class="cross-modal-item">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span class="clay-badge badge-audio" id="cmItem3Type">Transcript</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+            </div>
+            <h4 id="cmItem3Title" style="font-size: 0.95rem;">Meeting Recording (14:22)</h4>
+            <p id="cmItem3Content" style="font-size: 0.85rem;">“...the grant funding was officially credited on Tuesday. We can proceed with the multimodal test suite.”</p>
           </div>
+
         </div>
 
-        <!-- 2. DOCX -->
-        <div class="clay-card modality-detail-card clay-card-blue" data-clay-tilt>
-          <div class="card-top-row">
-            <div class="modality-sculpted-icon icon-docx">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-            </div>
-            <span class="clay-badge clay-badge-blue">Word Docs</span>
-          </div>
-          <h3>DOCX Internal Memos</h3>
-          <p>Parses formatted headings, bullet points, revision histories, and team agendas directly into semantic embedding vectors.</p>
-          <div class="supported-specs-pill">
-            <span class="spec-pill">Meeting Memos</span>
-            <span class="spec-pill">Operating SOPs</span>
-            <span class="spec-pill">Project Charters</span>
-          </div>
-        </div>
-
-        <!-- 3. Images -->
-        <div class="clay-card modality-detail-card clay-card-sage" data-clay-tilt>
-          <div class="card-top-row">
-            <div class="modality-sculpted-icon icon-image">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-            </div>
-            <span class="clay-badge clay-badge-sage">Visuals</span>
-          </div>
-          <h3>Screenshots &amp; Images</h3>
-          <p>Combines high-accuracy OCR for textual content with BLIP and OpenCLIP for visual semantic understanding.</p>
-          <div class="supported-specs-pill">
-            <span class="spec-pill">Whiteboard Photos</span>
-            <span class="spec-pill">UI Screenshots</span>
-            <span class="spec-pill">Architecture Maps</span>
-          </div>
-        </div>
-
-        <!-- 4. Audio -->
-        <div class="clay-card modality-detail-card clay-card-amber" data-clay-tilt>
-          <div class="card-top-row">
-            <div class="modality-sculpted-icon icon-audio">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line></svg>
-            </div>
-            <span class="clay-badge clay-badge-amber">Speech</span>
-          </div>
-          <h3>Audio Recordings</h3>
-          <p>Transcribes spoken interviews, lectures, and calls using FasterWhisper with exact millisecond timestamp alignment.</p>
-          <div class="supported-specs-pill">
-            <span class="spec-pill">Client Interviews</span>
-            <span class="spec-pill">Voice Memos</span>
-            <span class="spec-pill">Call Recordings</span>
-          </div>
-        </div>
-
-        <!-- 5. Video -->
-        <div class="clay-card modality-detail-card clay-card-peach" data-clay-tilt>
-          <div class="card-top-row">
-            <div class="modality-sculpted-icon icon-video">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
-            </div>
-            <span class="clay-badge clay-badge-peach">Video Media</span>
-          </div>
-          <h3>Video Presentations</h3>
-          <p>Synchronizes keyframe visual decoding with speech transcription to retrieve exact video moments and slide demonstrations.</p>
-          <div class="supported-specs-pill">
-            <span class="spec-pill">Screen Demos</span>
-            <span class="spec-pill">Conference Talks</span>
-            <span class="spec-pill">Recorded Webinars</span>
-          </div>
-        </div>
-
-        <!-- 6. Text -->
-        <div class="clay-card modality-detail-card clay-card-lilac" data-clay-tilt>
-          <div class="card-top-row">
-            <div class="modality-sculpted-icon icon-text">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
-            </div>
-            <span class="clay-badge clay-badge-lilac">Plain Text</span>
-          </div>
-          <h3>Notes &amp; Markdown</h3>
-          <p>Indexes code snippets, markdown documentation, raw server logs, and personal notes into searchable vector chunks.</p>
-          <div class="supported-specs-pill">
-            <span class="spec-pill">Markdown Guides</span>
-            <span class="spec-pill">Incident Logs</span>
-            <span class="spec-pill">Obsidian / Logseq</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================
-       HOW MIRA UNDERSTANDS (4 PIPELINES)
-       =================================================== */
-  <section class="section-spacing" id="how-it-works">
-    <div class="container">
-      <div class="section-header">
-        <span class="clay-badge clay-badge-lilac section-eyebrow">Physical Pipeline Architecture</span>
-        <h2 class="section-title">
-          MIRA doesn't just store files.<br>It understands what is inside them.
-        </h2>
-        <p class="section-desc">
-          Instead of naive keyword matching, MIRA routes each medium through specialized, state-of-the-art multimodal extraction models before indexing them into semantic vector space.
-        </p>
-      </div>
-
-      <div class="clay-card-raised pipeline-visualizer-card">
-        <!-- Interactive Pipeline Navigation Tabs -->
-        <div class="pipeline-nav">
-          <div class="clay-tabs">
-            <button class="clay-tab-btn pipeline-tab active" data-pipeline="documents">Documents (PDF/DOCX)</button>
-            <button class="clay-tab-btn pipeline-tab" data-pipeline="images">Images &amp; Screenshots</button>
-            <button class="clay-tab-btn pipeline-tab" data-pipeline="audio">Audio Recordings</button>
-            <button class="clay-tab-btn pipeline-tab" data-pipeline="video">Video Presentations</button>
-          </div>
-        </div>
-
-        <!-- 5-Stage Interactive Pipeline Visual Track -->
-        <div class="pipeline-stage-track" id="pipelineStageTrack">
-          <!-- Dynamically populated by app.js -->
-        </div>
-
-        <!-- Pipeline Step Details Description Panel -->
-        <div class="pipeline-description-panel">
-          <div class="panel-text">
-            <h4 id="pipelinePanelTitle">Documents Pipeline</h4>
-            <p id="pipelinePanelDesc">Extracts formatted text and layout from PDF and DOCX files, splits them into semantic paragraphs, and computes vector embeddings for accurate contextual retrieval.</p>
-          </div>
-          <span class="clay-badge clay-badge-lilac" style="white-space: nowrap;">Active Pathway</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================
-       CROSS-MODAL RETRIEVAL SECTION
-       =================================================== -->
-  <section class="section-spacing" id="cross-modal">
-    <div class="container">
-      <div class="section-header">
-        <span class="clay-badge clay-badge-peach section-eyebrow">Unified Vector Space</span>
-        <h2 class="section-title">
-          The answer doesn't care<br>what format the file was.
-        </h2>
-        <p class="section-desc">
-          Query in natural language and retrieve relevant screenshots. Input a diagram to find corresponding documentation. Transcribe meeting audio to verify financial numbers. MIRA operates across modalities seamlessly.
-        </p>
-      </div>
-
-      <div class="crossmodal-layout">
-        <!-- Left: Interactive Cross-Modal Nav Selection -->
-        <div class="crossmodal-nav-list">
-          <div class="crossmodal-nav-btn active" data-cm="text-image">
-            <div class="crossmodal-btn-label">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7C5EB6" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-              <span>Text → Image Retrieval</span>
-            </div>
-            <span class="crossmodal-tag">Find Screenshots</span>
-          </div>
-
-          <div class="crossmodal-nav-btn" data-cm="text-doc">
-            <div class="crossmodal-btn-label">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2A6BD4" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
-              <span>Text → Document Excerpt</span>
-            </div>
-            <span class="crossmodal-tag">Targeted Pages</span>
-          </div>
-
-          <div class="crossmodal-nav-btn" data-cm="image-text">
-            <div class="crossmodal-btn-label">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#328A55" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle></svg>
-              <span>Image → Technical Specs</span>
-            </div>
-            <span class="crossmodal-tag">Visual Match</span>
-          </div>
-
-          <div class="crossmodal-nav-btn" data-cm="audio-doc">
-            <div class="crossmodal-btn-label">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C67917" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path></svg>
-              <span>Audio → Document Cross-Check</span>
-            </div>
-            <span class="crossmodal-tag">Speech Alignment</span>
-          </div>
-
-          <div class="crossmodal-nav-btn" data-cm="video-text">
-            <div class="crossmodal-btn-label">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C43675" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
-              <span>Video → Synthesis</span>
-            </div>
-            <span class="crossmodal-tag">Slide Keyframes</span>
-          </div>
-        </div>
-
-        <!-- Right: Interactive Cross-Modal Live Visual Output Screen -->
-        <div class="crossmodal-screen" data-clay-tilt>
-          <div>
-            <div class="crossmodal-input-card">
-              <div class="tag" id="cmInputTag">Text Query → Image Retrieval</div>
-              <div class="query" id="cmInputQuery">“Find screenshots related to the project funding discussion”</div>
-            </div>
-
-            <div class="crossmodal-result-card">
-              <div class="result-card-header">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <span class="clay-badge clay-badge-lilac" id="cmResultType">Screenshot (PNG)</span>
-                  <strong style="font-size: 0.95rem; color: var(--text-primary);" id="cmResultName">Slack_Strategy_Funding_Meeting_Jul24.png</strong>
-                </div>
-                <span class="match-badge" id="cmResultMatch">96.4% Relevance Match</span>
-              </div>
-              <p style="font-size: 0.92rem; line-height: 1.55; color: var(--text-secondary); margin-bottom: 12px;" id="cmResultDesc">
-                Detected text via OCR: “Grant allocation confirmed at $240,000 for Q3 compute infrastructure.” Visual match detected financial spreadsheet thumbnail inside frame.
-              </p>
-              <div style="font-size: 0.78rem; font-weight: 700; color: var(--clay-lilac-accent);" id="cmResultCitation">
-                Image OCR Block #4 • Visual CLIP Cosine Similarity: 0.892
-              </div>
-            </div>
-          </div>
-
-          <div style="margin-top: 24px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 16px;">
-            <span style="font-size: 0.8rem; color: var(--text-tertiary);">Vector Store: ChromaDB / FAISS Shared Embedding Space</span>
-            <span class="clay-badge clay-badge-sage" style="font-size: 0.72rem;">Zero Modality Loss</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================
-       ASK QUESTIONS NATURALLY (SIMULATED DESKTOP APP)
-       =================================================== -->
-  <section class="section-spacing" id="desktop-demo">
-    <div class="container">
-      <div class="section-header">
-        <span class="clay-badge clay-badge-lilac section-eyebrow">Interactive Desktop Experience</span>
-        <h2 class="section-title">Talk to your knowledge base.</h2>
-        <p class="section-desc">
-          Experience the tactile desktop interface. Select sample questions below to simulate real-time local RAG retrieval, context construction, and grounded responses.
-        </p>
-      </div>
-
-      <!-- High Fidelity Tactile Desktop Mockup -->
-      <div class="desktop-app-frame" data-clay-tilt>
-        <!-- Titlebar -->
-        <div class="app-titlebar">
-          <div class="window-controls">
-            <div class="win-dot dot-red"></div>
-            <div class="win-dot dot-yellow"></div>
-            <div class="win-dot dot-green"></div>
-          </div>
-          <div class="app-title-text">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3m0 14v3M2 12h3m14 0h3"></path></svg>
-            <span>MIRA Desktop — Confidential Research Workspace</span>
-          </div>
-          <div class="app-status-badge">
-            <div class="privacy-dot"></div>
-            <span>Local Engine Active (Ollama)</span>
-          </div>
-        </div>
-
-        <!-- Body Layout -->
-        <div class="app-body-layout">
-          <!-- Sidebar -->
-          <aside class="app-sidebar">
-            <div class="workspace-select">
-              <span>📁 Private Research Q3</span>
-              <span>▾</span>
-            </div>
-
-            <div class="sidebar-nav-group">
-              <h5>Indexed Collections</h5>
-              <div class="sidebar-item active">
-                <span>📚</span> All Documents (1,420)
-              </div>
-              <div class="sidebar-item">
-                <span>🎙️</span> Audio Recordings (84)
-              </div>
-              <div class="sidebar-item">
-                <span>🖼️</span> Screenshots &amp; OCR (612)
-              </div>
-              <div class="sidebar-item">
-                <span>🎬</span> Keynote Demos (19)
-              </div>
-            </div>
-
-            <div class="sidebar-stats-box">
-              <div class="stats-count">100%</div>
-              <div class="stats-label">Locally Indexed Vectors</div>
-              <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 6px;">MemoryAgentV2 • FAISS Core</div>
-            </div>
-          </aside>
-
-          <!-- Chat Screen -->
-          <main class="app-chat-screen">
-            <!-- Sample Interactive Query Bar -->
-            <div class="sample-queries-bar">
-              <button class="sample-query-pill active">International Dev 2024</button>
-              <button class="sample-query-pill">Project Funding Screenshot</button>
-              <button class="sample-query-pill">Last Meeting Budget</button>
-              <button class="sample-query-pill">Deployment Architecture</button>
-            </div>
-
-            <!-- Dialogue Stream -->
-            <div class="chat-dialogue-area">
-              <div class="chat-msg-user" id="desktopUserMsg">
-                Show me the report discussing international development in 2024.
-              </div>
-
-              <div class="chat-msg-mira">
-                <div class="mira-avatar-sm">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
-                </div>
-                <div class="mira-response-bubble">
-                  <div id="desktopMiraBubble">
-                    <!-- Populated by app.js -->
-                  </div>
-
-                  <div class="retrieved-sources-grid" id="desktopSourcesGrid">
-                    <!-- Populated by app.js -->
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Chat Bottom Input Bar -->
-            <div class="chat-bottom-bar">
-              <input type="text" class="clay-input" placeholder="Ask a question across all documents, audio, and visuals..." value="What was discussed about the project timeline?" readonly>
-              <button class="clay-btn clay-btn-primary" style="padding: 12px 24px;">Ask</button>
-            </div>
-          </main>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================
-       GROUNDED ANSWERS & RAG PIPELINE
-       =================================================== -->
-  <section class="section-spacing">
-    <div class="container">
-      <div class="section-header">
-        <span class="clay-badge clay-badge-blue section-eyebrow">RAG Pipeline Architecture</span>
-        <h2 class="section-title">Answers with context. Not just guesses.</h2>
-        <p class="section-desc">
-          MIRA strictly grounds generation in your own indexed context. Every generated claim is linked directly to extracted vector chunks, eliminating hallucinated statements.
-        </p>
-      </div>
-
-      <div class="clay-card-raised rag-flow-track">
-        <div class="rag-node">
-          <div class="rag-node-box">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#7C5EB6" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          </div>
-          <strong style="font-size: 0.92rem;">User Query</strong>
-          <span style="font-size: 0.74rem; color: var(--text-tertiary);">Natural Input</span>
-        </div>
-
-        <div class="rag-connector"></div>
-
-        <div class="rag-node">
-          <div class="rag-node-box">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2A6BD4" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-          </div>
-          <strong style="font-size: 0.92rem;">Semantic Retrieval</strong>
-          <span style="font-size: 0.74rem; color: var(--text-tertiary);">FAISS / ChromaDB</span>
-        </div>
-
-        <div class="rag-connector"></div>
-
-        <div class="rag-node">
-          <div class="rag-node-box">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#328A55" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-          </div>
-          <strong style="font-size: 0.92rem;">Context Assemble</strong>
-          <span style="font-size: 0.74rem; color: var(--text-tertiary);">Relevant Excerpts</span>
-        </div>
-
-        <div class="rag-connector"></div>
-
-        <div class="rag-node">
-          <div class="rag-node-box">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C67917" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
-          </div>
-          <strong style="font-size: 0.92rem;">Language Model</strong>
-          <span style="font-size: 0.74rem; color: var(--text-tertiary);">Ollama / Local LLM</span>
-        </div>
-
-        <div class="rag-connector"></div>
-
-        <div class="rag-node">
-          <div class="rag-node-box" style="background: radial-gradient(circle at 35% 30%, #FFFFFF 0%, #E8DEF8 60%, #C4B0EB 100%);">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#52358D" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          </div>
-          <strong style="font-size: 0.92rem; color: var(--clay-lilac-accent);">Grounded Response</strong>
-          <span style="font-size: 0.74rem; color: var(--clay-sage-accent); font-weight: 700;">+ Citations</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================
-       SOURCE CITATIONS SECTION (INTERACTIVE INSPECTOR)
-       =================================================== -->
-  <section class="section-spacing" id="citations">
-    <div class="container">
-      <div class="section-header">
-        <span class="clay-badge clay-badge-sage section-eyebrow">Trust &amp; Transparency</span>
-        <h2 class="section-title">Know where the answer came from.</h2>
-        <p class="section-desc">
-          Click any citation marker below to inspect the original source file, verify extracted chunk integrity, and trace exactly why the assistant responded the way it did.
-        </p>
-      </div>
-
-      <div class="citations-showcase-grid">
-        <!-- Left: Simulated Answer with Clickable Citations -->
-        <div class="clay-card citation-card-demo" data-clay-tilt>
-          <span class="clay-badge clay-badge-neutral" style="margin-bottom: 16px;">Verified Grounded Synthesis</span>
-          <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 14px; color: var(--text-primary);">
-            Q: What international initiatives and hardware investments were approved in 2024?
-          </h3>
-          <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 20px;">
-            In the 2024 Global Initiatives framework, capital deployment was authorized for sustainable regional infrastructure across multilateral sectors 
-            <button class="citation-inspector-trigger citation-chip active" data-cit="1">[1]</button>. 
-            Concurrently, the board ratified an allocation of $45,000,000 for humanitarian technology research 
-            <button class="citation-inspector-trigger citation-chip" data-cit="2">[2]</button>, 
-            with an immediate release of $240,000 confirmed for on-premise compute servers and offline indexing nodes 
-            <button class="citation-inspector-trigger citation-chip" data-cit="3">[3]</button>.
+        <!-- Unified Synthesis Output -->
+        <div class="cross-modal-synthesis">
+          <span class="clay-pill" style="margin-bottom: 10px; background: #fff;">Grounded Synthesis</span>
+          <p id="cmSynthesisText" style="font-size: 1.05rem; font-weight: 600; color: var(--text-primary); max-width: 780px; margin: 0 auto;">
+            MIRA synthesized the answer across 1 screenshot, 1 PDF grant document, and 1 recorded audio transcript without manual folder hunting.
           </p>
-          <div style="font-size: 0.84rem; color: var(--text-tertiary); display: flex; align-items: center; gap: 8px;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-            <span>All 3 sources verified in local workspace index.</span>
-          </div>
-        </div>
-
-        <!-- Right: Interactive Popover Inspector -->
-        <div class="citation-popover-card" id="citationPopoverCard" data-clay-tilt>
-          <!-- Dynamically populated by app.js -->
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ===================================================
-       PRIVACY SECTION (LOCAL WORKSPACE VS CLOUD)
-       =================================================== -->
-  <section class="section-spacing" id="privacy">
-    <div class="container">
-      <div class="section-header">
-        <span class="clay-badge clay-badge-sage section-eyebrow">Data Sovereignty</span>
-        <h2 class="section-title">AI without giving up control of your own information.</h2>
-        <p class="section-desc">
-          MIRA is built with a local-first architecture. Document parsing, OCR, speech transcription, vector indexing, semantic search, and model inference can be executed directly on your workstation where supported by your chosen setup.
-        </p>
+    <!-- SECTION: HOW IT WORKS -->
+    <section class="section container" id="how-it-works">
+      <div class="section-header reveal">
+        <span class="clay-pill">Simple Workflow</span>
+        <h2>Three simple steps.</h2>
+        <p>No complicated setups. Just your files, your questions, and verified answers.</p>
       </div>
 
-      <div class="privacy-enclosure-wrapper">
-        <div class="privacy-diagram-canvas">
-          <!-- Local Machine Enclosure -->
-          <div class="local-machine-boundary" data-clay-tilt>
-            <div class="boundary-label">
-              <span>🔒 YOUR MACHINE (Local Hardware Enclosure)</span>
+      <div class="steps-grid reveal reveal-delay-1">
+        
+        <!-- Step 1 -->
+        <div class="clay-card step-card">
+          <div class="step-number-bubble">1</div>
+          <div class="step-visual-mock">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="file-badge-icon badge-pdf">PDF</span>
+              <span class="file-badge-icon badge-image">IMG</span>
+              <span class="file-badge-icon badge-audio">AUD</span>
+              <span class="file-badge-icon badge-video">VID</span>
+              <span class="file-badge-icon badge-doc">TXT</span>
             </div>
+          </div>
+          <h3>Add your files.</h3>
+          <p>Drag in documents, images, audio, video, and text. MIRA organizes them inside your local workspace.</p>
+        </div>
 
-            <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 20px;">
-              All document ingestion, embedding models, vector databases, and local LLM execution run directly on device storage and CPU/GPU memory:
+        <!-- Step 2 -->
+        <div class="clay-card step-card">
+          <div class="step-number-bubble">2</div>
+          <div class="step-visual-mock">
+            <div class="mockup-input-bar" style="width: 90%;">
+              <span style="font-size: 0.85rem; color: var(--text-primary); font-weight: 600;">“What were the key takeaways?”</span>
+            </div>
+          </div>
+          <h3>Ask naturally.</h3>
+          <p>Type everyday questions in plain language just as you would ask a knowledgeable colleague.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="clay-card step-card">
+          <div class="step-number-bubble">3</div>
+          <div class="step-visual-mock">
+            <div style="background: #fff; padding: 12px; border-radius: var(--radius-sm); box-shadow: var(--shadow-clay-sm); border: 1px solid var(--clay-border); text-align: left;">
+              <div style="font-size: 0.8rem; font-weight: 700; color: var(--clay-coral);">✓ Answer Ready</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Cited in 2 sources</div>
+            </div>
+          </div>
+          <h3>Get a grounded answer.</h3>
+          <p>Receive clear answers linked directly to original citations so you can inspect where every detail came from.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: GROUNDED ANSWERS -->
+    <section class="section container">
+      <div class="section-header reveal">
+        <span class="clay-pill">Traceability</span>
+        <h2>Answers you can check.</h2>
+        <p>MIRA connects responses to the information used to generate them. You do not just get an answer. You can see where it came from.</p>
+      </div>
+
+      <div class="grounded-flow-card reveal reveal-delay-1">
+        <div class="grounded-flow-row">
+          
+          <!-- Answer Side -->
+          <div class="clay-card" style="padding: 28px; border-top: 4px solid var(--clay-coral);">
+            <div style="font-size: 0.75rem; font-weight: 700; color: var(--clay-coral); text-transform: uppercase; margin-bottom: 8px;">
+              Generated Answer
+            </div>
+            <h4 style="font-size: 1.15rem; margin-bottom: 12px;">“The target completion date is December 15th.”</h4>
+            <p style="font-size: 0.9rem;">
+              Derived from the Q4 schedule review. The pilot build phase completes two weeks ahead of public release.
             </p>
-
-            <div class="local-components-grid">
-              <div class="local-comp-tile">
-                <span style="font-size: 1.5rem;">📄</span>
-                <h5>Local Files</h5>
-                <p>PDF, DOCX, Media</p>
-              </div>
-              <div class="local-comp-tile">
-                <span style="font-size: 1.5rem;">🧠</span>
-                <h5>FasterWhisper &amp; OCR</h5>
-                <p>On-Device Speech &amp; Vision</p>
-              </div>
-              <div class="local-comp-tile">
-                <span style="font-size: 1.5rem;">⚡</span>
-                <h5>FAISS / ChromaDB</h5>
-                <p>Local Vector Memory</p>
-              </div>
-              <div class="local-comp-tile">
-                <span style="font-size: 1.5rem;">🦙</span>
-                <h5>Ollama / Llama</h5>
-                <p>Local Inference</p>
-              </div>
-              <div class="local-comp-tile">
-                <span style="font-size: 1.5rem;">🛡️</span>
-                <h5>MemoryAgentV2</h5>
-                <p>Context Manager</p>
-              </div>
-              <div class="local-comp-tile">
-                <span style="font-size: 1.5rem;">💾</span>
-                <h5>SQLite / JSON</h5>
-                <p>Local State Cache</p>
-              </div>
-            </div>
           </div>
 
-          <!-- Distant Cloud Machine -->
-          <div class="cloud-machine-boundary" data-clay-tilt>
-            <div style="font-size: 2.2rem; margin-bottom: 12px;">☁️</div>
-            <h4 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 8px;">External Cloud APIs</h4>
-            <p style="font-size: 0.85rem; color: var(--text-tertiary); line-height: 1.5; margin-bottom: 16px;">
-              Optional fallback layer. Only invoked if you explicitly select remote providers like Gemini or Cohere in your settings.
-            </p>
-            <span class="clay-badge clay-badge-neutral" style="font-size: 0.75rem;">User-Configured Only</span>
-          </div>
-        </div>
-
-        <!-- Honest Disclaimer Note -->
-        <div class="privacy-disclaimer-note">
-          <div style="font-size: 1.6rem; color: var(--clay-lilac-accent);">ℹ️</div>
-          <div>
-            <strong>Transparent Architectural Disclosure:</strong>
-            MIRA is designed for local-first execution. Document processing, indexing, retrieval, and model inference are performed locally where supported. Exact privacy characteristics depend on the language model and external services selected in your deployment.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================
-       AUDIENCE SECTION (3 CARDS)
-       =================================================== -->
-  <section class="section-spacing" id="audience">
-    <div class="container">
-      <div class="section-header">
-        <span class="clay-badge clay-badge-peach section-eyebrow">Engineered For Sovereignty</span>
-        <h2 class="section-title">Built for people who care about their information.</h2>
-        <p class="section-desc">
-          Whether you manage proprietary corporate knowledge, confidential scientific archives, or personal records, MIRA adapts to your privacy and workflow requirements.
-        </p>
-      </div>
-
-      <div class="audience-grid">
-        <!-- For Companies -->
-        <div class="clay-card-raised audience-card clay-card-lilac" data-clay-tilt>
-          <div class="audience-icon" style="background: #EAE3F7; color: #7C5EB6;">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"></path><path d="M5 21V7l8-4v18"></path><path d="M19 21V11l-6-3"></path><path d="M9 9v.01"></path><path d="M9 12v.01"></path><path d="M9 15v.01"></path><path d="M9 18v.01"></path></svg>
-          </div>
-          <h3>For Companies</h3>
-          <div class="tagline">Keep sensitive knowledge closer to home.</div>
-          <p style="font-size: 0.94rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 24px;">
-            Secure internal business knowledge without streaming confidential IP into third-party cloud training pools.
-          </p>
-          <ul class="usecase-list">
-            <li class="usecase-item">Internal audit and compliance reports</li>
-            <li class="usecase-item">Client project documentation &amp; contracts</li>
-            <li class="usecase-item">Confidential leadership meeting recordings</li>
-            <li class="usecase-item">Proprietary architecture blueprints</li>
-          </ul>
-        </div>
-
-        <!-- For Researchers -->
-        <div class="clay-card-raised audience-card clay-card-peach" data-clay-tilt>
-          <div class="audience-icon" style="background: #FFE7D6; color: #D96E3E;">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-          </div>
-          <h3>For Researchers</h3>
-          <div class="tagline">Turn scattered research into searchable context.</div>
-          <p style="font-size: 0.94rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 24px;">
-            Synthesize hundreds of academic papers, field interview recordings, and visual experimental figures in one unified library.
-          </p>
-          <ul class="usecase-list">
-            <li class="usecase-item">Multi-volume literature surveys</li>
-            <li class="usecase-item">Qualitative field interview transcripts</li>
-            <li class="usecase-item">Lab notebooks and experimental logs</li>
-            <li class="usecase-item">Cross-study citation verification</li>
-          </ul>
-        </div>
-
-        <!-- For Individuals -->
-        <div class="clay-card-raised audience-card clay-card-sage" data-clay-tilt>
-          <div class="audience-icon" style="background: #E2EFE7; color: #468A65;">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-          </div>
-          <h3>For Individuals</h3>
-          <div class="tagline">Build an AI that knows your information.</div>
-          <p style="font-size: 0.94rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 24px;">
-            A personal offline second brain. Search across your personal documents, screenshots, voice notes, and book highlights.
-          </p>
-          <ul class="usecase-list">
-            <li class="usecase-item">Personal tax documents and medical records</li>
-            <li class="usecase-item">Captured receipts, tickets, and screenshots</li>
-            <li class="usecase-item">Voice notes and recorded thoughts</li>
-            <li class="usecase-item">Private journal archives and reading notes</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================
-       CONVERSATION & SEMANTIC MEMORY
-       =================================================== -->
-  <section class="section-spacing">
-    <div class="container">
-      <div class="section-header">
-        <span class="clay-badge clay-badge-lilac section-eyebrow">Dual Memory System</span>
-        <h2 class="section-title">Context that endures across questions.</h2>
-        <p class="section-desc">
-          MIRA couples ephemeral conversational memory with persistent semantic vector memory. Ask follow-up questions naturally without repeating your premise.
-        </p>
-      </div>
-
-      <div class="memory-showcase-grid">
-        <!-- Conversational Memory Thread -->
-        <div class="clay-card memory-thread-container" data-clay-tilt>
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-            <span class="clay-badge clay-badge-lilac">Conversation Memory Thread</span>
-            <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-tertiary);">MemoryAgentV2</span>
-          </div>
-
-          <div class="thread-item">
-            <div class="chat-msg-user" style="max-width: 90%;">
-              “What was the approved project budget?”
-            </div>
-            <div style="margin-top: 10px; padding: 14px 18px; background: #FAF7F2; border-radius: 14px; font-size: 0.92rem;">
-              MIRA: “The approved budget was $580,000 for Q3/Q4.”
-            </div>
-            <div class="thread-connector"></div>
-          </div>
-
-          <div class="thread-item" style="margin-top: 36px;">
-            <div class="chat-msg-user" style="max-width: 90%; background: #4E8FD0;">
-              “When was it approved?”
-            </div>
-            <div style="margin-top: 10px; padding: 14px 18px; background: #FAF7F2; border-radius: 14px; font-size: 0.92rem;">
-              MIRA: “It was approved on August 12th during the executive leadership meeting [1].”
-            </div>
-          </div>
-
-          <p style="font-size: 0.82rem; color: var(--text-tertiary); margin-top: 20px;">
-            Notice how MIRA resolves “it” to the previous budget context automatically.
-          </p>
-        </div>
-
-        <!-- Semantic Vector Memory -->
-        <div class="clay-card-raised" style="padding: 36px; border-radius: var(--radius-xl);" data-clay-tilt>
-          <span class="clay-badge clay-badge-blue" style="margin-bottom: 16px;">Persistent Vector Indexing</span>
-          <h3 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 12px;">Build knowledge once. Retrieve it later.</h3>
-          <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px;">
-            When files are indexed, MIRA generates dense semantic embeddings that persist in local vector databases. Subsequent queries take milliseconds without re-parsing your documents.
-          </p>
-
-          <div class="vector-store-badges">
-            <div class="vector-block">
-              <span style="width: 14px; height: 14px; border-radius: 50%; background: #7C5EB6;"></span>
-              <span>FAISS Core</span>
-            </div>
-            <div class="vector-block">
-              <span style="width: 14px; height: 14px; border-radius: 50%; background: #3878BA;"></span>
-              <span>ChromaDB</span>
-            </div>
-          </div>
-
-          <div style="margin-top: 24px; padding: 16px; border-radius: 16px; background: var(--bg-surface-ivory); font-size: 0.82rem; color: var(--text-tertiary);">
-            ⚡ Incremental indexing: when you add or modify a file, MIRA updates only the altered chunks without re-indexing your entire workspace.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================
-       ARCHITECTURE SECTION
-       =================================================== -->
-  <section class="section-spacing" id="architecture">
-    <div class="container">
-      <div class="section-header">
-        <span class="clay-badge clay-badge-lilac section-eyebrow">Modular Architecture</span>
-        <h2 class="section-title">A modular system behind a simple experience.</h2>
-        <p class="section-desc">
-          MIRA is built on decoupled, cleanly separated tiers. Swap inference engines, extend vector storage providers, and operate local or hybrid pipelines effortlessly.
-        </p>
-      </div>
-
-      <div class="arch-stack-container">
-        <!-- Layer 1: Desktop Client -->
-        <div class="arch-layer" data-clay-tilt>
-          <div class="layer-meta">
-            <h4>1. Desktop Client &amp; Presentation Tier</h4>
-            <p>Tactile clay operating system interface &amp; local IPC</p>
-          </div>
-          <div class="layer-chips">
-            <span class="clay-badge clay-badge-neutral">Electron</span>
-            <span class="clay-badge clay-badge-neutral">HTML5 / CSS3</span>
-            <span class="clay-badge clay-badge-neutral">IPC Bridge</span>
-          </div>
-        </div>
-
-        <!-- Layer 2: Daemon Backend -->
-        <div class="arch-layer" data-clay-tilt>
-          <div class="layer-meta">
-            <h4>2. High-Performance Daemon &amp; Coordination API</h4>
-            <p>Asynchronous job runner, user workspace &amp; auth handlers</p>
-          </div>
-          <div class="layer-chips">
-            <span class="clay-badge clay-badge-lilac">FastAPI</span>
-            <span class="clay-badge clay-badge-lilac">Uvicorn</span>
-            <span class="clay-badge clay-badge-lilac">SQLite / JSON</span>
-          </div>
-        </div>
-
-        <!-- Layer 3: MemoryAgentV2 -->
-        <div class="arch-layer" data-clay-tilt>
-          <div class="layer-meta">
-            <h4>3. Autonomous Context &amp; Memory Agent</h4>
-            <p>Query decomposition, hybrid retrieval scoring, multi-turn state</p>
-          </div>
-          <div class="layer-chips">
-            <span class="clay-badge clay-badge-peach">MemoryAgentV2</span>
-            <span class="clay-badge clay-badge-peach">Context Window Manager</span>
-          </div>
-        </div>
-
-        <!-- Layer 4: Multimodal & Vector Storage -->
-        <div class="arch-layer" data-clay-tilt>
-          <div class="layer-meta">
-            <h4>4. Multimodal Extraction &amp; Vector Indexing</h4>
-            <p>Specialized perceptual models and dense vector persistence</p>
-          </div>
-          <div class="layer-chips">
-            <span class="clay-badge clay-badge-sage">OCR</span>
-            <span class="clay-badge clay-badge-sage">BLIP</span>
-            <span class="clay-badge clay-badge-sage">OpenCLIP</span>
-            <span class="clay-badge clay-badge-sage">FasterWhisper</span>
-            <span class="clay-badge clay-badge-sage">FAISS</span>
-            <span class="clay-badge clay-badge-sage">ChromaDB</span>
-          </div>
-        </div>
-
-        <!-- Layer 5: Language Model Tier -->
-        <div class="arch-layer" data-clay-tilt>
-          <div class="layer-meta">
-            <h4>5. Language Model Inference Tier</h4>
-            <p>On-device local execution or user-configured remote providers</p>
-          </div>
-          <div class="layer-chips">
-            <span class="clay-badge clay-badge-blue">Ollama</span>
-            <span class="clay-badge clay-badge-blue">Llama</span>
-            <span class="clay-badge clay-badge-neutral">Cohere (Optional)</span>
-            <span class="clay-badge clay-badge-neutral">Gemini (Optional)</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================
-       TECHNOLOGY CONSTELLATION
-       =================================================== -->
-  <section class="section-spacing" id="technology">
-    <div class="container">
-      <div class="section-header">
-        <span class="clay-badge clay-badge-sage section-eyebrow">Proven Foundations</span>
-        <h2 class="section-title">Built as a modular multimodal system.</h2>
-        <p class="section-desc">
-          Every component in MIRA is chosen for reliability, high-throughput local execution, and robust memory handling.
-        </p>
-      </div>
-
-      <div class="tech-grid">
-        <div class="tech-clay-badge" data-clay-tilt>
-          <span style="font-size: 2rem;">⚡</span>
-          <h5>FastAPI</h5>
-          <p>High-throughput async backend orchestration</p>
-        </div>
-
-        <div class="tech-clay-badge" data-clay-tilt>
-          <span style="font-size: 2rem;">🖥️</span>
-          <h5>Electron</h5>
-          <p>Native cross-platform desktop application environment</p>
-        </div>
-
-        <div class="tech-clay-badge" data-clay-tilt>
-          <span style="font-size: 2rem;">🔍</span>
-          <h5>FAISS</h5>
-          <p>Facebook AI Similarity Search for billion-scale vectors</p>
-        </div>
-
-        <div class="tech-clay-badge" data-clay-tilt>
-          <span style="font-size: 2rem;">🗃️</span>
-          <h5>ChromaDB</h5>
-          <p>Open-source embedding database for rich metadata filtering</p>
-        </div>
-
-        <div class="tech-clay-badge" data-clay-tilt>
-          <span style="font-size: 2rem;">🦙</span>
-          <h5>Ollama</h5>
-          <p>Local-first LLM inference engine on consumer silicon</p>
-        </div>
-
-        <div class="tech-clay-badge" data-clay-tilt>
-          <span style="font-size: 2rem;">👁️</span>
-          <h5>OpenCLIP &amp; BLIP</h5>
-          <p>Joint vision-language understanding and auto-captioning</p>
-        </div>
-
-        <div class="tech-clay-badge" data-clay-tilt>
-          <span style="font-size: 2rem;">🎙️</span>
-          <h5>FasterWhisper</h5>
-          <p>GPU-accelerated speech-to-text with timestamp accuracy</p>
-        </div>
-
-        <div class="tech-clay-badge" data-clay-tilt>
-          <span style="font-size: 2rem;">💾</span>
-          <h5>SQLite / JSON</h5>
-          <p>Lightweight transactional metadata &amp; state stores</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================
-       WHY PRIVACY-CONSCIOUS USERS CARE
-       =================================================== -->
-  <section class="section-spacing">
-    <div class="container">
-      <div class="section-header">
-        <span class="clay-badge clay-badge-peach section-eyebrow">Core Beliefs</span>
-        <h2 class="section-title">Your knowledge is more valuable than the file it's stored in.</h2>
-      </div>
-
-      <div class="statements-grid">
-        <div class="clay-card statement-card clay-card-peach" data-clay-tilt>
-          <h3>Private documents deserve private workflows.</h3>
-          <p>
-            When you examine confidential strategy, human resource records, or financial projections, your analysis should happen on machines you control—not on servers owned by cloud vendors.
-          </p>
-        </div>
-
-        <div class="clay-card statement-card clay-card-lilac" data-clay-tilt>
-          <h3>Research shouldn't have to become a cloud dependency.</h3>
-          <p>
-            Field researchers, archivists, and intelligence analysts often work in restricted or offline settings. True assistance must operate without an active internet umbilical cord.
-          </p>
-        </div>
-
-        <div class="clay-card statement-card clay-card-sage" data-clay-tilt>
-          <h3>Internal knowledge should remain under your control.</h3>
-          <p>
-            Your organization’s documents are your primary intellectual competitive advantage. Retrieval should empower your team without relinquishing custody of the underlying data.
-          </p>
-        </div>
-
-        <div class="clay-card statement-card clay-card-blue" data-clay-tilt>
-          <h3>Offline environments shouldn't mean giving up intelligent retrieval.</h3>
-          <p>
-            You shouldn't be penalized with primitive keyword search just because you prioritize security. Modern hardware is capable of running state-of-the-art multimodal retrieval locally.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================
-       CURRENT STATUS & PROGRESS
-       =================================================== -->
-  <section class="section-spacing">
-    <div class="container">
-      <div class="section-header">
-        <span class="clay-badge clay-badge-lilac section-eyebrow">Product Lifecycle</span>
-        <h2 class="section-title">MIRA is evolving.</h2>
-        <p class="section-desc">
-          MIRA is under active development. Our core engineering priorities are focused on retrieval precision, multimodal alignment, source traceability, and desktop usability.
-        </p>
-      </div>
-
-      <div class="evolution-path-track">
-        <div class="clay-card evolution-card" data-clay-tilt>
-          <div class="tag" style="color: var(--clay-sage-accent);">1. Today • Active Core</div>
-          <h4 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 8px;">Multimodal RAG Foundation</h4>
-          <p style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.5;">
-            Native indexing of 6 formats, MemoryAgentV2 context management, local FasterWhisper/OCR integration, FAISS &amp; ChromaDB storage.
-          </p>
-        </div>
-
-        <div class="clay-card evolution-card" data-clay-tilt>
-          <div class="tag" style="color: var(--clay-lilac-accent);">2. Next • Desktop Polish</div>
-          <h4 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 8px;">Preview Desktop Builds</h4>
-          <p style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.5;">
-            Refining Electron UI workflows, multi-workspace isolation, interactive citation deep-linking, and enhanced chunk ranking.
-          </p>
-        </div>
-
-        <div class="clay-card evolution-card" data-clay-tilt>
-          <div class="tag" style="color: var(--clay-peach-accent);">3. Future • Autonomous Agent</div>
-          <h4 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 8px;">Autonomous Synthesis</h4>
-          <p style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.5;">
-            Autonomous multi-step research agents, automated cross-document timeline synthesis, and expanded open-weight model support.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================
-       FUTURE VISION / ROADMAP
-       =================================================== -->
-  <section class="section-spacing" id="roadmap">
-    <div class="container">
-      <div class="section-header">
-        <span class="clay-badge clay-badge-blue section-eyebrow">Engineering Horizon</span>
-        <h2 class="section-title">This is only the beginning.</h2>
-        <p class="section-desc">
-          Here is our planned architectural roadmap. All items below represent active research and development directions.
-        </p>
-      </div>
-
-      <div class="roadmap-grid">
-        <div class="roadmap-item" data-clay-tilt>
-          <span class="planned-badge">Planned</span>
-          <h5>Improved Multimodal Retrieval</h5>
-          <p>Advanced cross-attention re-ranking across mixed document text and images.</p>
-        </div>
-
-        <div class="roadmap-item" data-clay-tilt>
-          <span class="planned-badge">Planned</span>
-          <h5>Better Ranking &amp; Accuracy</h5>
-          <p>Reciprocal Rank Fusion (RRF) combining BM25 keyword and dense vector similarity.</p>
-        </div>
-
-        <div class="roadmap-item" data-clay-tilt>
-          <span class="planned-badge">Planned</span>
-          <h5>Advanced Document Understanding</h5>
-          <p>Preserving multi-column financial layouts and embedded hierarchical tables.</p>
-        </div>
-
-        <div class="roadmap-item" data-clay-tilt>
-          <span class="planned-badge">Planned</span>
-          <h5>Improved Video Understanding</h5>
-          <p>Scene transition boundary detection and automated video chapter summarization.</p>
-        </div>
-
-        <div class="roadmap-item" data-clay-tilt>
-          <span class="planned-badge">Planned</span>
-          <h5>Additional Embedding Models</h5>
-          <p>Native support for BGE-M3, Nomic-Embed, and multi-lingual embedding families.</p>
-        </div>
-
-        <div class="roadmap-item" data-clay-tilt>
-          <span class="planned-badge">Planned</span>
-          <h5>Additional LLM Providers</h5>
-          <p>Pluggable connectors for local vLLM, llama.cpp, and user-specified API gateways.</p>
-        </div>
-
-        <div class="roadmap-item" data-clay-tilt>
-          <span class="planned-badge">Planned</span>
-          <h5>Enhanced Source Navigation</h5>
-          <p>One-click jump to exact PDF bounding boxes and audio playback timestamps.</p>
-        </div>
-
-        <div class="roadmap-item" data-clay-tilt>
-          <span class="planned-badge">Planned</span>
-          <h5>User &amp; Workspace Isolation</h5>
-          <p>Encrypted multi-tenant workspace partitions on shared team machines.</p>
-        </div>
-
-        <div class="roadmap-item" data-clay-tilt>
-          <span class="planned-badge">Planned</span>
-          <h5>Autonomous Agent Synthesis</h5>
-          <p>Multi-step reasoning loops capable of verifying facts across conflicting files.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================
-       ORIGIN SECTION (SMART INDIA HACKATHON)
-       =================================================== -->
-  <section class="section-spacing">
-    <div class="container">
-      <div class="clay-card origin-banner" data-clay-tilt>
-        <div>
-          <span class="clay-badge clay-badge-amber" style="margin-bottom: 12px;">Genesis &amp; Heritage</span>
-          <h3 style="font-size: 1.45rem; font-weight: 800; color: var(--text-primary); margin-bottom: 8px;">
-            Born at Smart India Hackathon.
-          </h3>
-          <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; max-width: 680px;">
-            MIRA originated as part of the Smart India Hackathon (SIH) and has since evolved toward a general-purpose, privacy-conscious multimodal retrieval and autonomous assistant platform.
-          </p>
-        </div>
-        <div style="flex-shrink: 0;">
-          <span class="clay-badge clay-badge-neutral" style="font-size: 0.85rem; padding: 10px 20px;">SIH Project Heritage</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================
-       FINAL CTA & FOOTER
-       =================================================== -->
-  <section class="section-spacing">
-    <div class="container">
-      <div class="final-cta-card" data-clay-tilt>
-        <span class="clay-badge clay-badge-lilac" style="margin-bottom: 20px;">Data Sovereignty Starts Here</span>
-        <h2 class="final-cta-title">
-          Your data already contains the answers.
-        </h2>
-        <p class="final-cta-subtitle">
-          MIRA helps you find them.
-        </p>
-        <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-          <a href="coming-soon.html" class="clay-btn clay-btn-primary btn-download-transition" style="padding: 16px 36px; font-size: 1.05rem;">
-            Download MIRA
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="12" y1="5" x2="12" y2="19"></line>
-              <polyline points="19 12 12 19 5 12"></polyline>
+          <!-- Connector -->
+          <div class="flow-connector-arrow">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
             </svg>
-          </a>
-          <a href="#architecture" class="clay-btn clay-btn-secondary" style="padding: 16px 32px; font-size: 1.05rem;">
-            Explore the Architecture
-          </a>
+            <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Trace to source</span>
+          </div>
+
+          <!-- Source Side -->
+          <div class="clay-card" style="padding: 28px; border-top: 4px solid var(--clay-blue);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <span style="font-size: 0.75rem; font-weight: 700; color: var(--clay-blue); text-transform: uppercase;">
+                Original Source Excerpt
+              </span>
+              <span class="clay-pill" style="font-size: 0.75rem;">Page 8, Paragraph 2</span>
+            </div>
+            <div class="source-excerpt-highlight" style="margin-bottom: 8px;">
+              “...Milestone 4.2: The team has locked December 15th as the definitive delivery date for the packaged build...”
+            </div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">
+              File: Release_Roadmap_Final.pdf
+            </div>
+          </div>
+
         </div>
-        <p style="font-size: 0.82rem; color: var(--text-tertiary); margin-top: 24px;">
-          Preview release in development. Click to secure early access on our waitlist.
+      </div>
+    </section>
+
+    <!-- SECTION: PRIVACY -->
+    <section class="section container" id="privacy">
+      <div class="section-header reveal">
+        <span class="clay-pill">Local-First Architecture</span>
+        <h2>Your information deserves a private place.</h2>
+        <p>
+          MIRA is designed with a local-first architecture, allowing processing, indexing, retrieval, and local model inference to happen locally where supported.
         </p>
       </div>
 
-      <!-- Site Footer -->
-      <footer class="site-footer">
-        <div class="footer-top">
-          <div style="display: flex; align-items: center; gap: 12px;">
-            <div class="brand-clay-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3m0 14v3M2 12h3m14 0h3"></path></svg>
+      <div class="privacy-container-box reveal reveal-delay-1">
+        <p style="max-width: 740px; margin: 0 auto; font-size: 1.1rem;">
+          This makes it suitable for private documents, internal reports, meeting recordings, screenshots, sensitive organizational information, and offline environments.
+        </p>
+
+        <!-- Soft Claymorphism Local Workspace Container -->
+        <div class="local-workspace-vault">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--clay-sage)" stroke-width="2.5">
+                <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+                <path d="M7 12h10"></path>
+                <path d="M12 7v10"></path>
+              </svg>
+              <span style="font-weight: 700; font-size: 1rem; color: var(--text-primary);">Your Local Workspace</span>
             </div>
-            <div>
-              <strong style="font-size: 1.2rem; font-weight: 800; color: var(--text-primary);">MIRA</strong>
-              <div style="font-size: 0.78rem; color: var(--text-tertiary);">Multimodal Intelligent Retrieval &amp; Autonomous Assistant</div>
-            </div>
+            <span class="clay-badge" style="background: var(--clay-sage-light); color: var(--clay-sage);">Local-First</span>
           </div>
 
-          <div style="display: flex; gap: 20px; font-size: 0.9rem;">
-            <a href="#problem" style="text-decoration: none; color: var(--text-secondary);">Product</a>
-            <a href="#how-it-works" style="text-decoration: none; color: var(--text-secondary);">Pipelines</a>
-            <a href="#privacy" style="text-decoration: none; color: var(--text-secondary);">Privacy</a>
-            <a href="#architecture" style="text-decoration: none; color: var(--text-secondary);">Architecture</a>
-            <a href="coming-soon.html" style="text-decoration: none; color: var(--clay-lilac-accent); font-weight: 700;">Coming Soon</a>
+          <!-- Flow Pipeline: Your files -> Your computer -> Your knowledge base -> Your answers -->
+          <div class="privacy-pipeline">
+            <div class="privacy-node">
+              <span class="file-badge-icon badge-doc">📁</span>
+              <span>Your Files</span>
+            </div>
+
+            <span class="privacy-arrow">→</span>
+
+            <div class="privacy-node">
+              <span class="file-badge-icon badge-audio">💻</span>
+              <span>Your Computer</span>
+            </div>
+
+            <span class="privacy-arrow">→</span>
+
+            <div class="privacy-node">
+              <span class="file-badge-icon badge-pdf">🧠</span>
+              <span>Your Knowledge Base</span>
+            </div>
+
+            <span class="privacy-arrow">→</span>
+
+            <div class="privacy-node">
+              <span class="file-badge-icon badge-video">✨</span>
+              <span>Your Answers</span>
+            </div>
           </div>
         </div>
 
-        <div class="footer-bottom">
-          <div>
-            &copy; 2026 MIRA Project. All rights reserved. Local-first multimodal retrieval architecture.
+        <!-- Transparent Compliance Notice -->
+        <div class="privacy-disclosure-note">
+          <strong>Transparency Notice:</strong> Privacy characteristics depend on the language model and external services selected by the user. When configured with supported local models, processing and inference remain on your machine.
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: WHO IS MIRA FOR? -->
+    <section class="section container">
+      <div class="section-header reveal">
+        <span class="clay-pill">Tailored Utility</span>
+        <h2>Built for people who care about their information.</h2>
+        <p>Whether you manage company archives, research papers, or personal thoughts.</p>
+      </div>
+
+      <div class="audience-grid reveal reveal-delay-1">
+        
+        <!-- Companies -->
+        <div class="clay-card audience-card clay-accent-coral">
+          <div class="audience-icon" style="background: var(--clay-coral);">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"></path><path d="M3 7v14"></path><path d="M7 3h10"></path><path d="M21 7v14"></path><path d="M9 7v14"></path><path d="M15 7v14"></path></svg>
           </div>
-          <div style="font-size: 0.8rem;">
-            Privacy characteristics depend on selected model configuration.
+          <h3>COMPANIES</h3>
+          <p>Keep internal knowledge easier to find across teams and departments.</p>
+          <div class="audience-examples">
+            <span class="clay-pill">Reports</span>
+            <span class="clay-pill">Meeting recordings</span>
+            <span class="clay-pill">Project documents</span>
+            <span class="clay-pill">Internal screenshots</span>
           </div>
         </div>
-      </footer>
+
+        <!-- Researchers -->
+        <div class="clay-card audience-card clay-accent-blue">
+          <div class="audience-icon" style="background: var(--clay-blue);">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path><path d="M6 6h10"></path><path d="M6 10h10"></path></svg>
+          </div>
+          <h3>RESEARCHERS</h3>
+          <p>Turn scattered research into searchable, verifiable context for your studies.</p>
+          <div class="audience-examples">
+            <span class="clay-pill">Papers</span>
+            <span class="clay-pill">Notes</span>
+            <span class="clay-pill">Recorded discussions</span>
+            <span class="clay-pill">Technical documents</span>
+          </div>
+        </div>
+
+        <!-- Individuals -->
+        <div class="clay-card audience-card clay-accent-sage">
+          <div class="audience-icon" style="background: var(--clay-sage);">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          </div>
+          <h3>INDIVIDUALS</h3>
+          <p>Make your own personal files and memories effortless to find and understand.</p>
+          <div class="audience-examples">
+            <span class="clay-pill">Personal documents</span>
+            <span class="clay-pill">Notes</span>
+            <span class="clay-pill">Archives</span>
+            <span class="clay-pill">Recordings</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: CONVERSATION DEMO -->
+    <section class="section container">
+      <div class="section-header reveal">
+        <span class="clay-pill">Contextual Flow</span>
+        <h2>Ask follow-up questions naturally.</h2>
+        <p>MIRA remembers previous context in the conversation so you can explore details without repeating yourself.</p>
+      </div>
+
+      <div class="convo-demo-card reveal reveal-delay-1">
+        <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(180, 187, 202, 0.2); padding-bottom: 16px;">
+          <span style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary);">Multi-Turn Conversation Simulation</span>
+          <button class="clay-btn clay-btn-secondary" id="replayConvoBtn" style="padding: 6px 14px; font-size: 0.8rem;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+            Replay Conversation
+          </button>
+        </div>
+
+        <div class="convo-chat-list">
+          <!-- Turn 1 User -->
+          <div class="convo-user-bubble" id="convoTurn1User">
+            “What was the approved project budget?”
+          </div>
+
+          <!-- Turn 1 Assistant -->
+          <div class="convo-assistant-bubble" id="convoTurn1Assistant">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--clay-coral);">MIRA</div>
+            <p>The approved budget was <strong>$120,000</strong>, allocated across development and initial pilot deployment.</p>
+            <span class="clay-pill" style="align-self: flex-start; font-size: 0.75rem;">Source: Q4_Budget_Review.pdf</span>
+          </div>
+
+          <!-- Turn 2 User Follow-up -->
+          <div class="convo-user-bubble" id="convoTurn2User">
+            “When was it approved?”
+          </div>
+
+          <!-- Turn 2 Assistant Contextual Answer -->
+          <div class="convo-assistant-bubble" id="convoTurn2Assistant">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--clay-coral);">MIRA</div>
+            <p>It was approved on <strong>October 14th</strong> during the quarterly steering committee review.</p>
+            <span class="clay-pill" style="align-self: flex-start; font-size: 0.75rem;">Source: Steering_Comm_10-14.m4a (14:20)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: ABOUT & CURRENT STATUS -->
+    <section class="section container" id="about">
+      <div class="section-header reveal">
+        <span class="clay-pill">Product Story</span>
+        <h2>Making information easier to find, understand, and verify.</h2>
+        <p style="margin-top: 14px;">
+          MIRA began as a Smart India Hackathon project and has evolved toward a general-purpose multimodal retrieval and assistant platform. The project is under active development.
+        </p>
+        <p style="margin-top: 12px; font-weight: 600; color: var(--text-primary);">
+          Built with a focus on multimodal understanding, retrieval quality, usability, and source traceability.
+        </p>
+      </div>
+
+      <!-- Current Status -->
+      <div class="section-header reveal" style="margin-top: 50px; margin-bottom: 24px;">
+        <span class="clay-pill">Active Development</span>
+        <h3>MIRA is evolving.</h3>
+        <p>We are continuing to improve the experience, retrieval quality, multimodal understanding, and usability of MIRA.</p>
+      </div>
+
+      <!-- 4 Softly Animated Clay Cards -->
+      <div class="status-grid reveal reveal-delay-1">
+        
+        <div class="status-card float-item-1">
+          <div class="file-badge-icon badge-pdf" style="width: 36px; height: 36px; border-radius: 10px; font-size: 1rem;">🔍</div>
+          <span class="status-badge">In Progress</span>
+          <h4 style="font-size: 1.05rem;">Better Retrieval</h4>
+          <p style="font-size: 0.85rem;">Refining local indexing techniques for rapid query matching.</p>
+        </div>
+
+        <div class="status-card float-item-2">
+          <div class="file-badge-icon badge-image" style="width: 36px; height: 36px; border-radius: 10px; font-size: 1rem;">👁️</div>
+          <span class="status-badge">In Progress</span>
+          <h4 style="font-size: 1.05rem;">More Understanding</h4>
+          <p style="font-size: 0.85rem;">Deepening cross-modal connections between visual charts and audio transcripts.</p>
+        </div>
+
+        <div class="status-card float-item-3">
+          <div class="file-badge-icon badge-doc" style="width: 36px; height: 36px; border-radius: 10px; font-size: 1rem;">✨</div>
+          <span class="status-badge">In Progress</span>
+          <h4 style="font-size: 1.05rem;">Improved Usability</h4>
+          <p style="font-size: 0.85rem;">Polishing the tactile desktop client interface for intuitive daily use.</p>
+        </div>
+
+        <div class="status-card float-item-4">
+          <div class="file-badge-icon badge-audio" style="width: 36px; height: 36px; border-radius: 10px; font-size: 1rem;">⚡</div>
+          <span class="status-badge">In Progress</span>
+          <h4 style="font-size: 1.05rem;">More Capabilities</h4>
+          <p style="font-size: 0.85rem;">Expanding support for additional open-source local inference models.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: FINAL CTA -->
+    <section class="section container">
+      <div class="final-cta-box reveal">
+        <span class="clay-pill" style="margin-bottom: 20px;">Ready for Private Retrieval?</span>
+        <h2>Your files already contain the answers.</h2>
+        <p>MIRA helps you find them.</p>
+
+        <div class="hero-cta-group" style="margin-bottom: 0;">
+          <a href="download.html" class="clay-btn clay-btn-primary" style="font-size: 1.05rem; padding: 16px 36px;">
+            Download Now
+          </a>
+          <a href="#hero" class="clay-btn clay-btn-secondary" style="font-size: 1.05rem; padding: 16px 32px;">
+            Explore MIRA
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="brand-group" style="margin-bottom: 14px;">
+            <div class="brand-icon" style="width: 34px; height: 34px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            </div>
+            <div class="brand-text">
+              <span class="brand-title" style="font-size: 1.1rem;">MIRA</span>
+            </div>
+          </div>
+          <p style="font-size: 0.85rem; max-width: 320px;">
+            Multimodal Intelligent Retrieval & Autonomous Assistant. Bringing your documents, images, audio, video, and text into one private, searchable knowledge space.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h5>Navigation</h5>
+          <ul>
+            <li><a href="#product">Product</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#privacy">Privacy</a></li>
+            <li><a href="#about">About</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Modalities</h5>
+          <ul>
+            <li><a href="#product">PDF & DOCX</a></li>
+            <li><a href="#product">Images & OCR</a></li>
+            <li><a href="#product">Audio Waveforms</a></li>
+            <li><a href="#product">Video Recordings</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Desktop App</h5>
+          <ul>
+            <li><a href="download.html">Coming Soon</a></li>
+            <li><a href="#privacy">Local-First Model</a></li>
+            <li><a href="#about">Development Status</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 MIRA Project. All rights reserved. Evolving from a Smart India Hackathon initiative.
+        </div>
+        <div>
+          Privacy characteristics depend on user-selected models and services.
+        </div>
+      </div>
     </div>
-  </section>
+  </footer>
 
-  <!-- Interactive Logic -->
-  <script src="js/app.js"></script>
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
 </body>
 </html>
